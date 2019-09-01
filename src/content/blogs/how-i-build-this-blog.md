@@ -19,7 +19,8 @@ Since this blog is **powered** by **Gatsby** so I will save **Gatsby** for last.
 I am an **Angular** developer. When I was learning **React**, I was trying to find similarities between the two frameworks. For instance:
 
 1. Component Declaration
-```typescript jsx
+
+```typescript
 // Angular
 @Component({...})
 export class SomeComponent {}
@@ -29,7 +30,8 @@ export class SomeComponent extends Component<Props, State> {}
 ```
 
 2. Input
-```typescript jsx
+
+```typescript
 // Angular
 @Input() someInput: string;
 
@@ -41,7 +43,7 @@ export class SomeComponent extends Component<Props> {}
 ```
 
 3. Output
-```typescript jsx
+```typescript
 // Angular
 @Output() event: EventEmitter;
 
@@ -53,7 +55,8 @@ export class SomeComponent extends Component<Props> {}
 ```
 
 4. Content Projection
-```typescript jsx
+
+```typescript
 // Angular
 <ng-content></ng-content>
 
@@ -62,7 +65,8 @@ export class SomeComponent extends Component<Props> {}
 ```
 
 5. Fragment
-```typescript jsx
+
+```typescript
 // Angular
 <ng-container></ng-container>
 
@@ -87,7 +91,7 @@ For my personal blog, I want to go with something minimalistic. I'm not the grea
 
 For *Theme*, I utilize **Context** in combination with **MaterialUI Theming** to achieve a simple switch between *light 🏙* and *dark 🌃* theme. Here's my `ThemeChangerContext`:
 
-```typescript jsx
+```typescript
 import React, {
   createContext,
   Dispatch,
@@ -132,7 +136,7 @@ export const useThemeChangerContext = () => {
 
 And use it on my `Layout`:
 
-```typescript jsx
+```typescript
 const Layout: FC = ({ children }) => {
   const { theme } = useThemeChangerContext();
   const muiTheme = useMemo(() => buildTheme(theme), [theme]);
@@ -226,6 +230,7 @@ I am a hard-fan on typings so working with `graphql` in the beginning wasn't rea
 
 1. Install `GraphQL` plugin
 2. Setup a `.graphqlconfig` file like following:
+
 ```
 {
   "projects": {
@@ -247,6 +252,7 @@ I am a hard-fan on typings so working with `graphql` in the beginning wasn't rea
   }
 }
 ```
+
 3. Install `graphql-cli` npm package.
 4. Setup a script (or not): `graph: graphql get-schema --project blog`. The `--project` points to the project name you set up in the config.
 5. Run `npm run graph` against a running **Gatsby** instance.
