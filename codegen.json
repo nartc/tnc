@@ -1,0 +1,10 @@
+{
+  "overwrite": true,
+  "schema": "schema.graphql",
+  "config": {
+    "namingConvention": {
+      "enumValues": "keep"
+    }
+  },
+  "generates": { "src/graph-types.ts": { "plugins": ["typescript"] } }
+}
