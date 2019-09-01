@@ -7,7 +7,7 @@ const ParticlesBg: FC = memo(() => {
 
   return (
     <Particles
-      height={"100vh"}
+      height={"100%"}
       width={"100vw"}
       params={{
         particles: {

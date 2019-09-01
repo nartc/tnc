@@ -1,14 +1,12 @@
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
-import { Theme } from "@material-ui/core/styles";
-import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import Container from "@material-ui/core/Container";
 import TablePagination from "@material-ui/core/TablePagination";
+import Typography from "@material-ui/core/Typography";
+import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import { NavigateFn } from "@reach/router";
 import { graphql } from "gatsby";
 import React, { FC, memo, useCallback } from "react";
 import BlogListItem from "../components/blogs/blog-list-item";
 import Navs from "../components/navs";
-import ParticlesBg from "../components/particles";
 import SEO from "../components/seo";
 import {
   MarkdownRemarkConnection,
@@ -17,17 +15,6 @@ import {
   SiteSiteMetadata,
   SiteSiteMetadataSocials,
 } from "../graph-types";
-
-const useStyles = makeStyles<Theme>(theme => ({
-  wrapper: {
-    width: "50%",
-    marginTop: theme.spacing(10),
-    position: "absolute",
-    top: 0,
-    left: "50%",
-    transform: "translateX(-50%)",
-  },
-}));
 
 type BlogsProps = {
   data: {
@@ -39,7 +26,6 @@ type BlogsProps = {
 };
 
 const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
-  const classes = useStyles();
   const onChangePage = useCallback(
     (_: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
       console.log(page);
@@ -52,8 +38,7 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
   return (
     <>
       <SEO title={"blogs"} />
-      <ParticlesBg />
-      <div className={classes.wrapper}>
+      <Container maxWidth={"md"}>
         <Typography variant={"h3"}>
           <LibraryBooksOutlinedIcon fontSize={"large"} /> Blogs
         </Typography>
@@ -75,7 +60,7 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
               .socials as SiteSiteMetadataSocials[]
           }
         />
-      </div>
+      </Container>
     </>
   );
 });

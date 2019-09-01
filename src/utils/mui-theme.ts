@@ -30,6 +30,9 @@ const buildTheme = (blogTheme: BlogTheme) => {
         fontWeight: "bold",
         color: grey["500"],
       },
+      h2: {
+        fontWeight: "bold",
+      },
     },
     overrides: {
       MuiCssBaseline: {
@@ -66,7 +69,7 @@ const buildTheme = (blogTheme: BlogTheme) => {
     "@global": {
       ...((theme.overrides as Overrides).MuiCssBaseline as any)["@global"],
       p: {
-        fontSize: theme.typography.body1.fontSize,
+        fontSize: "1.125rem",
         fontWeight: theme.typography.body1.fontWeight,
       },
     },

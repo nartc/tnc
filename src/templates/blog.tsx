@@ -1,12 +1,15 @@
+import Chip from "@material-ui/core/Chip";
 import Container from "@material-ui/core/Container";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
 import React, { FC, memo } from "react";
-import BlogTagList from "../components/blogs/blog-tag-list";
-import ParticlesBg from "../components/particles";
+import Navs from "../components/navs";
 import SEO from "../components/seo";
 import {
   File,
@@ -18,8 +21,8 @@ import {
   MarkdownRemarkFrontmatter,
   SitePageContextNext,
   SitePageContextPrev,
+  SiteSiteMetadataSocials,
 } from "../graph-types";
-import Divider from "@material-ui/core/Divider";
 
 type BlogProps = {
   data: {
@@ -29,6 +32,7 @@ type BlogProps = {
       siteMetadata: {
         baseUrl: string;
         author: string;
+        socials: Array<SiteSiteMetadataSocials>;
       };
     };
   };
@@ -46,6 +50,51 @@ const useStyles = makeStyles<Theme>(theme => ({
   dateTime: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  content: {
+    position: "relative",
+    margin: "0 auto",
+    borderRadius: theme.shape.borderRadius * 0.1,
+    boxShadow: "none",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    fontSize: "1.125rem",
+    background: theme.palette.background.default,
+
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      top: 15,
+      left: -5,
+      zIndex: -1,
+      display: "block",
+      width: 20,
+      height: 200,
+      background: theme.palette.secondary.main,
+      opacity: 0.15,
+      filter: "blur(5px)",
+      transform: "rotate(-5deg)",
+    },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      top: 15,
+      right: -5,
+      zIndex: -1,
+      display: "block",
+      width: 20,
+      height: 200,
+      background: theme.palette.secondary.main,
+      filter: "blur(5px)",
+      transform: "rotate(5deg)",
+    },
+  },
+  cover: {
+    margin: "0px -10vw -165px",
+    background: "center center / cover rgb(197, 210, 217)",
+    height: 700,
+    width: "auto",
+    borderRadius: theme.shape.borderRadius,
   },
 }));
 
@@ -119,34 +168,54 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
         <meta name="twitter:site" content={data.site.siteMetadata.author} />
         <meta name="twitter:creator" content={data.site.siteMetadata.author} />
       </SEO>
-      <ParticlesBg />
-      <Container
-        maxWidth={"md"}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        {imgFluid && <Img fluid={imgFluid as any} />}
-        <Typography variant={"h3"} classes={{ root: classes.title }}>
+      <Container maxWidth={"md"}>
+        <Typography
+          variant={"h2"}
+          classes={{ root: classes.title }}
+          align={"center"}
+        >
           {frontmatter.title}
         </Typography>
-        {!!tags.length && <BlogTagList tags={tags} />}
+        {!!tags.length && (
+          <Grid container justify={"center"} alignItems={"center"}>
+            {tags.map((tag, index) => (
+              <Chip
+                label={tag}
+                key={index}
+                clickable
+                color={"primary"}
+                size={"small"}
+              />
+            ))}
+          </Grid>
+        )}
         <Typography
           variant={"caption"}
           display={"block"}
+          align={"center"}
           classes={{ root: classes.dateTime }}
         >
           {frontmatter.date} | {data.markdownRemark.timeToRead} min read
         </Typography>
+        {imgFluid && (
+          <div className={classes.cover}>
+            <Img
+              style={{ height: 700, width: "auto" }}
+              fluid={imgFluid as any}
+            />
+          </div>
+        )}
+        <Paper classes={{ root: classes.content }}>
+          <Container maxWidth={"lg"}>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data.markdownRemark.html as string,
+              }}
+            />
+          </Container>
+        </Paper>
         <Divider />
-        <div
-          dangerouslySetInnerHTML={{
-            __html: data.markdownRemark.html as string,
-          }}
-        />
+        <Navs socials={data.site.siteMetadata.socials} />
       </Container>
     </>
   );
@@ -201,6 +270,10 @@ export const blogQuery = graphql`
       siteMetadata {
         baseUrl
         author
+        socials {
+          link
+          type
+        }
       }
     }
   }
