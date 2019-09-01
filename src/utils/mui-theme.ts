@@ -11,7 +11,7 @@ const buildTheme = (blogTheme: BlogTheme) => {
         main: blogTheme === "light" ? teal["600"] : teal.A100,
       },
       secondary: {
-        main: blogTheme === "light" ? grey["900"] : grey["100"],
+        main: blogTheme === "light" ? grey["700"] : grey["100"],
       },
     },
     typography: {
@@ -61,17 +61,6 @@ const buildTheme = (blogTheme: BlogTheme) => {
     root: {
       textDecoration: "none",
       color: theme.palette.primary.main,
-    },
-  };
-
-  (theme.overrides as Overrides).MuiCssBaseline = {
-    ...(theme.overrides as Overrides).MuiCssBaseline,
-    "@global": {
-      ...((theme.overrides as Overrides).MuiCssBaseline as any)["@global"],
-      p: {
-        fontSize: "1.125rem",
-        fontWeight: theme.typography.body1.fontWeight,
-      },
     },
   };
 

@@ -43,6 +43,7 @@ export class SomeComponent extends Component<Props> {}
 ```
 
 3. Output
+
 ```typescript
 // Angular
 @Output() event: EventEmitter;

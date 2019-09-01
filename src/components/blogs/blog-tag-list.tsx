@@ -1,4 +1,5 @@
 import Chip from "@material-ui/core/Chip";
+import Grid from "@material-ui/core/Grid";
 import React, { FC, memo } from "react";
 
 type BlogTagListProps = {
@@ -7,17 +8,13 @@ type BlogTagListProps = {
 
 const BlogTagList: FC<BlogTagListProps> = memo(({ tags }) => {
   return (
-    <>
+    <Grid container spacing={1}>
       {tags.map((tag, index) => (
-        <Chip
-          label={tag}
-          key={index}
-          clickable
-          color={"primary"}
-          size={"small"}
-        />
+        <Grid item key={index}>
+          <Chip label={tag} clickable color={"primary"} size={"small"} />
+        </Grid>
       ))}
-    </>
+    </Grid>
   );
 });
 

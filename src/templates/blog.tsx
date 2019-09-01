@@ -88,6 +88,38 @@ const useStyles = makeStyles<Theme>(theme => ({
       filter: "blur(5px)",
       transform: "rotate(5deg)",
     },
+
+    "& p": {
+      fontSize: "1.125rem",
+      fontWeight: theme.typography.body1.fontWeight,
+      lineHeight: "1.5rem",
+      textAlign: "justify",
+      "& > span.gatsby-resp-image-wrapper ~ em": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "smaller",
+      },
+    },
+    "& blockquote": {
+      borderLeftWidth: 10,
+      borderLeftStyle: "solid",
+      borderLeftColor: theme.palette.secondary.main,
+      margin: "1.5em 0",
+      padding: "0.5em 10px",
+    },
+    "& a": {
+      color: theme.palette.primary.main,
+    },
+    "& h2": {
+      borderBottomWidth: 1,
+      borderBottomStyle: "solid",
+      borderBottomColor: theme.palette.primary.main,
+    },
+    "& div.gatsby-highlight": {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
   },
   cover: {
     margin: "0px -10vw -165px",
@@ -177,15 +209,11 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
           {frontmatter.title}
         </Typography>
         {!!tags.length && (
-          <Grid container justify={"center"} alignItems={"center"}>
+          <Grid container justify={"center"} alignItems={"center"} spacing={1}>
             {tags.map((tag, index) => (
-              <Chip
-                label={tag}
-                key={index}
-                clickable
-                color={"primary"}
-                size={"small"}
-              />
+              <Grid item key={index}>
+                <Chip label={tag} clickable color={"primary"} size={"small"} />
+              </Grid>
             ))}
           </Grid>
         )}
