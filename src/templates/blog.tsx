@@ -56,8 +56,10 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
     .frontmatter as MarkdownRemarkFrontmatter;
   const slug = (data.markdownRemark.fields as MarkdownRemarkFields)
     .slug as string;
-  const imgFluid = ((frontmatter.cover as File).childImageSharp as ImageSharp)
-    .fluid as ImageSharpFluid;
+  const imgFluid = frontmatter.cover
+    ? (((frontmatter.cover as File).childImageSharp as ImageSharp)
+        .fluid as ImageSharpFluid)
+    : null;
   const tags = frontmatter.tags as string[];
 
   return (
@@ -127,7 +129,7 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
           transform: "translateX(-50%)",
         }}
       >
-        <Img fluid={imgFluid as any} />
+        {imgFluid && <Img fluid={imgFluid as any} />}
         <Typography variant={"h3"} classes={{ root: classes.title }}>
           {frontmatter.title}
         </Typography>
