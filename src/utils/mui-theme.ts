@@ -1,5 +1,5 @@
 import { grey, teal } from "@material-ui/core/colors";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import { Overrides } from "@material-ui/core/styles/overrides";
 import { BlogTheme } from "../contexts/theme-changer-context";
 
@@ -66,7 +66,7 @@ const buildTheme = (blogTheme: BlogTheme) => {
 
   theme.shape.borderRadius = theme.shape.borderRadius * 5;
 
-  return theme;
+  return responsiveFontSizes(theme);
 };
 
 export default buildTheme;

@@ -80,7 +80,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const next = index === blogs.length - 1 ? null : blogs[index + 1].node;
 
     createPage({
-      path: "/blogs" + slug,
+      path: "/blogs/" + slug.replace("/", ""),
       component: blogTemplate,
       context: {
         // Data passed to context is available in page queries as GraphQL variables.

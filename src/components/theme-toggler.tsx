@@ -7,8 +7,8 @@ const useStyles = makeStyles({
   toggler: {
     position: "sticky",
     top: 0,
-    width: 75,
-    height: 75,
+    width: 50,
+    height: 50,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

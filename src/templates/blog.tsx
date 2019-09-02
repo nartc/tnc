@@ -19,8 +19,6 @@ import {
   MarkdownRemarkConnection,
   MarkdownRemarkFields,
   MarkdownRemarkFrontmatter,
-  SitePageContextNext,
-  SitePageContextPrev,
   SiteSiteMetadataSocials,
 } from "../graph-types";
 
@@ -35,10 +33,6 @@ type BlogProps = {
         socials: Array<SiteSiteMetadataSocials>;
       };
     };
-  };
-  pageContext: {
-    next?: SitePageContextNext;
-    prev?: SitePageContextPrev;
   };
 };
 

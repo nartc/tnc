@@ -2271,8 +2271,6 @@ export type SitePageContext = {
   currentPage?: Maybe<Scalars['Int']>,
   total?: Maybe<Scalars['Int']>,
   slug?: Maybe<Scalars['String']>,
-  prev?: Maybe<SitePageContextPrev>,
-  next?: Maybe<SitePageContextNext>,
   primaryTag?: Maybe<Scalars['String']>,
 };
 
@@ -2283,71 +2281,7 @@ export type SitePageContextFilterInput = {
   currentPage?: Maybe<IntQueryOperatorInput>,
   total?: Maybe<IntQueryOperatorInput>,
   slug?: Maybe<StringQueryOperatorInput>,
-  prev?: Maybe<SitePageContextPrevFilterInput>,
-  next?: Maybe<SitePageContextNextFilterInput>,
   primaryTag?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNext = {
-   __typename?: 'SitePageContextNext',
-  fields?: Maybe<SitePageContextNextFields>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatter>,
-};
-
-export type SitePageContextNextFields = {
-   __typename?: 'SitePageContextNextFields',
-  slug?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextNextFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNextFilterInput = {
-  fields?: Maybe<SitePageContextNextFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>,
-};
-
-export type SitePageContextNextFrontmatter = {
-   __typename?: 'SitePageContextNextFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextNextFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrev = {
-   __typename?: 'SitePageContextPrev',
-  fields?: Maybe<SitePageContextPrevFields>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatter>,
-};
-
-export type SitePageContextPrevFields = {
-   __typename?: 'SitePageContextPrevFields',
-  slug?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextPrevFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrevFilterInput = {
-  fields?: Maybe<SitePageContextPrevFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatterFilterInput>,
-};
-
-export type SitePageContextPrevFrontmatter = {
-   __typename?: 'SitePageContextPrevFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextPrevFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
 };
 
 export type SitePageEdge = {
@@ -2455,12 +2389,6 @@ export enum SitePageFieldsEnum {
   context___currentPage = 'context___currentPage',
   context___total = 'context___total',
   context___slug = 'context___slug',
-  context___prev___fields___slug = 'context___prev___fields___slug',
-  context___prev___frontmatter___title = 'context___prev___frontmatter___title',
-  context___prev___frontmatter___tags = 'context___prev___frontmatter___tags',
-  context___next___fields___slug = 'context___next___fields___slug',
-  context___next___frontmatter___title = 'context___next___frontmatter___title',
-  context___next___frontmatter___tags = 'context___next___frontmatter___tags',
   context___primaryTag = 'context___primaryTag',
   pluginCreator___id = 'pluginCreator___id',
   pluginCreator___parent___id = 'pluginCreator___parent___id',
@@ -2517,8 +2445,11 @@ export enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___name = 'pluginCreator___pluginOptions___name',
   pluginCreator___pluginOptions___path = 'pluginCreator___pluginOptions___path',
   pluginCreator___pluginOptions___wrapperStyle = 'pluginCreator___pluginOptions___wrapperStyle',
+  pluginCreator___pluginOptions___showLineNumbers = 'pluginCreator___pluginOptions___showLineNumbers',
   pluginCreator___pluginOptions___maxWidth = 'pluginCreator___pluginOptions___maxWidth',
   pluginCreator___pluginOptions___quality = 'pluginCreator___pluginOptions___quality',
+  pluginCreator___pluginOptions___target = 'pluginCreator___pluginOptions___target',
+  pluginCreator___pluginOptions___rel = 'pluginCreator___pluginOptions___rel',
   pluginCreator___pluginOptions___short_name = 'pluginCreator___pluginOptions___short_name',
   pluginCreator___pluginOptions___start_url = 'pluginCreator___pluginOptions___start_url',
   pluginCreator___pluginOptions___display = 'pluginCreator___pluginOptions___display',
@@ -2719,8 +2650,11 @@ export enum SitePluginFieldsEnum {
   pluginOptions___plugins___name = 'pluginOptions___plugins___name',
   pluginOptions___plugins___version = 'pluginOptions___plugins___version',
   pluginOptions___plugins___pluginOptions___wrapperStyle = 'pluginOptions___plugins___pluginOptions___wrapperStyle',
+  pluginOptions___plugins___pluginOptions___showLineNumbers = 'pluginOptions___plugins___pluginOptions___showLineNumbers',
   pluginOptions___plugins___pluginOptions___maxWidth = 'pluginOptions___plugins___pluginOptions___maxWidth',
   pluginOptions___plugins___pluginOptions___quality = 'pluginOptions___plugins___pluginOptions___quality',
+  pluginOptions___plugins___pluginOptions___target = 'pluginOptions___plugins___pluginOptions___target',
+  pluginOptions___plugins___pluginOptions___rel = 'pluginOptions___plugins___pluginOptions___rel',
   pluginOptions___plugins___browserAPIs = 'pluginOptions___plugins___browserAPIs',
   pluginOptions___plugins___ssrAPIs = 'pluginOptions___plugins___ssrAPIs',
   pluginOptions___plugins___pluginFilepath = 'pluginOptions___plugins___pluginFilepath',
@@ -2730,8 +2664,11 @@ export enum SitePluginFieldsEnum {
   pluginOptions___name = 'pluginOptions___name',
   pluginOptions___path = 'pluginOptions___path',
   pluginOptions___wrapperStyle = 'pluginOptions___wrapperStyle',
+  pluginOptions___showLineNumbers = 'pluginOptions___showLineNumbers',
   pluginOptions___maxWidth = 'pluginOptions___maxWidth',
   pluginOptions___quality = 'pluginOptions___quality',
+  pluginOptions___target = 'pluginOptions___target',
+  pluginOptions___rel = 'pluginOptions___rel',
   pluginOptions___short_name = 'pluginOptions___short_name',
   pluginOptions___start_url = 'pluginOptions___start_url',
   pluginOptions___display = 'pluginOptions___display',
@@ -2860,8 +2797,11 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars['String']>,
   path?: Maybe<Scalars['String']>,
   wrapperStyle?: Maybe<Scalars['String']>,
+  showLineNumbers?: Maybe<Scalars['Boolean']>,
   maxWidth?: Maybe<Scalars['Int']>,
   quality?: Maybe<Scalars['Int']>,
+  target?: Maybe<Scalars['String']>,
+  rel?: Maybe<Scalars['String']>,
   short_name?: Maybe<Scalars['String']>,
   start_url?: Maybe<Scalars['String']>,
   display?: Maybe<Scalars['String']>,
@@ -2874,8 +2814,11 @@ export type SitePluginPluginOptionsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>,
   path?: Maybe<StringQueryOperatorInput>,
   wrapperStyle?: Maybe<StringQueryOperatorInput>,
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>,
   maxWidth?: Maybe<IntQueryOperatorInput>,
   quality?: Maybe<IntQueryOperatorInput>,
+  target?: Maybe<StringQueryOperatorInput>,
+  rel?: Maybe<StringQueryOperatorInput>,
   short_name?: Maybe<StringQueryOperatorInput>,
   start_url?: Maybe<StringQueryOperatorInput>,
   display?: Maybe<StringQueryOperatorInput>,
@@ -2927,14 +2870,20 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 export type SitePluginPluginOptionsPluginsPluginOptions = {
    __typename?: 'SitePluginPluginOptionsPluginsPluginOptions',
   wrapperStyle?: Maybe<Scalars['String']>,
+  showLineNumbers?: Maybe<Scalars['Boolean']>,
   maxWidth?: Maybe<Scalars['Int']>,
   quality?: Maybe<Scalars['Int']>,
+  target?: Maybe<Scalars['String']>,
+  rel?: Maybe<Scalars['String']>,
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   wrapperStyle?: Maybe<StringQueryOperatorInput>,
+  showLineNumbers?: Maybe<BooleanQueryOperatorInput>,
   maxWidth?: Maybe<IntQueryOperatorInput>,
   quality?: Maybe<IntQueryOperatorInput>,
+  target?: Maybe<StringQueryOperatorInput>,
+  rel?: Maybe<StringQueryOperatorInput>,
 };
 
 export type SitePluginSortInput = {

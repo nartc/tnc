@@ -1,5 +1,5 @@
 # source: http://localhost:8000/___graphql
-# timestamp: Sun Sep 01 2019 09:05:51 GMT-0500 (Central Daylight Time)
+# timestamp: Sun Sep 01 2019 18:41:24 GMT-0500 (Central Daylight Time)
 
 """Provides default value for input field."""
 directive @default(value: JSON!) on INPUT_FIELD_DEFINITION
@@ -2106,8 +2106,6 @@ type SitePageContext {
   currentPage: Int
   total: Int
   slug: String
-  prev: SitePageContextPrev
-  next: SitePageContextNext
   primaryTag: String
 }
 
@@ -2118,65 +2116,7 @@ input SitePageContextFilterInput {
   currentPage: IntQueryOperatorInput
   total: IntQueryOperatorInput
   slug: StringQueryOperatorInput
-  prev: SitePageContextPrevFilterInput
-  next: SitePageContextNextFilterInput
   primaryTag: StringQueryOperatorInput
-}
-
-type SitePageContextNext {
-  fields: SitePageContextNextFields
-  frontmatter: SitePageContextNextFrontmatter
-}
-
-type SitePageContextNextFields {
-  slug: String
-}
-
-input SitePageContextNextFieldsFilterInput {
-  slug: StringQueryOperatorInput
-}
-
-input SitePageContextNextFilterInput {
-  fields: SitePageContextNextFieldsFilterInput
-  frontmatter: SitePageContextNextFrontmatterFilterInput
-}
-
-type SitePageContextNextFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextNextFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
-}
-
-type SitePageContextPrev {
-  fields: SitePageContextPrevFields
-  frontmatter: SitePageContextPrevFrontmatter
-}
-
-type SitePageContextPrevFields {
-  slug: String
-}
-
-input SitePageContextPrevFieldsFilterInput {
-  slug: StringQueryOperatorInput
-}
-
-input SitePageContextPrevFilterInput {
-  fields: SitePageContextPrevFieldsFilterInput
-  frontmatter: SitePageContextPrevFrontmatterFilterInput
-}
-
-type SitePageContextPrevFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextPrevFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
 }
 
 type SitePageEdge {
@@ -2283,12 +2223,6 @@ enum SitePageFieldsEnum {
   context___currentPage
   context___total
   context___slug
-  context___prev___fields___slug
-  context___prev___frontmatter___title
-  context___prev___frontmatter___tags
-  context___next___fields___slug
-  context___next___frontmatter___title
-  context___next___frontmatter___tags
   context___primaryTag
   pluginCreator___id
   pluginCreator___parent___id
@@ -2345,8 +2279,11 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___name
   pluginCreator___pluginOptions___path
   pluginCreator___pluginOptions___wrapperStyle
+  pluginCreator___pluginOptions___showLineNumbers
   pluginCreator___pluginOptions___maxWidth
   pluginCreator___pluginOptions___quality
+  pluginCreator___pluginOptions___target
+  pluginCreator___pluginOptions___rel
   pluginCreator___pluginOptions___short_name
   pluginCreator___pluginOptions___start_url
   pluginCreator___pluginOptions___display
@@ -2531,8 +2468,11 @@ enum SitePluginFieldsEnum {
   pluginOptions___plugins___name
   pluginOptions___plugins___version
   pluginOptions___plugins___pluginOptions___wrapperStyle
+  pluginOptions___plugins___pluginOptions___showLineNumbers
   pluginOptions___plugins___pluginOptions___maxWidth
   pluginOptions___plugins___pluginOptions___quality
+  pluginOptions___plugins___pluginOptions___target
+  pluginOptions___plugins___pluginOptions___rel
   pluginOptions___plugins___browserAPIs
   pluginOptions___plugins___ssrAPIs
   pluginOptions___plugins___pluginFilepath
@@ -2542,8 +2482,11 @@ enum SitePluginFieldsEnum {
   pluginOptions___name
   pluginOptions___path
   pluginOptions___wrapperStyle
+  pluginOptions___showLineNumbers
   pluginOptions___maxWidth
   pluginOptions___quality
+  pluginOptions___target
+  pluginOptions___rel
   pluginOptions___short_name
   pluginOptions___start_url
   pluginOptions___display
@@ -2666,8 +2609,11 @@ type SitePluginPluginOptions {
   name: String
   path: String
   wrapperStyle: String
+  showLineNumbers: Boolean
   maxWidth: Int
   quality: Int
+  target: String
+  rel: String
   short_name: String
   start_url: String
   display: String
@@ -2680,8 +2626,11 @@ input SitePluginPluginOptionsFilterInput {
   name: StringQueryOperatorInput
   path: StringQueryOperatorInput
   wrapperStyle: StringQueryOperatorInput
+  showLineNumbers: BooleanQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   quality: IntQueryOperatorInput
+  target: StringQueryOperatorInput
+  rel: StringQueryOperatorInput
   short_name: StringQueryOperatorInput
   start_url: StringQueryOperatorInput
   display: StringQueryOperatorInput
@@ -2730,14 +2679,20 @@ input SitePluginPluginOptionsPluginsFilterListInput {
 
 type SitePluginPluginOptionsPluginsPluginOptions {
   wrapperStyle: String
+  showLineNumbers: Boolean
   maxWidth: Int
   quality: Int
+  target: String
+  rel: String
 }
 
 input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
   wrapperStyle: StringQueryOperatorInput
+  showLineNumbers: BooleanQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   quality: IntQueryOperatorInput
+  target: StringQueryOperatorInput
+  rel: StringQueryOperatorInput
 }
 
 input SitePluginSortInput {

@@ -11,14 +11,16 @@ import {
   SiteSiteMetadata,
   SiteSiteMetadataSocials,
 } from "../graph-types";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles({
   about: {
-    width: "50%",
     position: "absolute",
     top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    left: 0,
+    right: 0,
+    transform: "translateY(-50%)",
+    textAlign: "justify",
   },
 });
 
@@ -43,7 +45,7 @@ const About: FC = memo(() => {
     <>
       <SEO title={"About"} />
       <ParticlesBg />
-      <div className={classes.about}>
+      <Container maxWidth={"md"} classes={{ root: classes.about }}>
         <Typography variant={"h5"}>Hi, I am Chau Tran.</Typography>
         <br />
         <Typography variant={"h5"}>
@@ -78,7 +80,7 @@ const About: FC = memo(() => {
             >
           }
         />
-      </div>
+      </Container>
     </>
   );
 });

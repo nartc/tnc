@@ -46,7 +46,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
     : "http://lorempixel.com/600/480/";
 
   const onItemClicked = useCallback(() => {
-    navigate(`/blogs${slug}`);
+    navigate(`/blogs/${(slug as string).replace("/", "")}`);
   }, [slug]);
 
   return (

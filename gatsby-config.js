@@ -57,6 +57,12 @@ module.exports = {
             },
           },
           {
+            resolve: "gatsby-remark-autolink-headers",
+            options: {
+              offsetY: -750,
+            },
+          },
+          {
             resolve: "gatsby-remark-prismjs",
             options: {
               showLineNumbers: true,
