@@ -62,12 +62,7 @@ module.exports = {
               offsetY: -750,
             },
           },
-          {
-            resolve: "gatsby-remark-prismjs",
-            options: {
-              showLineNumbers: true,
-            },
-          },
+          "gatsby-remark-prismjs",
           "gatsby-remark-copy-linked-files",
           "gatsby-remark-smartypants",
           "gatsby-remark-abbr",

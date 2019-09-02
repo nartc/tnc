@@ -113,6 +113,9 @@ const useStyles = makeStyles<Theme>(theme => ({
     "& div.gatsby-highlight": {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
+      '& pre[class*="language-"]': {
+        paddingLeft: theme.spacing(2),
+      },
     },
   },
   cover: {

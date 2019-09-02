@@ -12,17 +12,18 @@ import {
   SiteSiteMetadataSocials,
 } from "../graph-types";
 import Container from "@material-ui/core/Container";
+import { Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<Theme>(theme => ({
   about: {
     position: "absolute",
-    top: "50%",
+    top: 0,
     left: 0,
     right: 0,
-    transform: "translateY(-50%)",
+    marginTop: theme.spacing(10),
     textAlign: "justify",
   },
-});
+}));
 
 const About: FC = memo(() => {
   const data = useStaticQuery<{

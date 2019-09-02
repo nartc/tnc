@@ -5,8 +5,9 @@ import { useThemeChangerContext } from "../contexts/theme-changer-context";
 
 const useStyles = makeStyles({
   toggler: {
-    position: "sticky",
+    position: "absolute",
     top: 0,
+    right: 0,
     width: 50,
     height: 50,
     display: "flex",
@@ -14,7 +15,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     cursor: "pointer",
     transition: "background 250ms ease-in-out",
-    marginLeft: "auto",
   },
   emoji: {
     margin: "0 0 0.5em 0.5em",
