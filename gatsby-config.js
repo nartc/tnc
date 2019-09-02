@@ -90,6 +90,7 @@ module.exports = {
         short_name: `tnc`,
         start_url: `/`,
         display: `minimal-ui`,
+        icon: "src/content/tnc.png"
       },
     },
     "gatsby-plugin-material-ui",
