@@ -1,4 +1,5 @@
 import Chip from "@material-ui/core/Chip";
+import { grey, pink } from "@material-ui/core/colors";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
@@ -120,13 +121,28 @@ const useStyles = makeStyles<Theme>(theme => ({
         fontSize: theme.typography.fontSize,
       },
     },
+    '& :not(pre) > code[class*="language-"]': {
+      background: grey["300"],
+      color: pink["500"],
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingRight: theme.spacing(),
+      paddingLeft: theme.spacing(),
+      borderRadius: 5,
+    },
   },
   cover: {
-    margin: "0px -10vw -165px",
+    margin: "0 0 -165px 0",
     background: "center center / cover rgb(197, 210, 217)",
     height: 700,
     width: "auto",
     borderRadius: theme.shape.borderRadius,
+  },
+  coverContainer: {
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
   },
 }));
 
@@ -225,6 +241,8 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
         >
           {frontmatter.date} | {data.markdownRemark.timeToRead} min read
         </Typography>
+      </Container>
+      <Container maxWidth={"lg"} classes={{ root: classes.coverContainer }}>
         {imgFluid && (
           <div className={classes.cover}>
             <Img
@@ -233,6 +251,8 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
             />
           </div>
         )}
+      </Container>
+      <Container maxWidth={"md"}>
         <Paper classes={{ root: classes.content }}>
           <Container maxWidth={"lg"}>
             <div
