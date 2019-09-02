@@ -33,6 +33,8 @@ const buildTheme = (blogTheme: BlogTheme) => {
       h2: {
         fontWeight: "bold",
       },
+      fontSize: 16,
+      htmlFontSize: 16,
     },
     overrides: {
       MuiCssBaseline: {

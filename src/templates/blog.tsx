@@ -84,7 +84,7 @@ const useStyles = makeStyles<Theme>(theme => ({
     },
 
     "& p": {
-      fontSize: "1.125rem",
+      fontSize: theme.typography.fontSize,
       fontWeight: theme.typography.body1.fontWeight,
       lineHeight: "1.5rem",
       textAlign: "justify",
@@ -115,6 +115,9 @@ const useStyles = makeStyles<Theme>(theme => ({
       paddingBottom: theme.spacing(2),
       '& pre[class*="language-"]': {
         paddingLeft: theme.spacing(2),
+      },
+      '& code[class*="language-"]': {
+        fontSize: theme.typography.fontSize,
       },
     },
   },
