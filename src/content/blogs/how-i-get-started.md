@@ -67,13 +67,14 @@ All of these things will always remind me about how I get started and the people
 
 Currently, I am still a **Software Developer** at **[ArchitectNow](http://architectnow.net)**. However, I give myself a title of: **TypeScript Enthusiast**. I love **TypeScript** and have done so many things with it:
 
-1. I continue to get better at **[Angular](https://angular.io) ** which uses **TypeScript** as its main programming language
-2. I discovered **[NestJS](https://nestjs.com/) **, a progressive **NodeJS** framework, which uses **TypeScript**
+1. I continue to get better at **[Angular](https://angular.io)** which uses **TypeScript** as its main programming language
+2. I discovered **[NestJS](https://nestjs.com/)**, a progressive **NodeJS** framework, which uses **TypeScript**
 3. I get to learn **[ReactJS](https://reactjs.org) ** and apply **TypeScript** with it. And it is **AWESOME**
-4. I created a library called **[automapper-nartc](https://github.com/nartc/automapper-nartc) ** to learn even more about **TypeScript**. (*the library is actually working, just FYI* 😛)
+4. I created a library called **[automapper-nartc](https://github.com/nartc/automapper-nartc)** to learn even more about **TypeScript**. (*the library is actually working, just FYI* 😛)
 5. I created a **NestJS** tutorial series on Youtube
-    a. [nest-mean](https://github.com/nartc/nest-mean)
-    b. [MEAN Stack with NestJS Part 1](https://www.youtube.com/watch?v=Tj_MMY15g6w)
+    1. [nest-mean](https://github.com/nartc/nest-mean)
+    2. [MEAN Stack with NestJS Part 1](https://www.youtube.com/watch?v=Tj_MMY15g6w)
 6. I just built my blog with **React**, **Gatsby** and **TypeScript**. You can check out how I built this blog [here](https://nartc.netlify.com/blogs/how-i-build-this-blog/)
+7. ...and more. If you catch me on social media, I'll tell more.
 
 I can't believe that it has been almost 2 years since I started on this path and I do not regret any of it. I have many plans in the near future that I will keep updated through this blog. So stay tuned. Check out my socials if you want to reach out. Thanks for reading and I will see you around.
