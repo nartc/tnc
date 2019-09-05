@@ -1,7 +1,7 @@
 ---
 title: How I Build This Blog
 date: 2019-09-01T17:06:55.354Z
-tags: ["Gatsby", "React", "Typescript"]
+tags: ["Programming", "Gatsby", "React", "Typescript"]
 draft: false
 cover: ../covers/fabio.jpg
 ---

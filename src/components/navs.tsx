@@ -100,6 +100,7 @@ const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
                 component={"a"}
                 href={s.link as string}
                 target={"_blank"}
+                rel="noreferrer"
               >
                 {getIconButton(s)}
               </IconButton>

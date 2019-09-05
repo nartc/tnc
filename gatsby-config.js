@@ -59,7 +59,7 @@ module.exports = {
           {
             resolve: "gatsby-remark-autolink-headers",
             options: {
-              offsetY: -750,
+              offsetY: -650,
             },
           },
           "gatsby-remark-prismjs",
