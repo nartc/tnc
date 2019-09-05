@@ -53,7 +53,7 @@ const useStyles = makeStyles<Theme>(theme => ({
     boxShadow: "none",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
-    fontSize: "1.125rem",
+    fontSize: theme.typography.fontSize,
     background: theme.palette.background.default,
 
     "&::before": {
@@ -95,6 +95,14 @@ const useStyles = makeStyles<Theme>(theme => ({
         justifyContent: "center",
         fontSize: "smaller",
       },
+    },
+    "& li": {
+      marginTop: theme.spacing(),
+      marginBottom: theme.spacing(),
+      "& > p": {
+        marginTop: theme.spacing(),
+        marginBottom: theme.spacing(),
+      }
     },
     "& blockquote": {
       borderLeftWidth: 10,
