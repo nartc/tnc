@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "tnc",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Personal blog",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Chau Tran <ctran2428@gmail.com>",
   "dependencies": {
     "@material-ui/core": "4.4.1",
     "@material-ui/icons": "4.4.1",
@@ -65,9 +65,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/nartc/tnc"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/nartc/tnc/issues"
   }
 }
