@@ -18,8 +18,8 @@ const buildTheme = (blogTheme: BlogTheme) => {
       fontFamily: [
         "Nunito Sans",
         "-apple-system",
-        '"Segoe UI"',
-        '"Helvetica Neue"',
+        "Segoe UI",
+        "Helvetica Neue",
         "Arial",
         "sans-serif",
       ].join(","),
@@ -34,7 +34,7 @@ const buildTheme = (blogTheme: BlogTheme) => {
         fontWeight: "bold",
       },
       fontSize: 16,
-      htmlFontSize: 16,
+      htmlFontSize: 16
     },
     overrides: {
       MuiCssBaseline: {

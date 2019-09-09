@@ -126,11 +126,11 @@ const useStyles = makeStyles<Theme>(theme => ({
         paddingLeft: theme.spacing(2),
       },
       '& code[class*="language-"]': {
-        fontSize: theme.typography.fontSize,
+        fontSize: theme.typography.fontSize * 0.75,
       },
     },
     '& :not(pre) > code[class*="language-"]': {
-      background: grey["300"],
+      background: grey["100"],
       color: pink["500"],
       paddingTop: 0,
       paddingBottom: 0,
