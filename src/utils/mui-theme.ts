@@ -17,9 +17,9 @@ const buildTheme = (blogTheme: BlogTheme) => {
     typography: {
       fontFamily: [
         "Nunito Sans",
+        "Helvetica Neue",
         "-apple-system",
         "Segoe UI",
-        "Helvetica Neue",
         "Arial",
         "sans-serif",
       ].join(","),
