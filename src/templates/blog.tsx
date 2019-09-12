@@ -1,5 +1,4 @@
 import Chip from "@material-ui/core/Chip";
-import { grey, pink } from "@material-ui/core/colors";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
@@ -25,6 +24,7 @@ import {
   MarkdownRemarkFrontmatter,
   SiteSiteMetadataSocials,
 } from "../graph-types";
+import blogContentStyles from "../utils/blog-content";
 
 type BlogProps = {
   data: {
@@ -68,105 +68,7 @@ const useStyles = makeStyles<Theme>(theme => ({
     paddingBottom: theme.spacing(2),
     fontSize: theme.typography.fontSize,
     background: theme.palette.background.default,
-
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      top: 15,
-      left: -5,
-      zIndex: -1,
-      display: "block",
-      width: 20,
-      height: 200,
-      background: theme.palette.secondary.main,
-      opacity: 0.15,
-      filter: "blur(5px)",
-      transform: "rotate(-5deg)",
-    },
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      top: 15,
-      right: -5,
-      zIndex: -1,
-      display: "block",
-      width: 20,
-      height: 200,
-      background: theme.palette.secondary.main,
-      filter: "blur(5px)",
-      transform: "rotate(5deg)",
-    },
-
-    "& p": {
-      fontSize: theme.typography.fontSize,
-      fontWeight: theme.typography.body1.fontWeight,
-      lineHeight: "1.5rem",
-      textAlign: "justify",
-      "& > span.gatsby-resp-image-wrapper ~ em": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "smaller",
-      },
-    },
-    "& li": {
-      marginTop: theme.spacing(),
-      marginBottom: theme.spacing(),
-      "& > p": {
-        marginTop: theme.spacing(),
-        marginBottom: theme.spacing(),
-      },
-    },
-    "& blockquote": {
-      borderLeftWidth: 10,
-      borderLeftStyle: "solid",
-      borderLeftColor: theme.palette.secondary.main,
-      margin: "1.5em 0",
-      padding: "0.5em 10px",
-    },
-    "& a": {
-      color: theme.palette.primary.main,
-    },
-    "& h2": {
-      borderBottomWidth: 1,
-      borderBottomStyle: "solid",
-      borderBottomColor: theme.palette.primary.main,
-    },
-    "& div.gatsby-highlight": {
-      // paddingTop: theme.spacing(2),
-      // paddingBottom: theme.spacing(2),
-      '& pre[class*="language-"].line-numbers': {
-        "& span.line-numbers-rows": {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          height: "100%",
-          fontSize: theme.typography.fontSize * 0.75,
-          "& span": {
-            "&::before": {
-              lineHeight: "auto",
-              borderBottom: "none",
-              color: "rgba(248, 248, 242, 0.75)",
-            },
-          },
-        },
-      },
-      '& code[class*="language-"]': {
-        fontSize: theme.typography.fontSize * 0.75,
-      },
-    },
-    '& :not(pre) > code[class*="language-"]': {
-      background: grey["100"],
-      color: pink["500"],
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingRight: theme.spacing(),
-      paddingLeft: theme.spacing(),
-      borderRadius: 5,
-    },
-    "& div.gatsby-code-button": {
-      background: "#c4c4c4",
-    },
+    ...blogContentStyles(theme),
   },
   cover: {
     margin: "0 0 -165px 0",
@@ -260,8 +162,13 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
           classes={{ root: classes.title }}
           align={"center"}
         >
-          {frontmatter.title}
+          {frontmatter.title}{" "}
         </Typography>
+        {frontmatter.draft && (
+          <Typography align={"center"} variant={"subtitle1"}>
+            (Draft)
+          </Typography>
+        )}
         {!!tags.length && (
           <Grid container justify={"center"} alignItems={"center"} spacing={1}>
             {tags.map((tag, index) => (
@@ -319,6 +226,7 @@ export const blogQuery = graphql`
       frontmatter {
         date(formatString: "MM/DD/YYYY - hh:mm")
         tags
+        draft
         title
         cover {
           childImageSharp {
@@ -346,6 +254,7 @@ export const blogQuery = graphql`
           frontmatter {
             title
             tags
+            draft
           }
           timeToRead
           fields {

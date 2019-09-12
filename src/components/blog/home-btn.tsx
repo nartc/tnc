@@ -18,7 +18,7 @@ const HomeButton: FC = memo(() => {
   const classes = useStyles();
 
   return (
-    <Link to={"/"}>
+    <Link to={"/"} style={{ textDecoration: "none" }}>
       <Fab classes={{ root: classes.homeBtn }}>
         <Typography variant={"h4"}>
           {theme === "light" ? "🏡" : "🏠"}

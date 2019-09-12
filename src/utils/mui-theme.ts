@@ -28,13 +28,13 @@ const buildTheme = (blogTheme: BlogTheme) => {
       },
       caption: {
         fontWeight: "bold",
-        color: grey["500"],
+        color: blogTheme === "light" ? grey["400"] : grey["50"],
       },
       h2: {
         fontWeight: "bold",
       },
       fontSize: 16,
-      htmlFontSize: 16
+      htmlFontSize: 16,
     },
     overrides: {
       MuiCssBaseline: {
