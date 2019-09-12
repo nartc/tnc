@@ -51,6 +51,12 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: "gatsby-remark-code-buttons",
+            options: {
+              toasterText: "Copied to clipboard 📋"
+            }
+          },
+          {
             resolve: "gatsby-remark-responsive-iframe",
             options: {
               wrapperStyle: "margin-bottom: 1rem",
@@ -62,7 +68,12 @@ module.exports = {
               offsetY: -650,
             },
           },
-          "gatsby-remark-prismjs",
+          {
+            resolve: "gatsby-remark-prismjs",
+            options: {
+              showLineNumbers: true
+            }
+          },
           "gatsby-remark-copy-linked-files",
           "gatsby-remark-smartypants",
           "gatsby-remark-abbr",
@@ -79,7 +90,7 @@ module.exports = {
               target: "_blank",
               rel: "nofollow noreferrer",
             },
-          },
+          }
         ],
       },
     },

@@ -102,7 +102,7 @@ const useStyles = makeStyles<Theme>(theme => ({
       "& > p": {
         marginTop: theme.spacing(),
         marginBottom: theme.spacing(),
-      }
+      },
     },
     "& blockquote": {
       borderLeftWidth: 10,
@@ -120,10 +120,23 @@ const useStyles = makeStyles<Theme>(theme => ({
       borderBottomColor: theme.palette.primary.main,
     },
     "& div.gatsby-highlight": {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-      '& pre[class*="language-"]': {
-        paddingLeft: theme.spacing(2),
+      // paddingTop: theme.spacing(2),
+      // paddingBottom: theme.spacing(2),
+      '& pre[class*="language-"].line-numbers': {
+        "& span.line-numbers-rows": {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          height: "100%",
+          fontSize: theme.typography.fontSize * 0.75,
+          "& span": {
+            "&::before": {
+              lineHeight: "auto",
+              borderBottom: "none",
+              color: "rgba(248, 248, 242, 0.75)",
+            },
+          },
+        },
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
@@ -137,6 +150,9 @@ const useStyles = makeStyles<Theme>(theme => ({
       paddingRight: theme.spacing(),
       paddingLeft: theme.spacing(),
       borderRadius: 5,
+    },
+    '& div.gatsby-code-button': {
+      background: '#c4c4c4'
     },
   },
   cover: {
