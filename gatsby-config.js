@@ -104,6 +104,61 @@ module.exports = {
         icon: "src/content/tnc.png"
       },
     },
+    {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                baseUrl
+                site_url: baseUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({query: {site, allMarkdownRemark}}) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: site.siteMetadata.baseUrl + '/blogs' + edge.node.fields.slug,
+                  guid: site.siteMetadata.baseUrl + '/blogs' + edge.node.fields.slug,
+                  custom_elements: [{"content:encoded": edge.node.html}]
+                })
+              })
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { fields: [frontmatter___date], order: [DESC] }
+                  filter: { frontmatter: { draft: { ne: true } } }
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { slug }
+                      frontmatter {
+                        title
+                        date(formatString: "MM/DD/YYYY")
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "tnc Blog",
+            match: "^/(blog | blogs)/"
+          }
+        ]
+      }
+    },
     "gatsby-plugin-material-ui",
     "gatsby-plugin-layout",
     "gatsby-plugin-typescript",

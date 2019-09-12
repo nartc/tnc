@@ -1,24 +1,17 @@
 import Button from "@material-ui/core/Button";
-import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 import { Theme, withTheme } from "@material-ui/core/styles";
 import { WithTheme } from "@material-ui/styles";
 import { Link } from "gatsby";
-import Facebook from "mdi-material-ui/Facebook";
-import Github from "mdi-material-ui/GithubCircle";
-import LinkedIn from "mdi-material-ui/Linkedin";
-import Twitter from "mdi-material-ui/TwitterCircle";
-import React, { FC, memo, useMemo, useState } from "react";
+import React, { FC, memo, useMemo } from "react";
 import { SiteSiteMetadataSocials } from "../graph-types";
+import Socials from "./socials";
 
 type NavsProps = {
   socials: Array<SiteSiteMetadataSocials>;
 } & WithTheme<Theme>;
 
 const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
-  const [isSocialOpen, setIsSocialOpen] = useState(false);
-
   const activeStyle = useMemo(
     () => ({
       backgroundImage: `linear-gradient(to top, 
@@ -33,18 +26,6 @@ const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
     [theme.palette.primary.main]
   );
 
-  const getIconButton = (s: SiteSiteMetadataSocials) => {
-    switch (s.type) {
-      case "facebook":
-        return <Facebook />;
-      case "github":
-        return <Github />;
-      case "linkedIn":
-        return <LinkedIn />;
-      case "twitter":
-        return <Twitter />;
-    }
-  };
   return (
     <>
       <Grid container spacing={4} justify={"center"} alignItems={"center"}>
@@ -81,33 +62,9 @@ const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
             </Button>
           </Link>
         </Grid>
-        <Grid item>
-          <Button
-            size={"large"}
-            type={"button"}
-            onClick={() => setIsSocialOpen(prev => !prev)}
-          >
-            socials
-          </Button>
-        </Grid>
       </Grid>
 
-      <Fade in={isSocialOpen}>
-        <Grid container spacing={4} justify={"center"} alignItems={"center"}>
-          {socials.map((s, index) => (
-            <Grid item key={index}>
-              <IconButton
-                component={"a"}
-                href={s.link as string}
-                target={"_blank"}
-                rel="noreferrer"
-              >
-                {getIconButton(s)}
-              </IconButton>
-            </Grid>
-          ))}
-        </Grid>
-      </Fade>
+      <Socials socials={socials} />
     </>
   );
 });

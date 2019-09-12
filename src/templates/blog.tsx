@@ -10,8 +10,11 @@ import { makeStyles } from "@material-ui/styles";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
 import React, { FC, memo } from "react";
-import Navs from "../components/navs";
+import HomeButton from "../components/blog/home-btn";
+import NextPrev from "../components/blog/next-prev";
+import WrittenBy from "../components/blog/written-by";
 import SEO from "../components/seo";
+import Socials from "../components/socials";
 import {
   File,
   ImageSharp,
@@ -33,6 +36,16 @@ type BlogProps = {
         author: string;
         socials: Array<SiteSiteMetadataSocials>;
       };
+    };
+  };
+  pageContext: {
+    prev?: {
+      fields: MarkdownRemarkFields;
+      frontmatter: MarkdownRemarkFrontmatter;
+    };
+    next?: {
+      fields: MarkdownRemarkFields;
+      frontmatter: MarkdownRemarkFrontmatter;
     };
   };
 };
@@ -151,8 +164,8 @@ const useStyles = makeStyles<Theme>(theme => ({
       paddingLeft: theme.spacing(),
       borderRadius: 5,
     },
-    '& div.gatsby-code-button': {
-      background: '#c4c4c4'
+    "& div.gatsby-code-button": {
+      background: "#c4c4c4",
     },
   },
   cover: {
@@ -170,7 +183,7 @@ const useStyles = makeStyles<Theme>(theme => ({
   },
 }));
 
-const Blog: FC<BlogProps> = memo(({ data }) => {
+const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
   const classes = useStyles();
 
   const frontmatter = data.markdownRemark
@@ -240,6 +253,7 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
         <meta name="twitter:site" content={data.site.siteMetadata.author} />
         <meta name="twitter:creator" content={data.site.siteMetadata.author} />
       </SEO>
+      <HomeButton />
       <Container maxWidth={"md"}>
         <Typography
           variant={"h2"}
@@ -287,7 +301,9 @@ const Blog: FC<BlogProps> = memo(({ data }) => {
           </Container>
         </Paper>
         <Divider />
-        <Navs socials={data.site.siteMetadata.socials} />
+        <NextPrev next={pageContext.next} prev={pageContext.prev} />
+        <Socials socials={data.site.siteMetadata.socials} />
+        <WrittenBy />
       </Container>
     </>
   );
