@@ -6,6 +6,8 @@ draft: false
 cover: ../covers/health_hack.png
 ---
 
+This is **Part One** of a two-part series about my journey through **Slalom Health Equity Hackathon**. You can read about **[Part Two](/blogs/slalom-health-equity-hackathon-2)** here.
+
 Over the past weekend, I was participating in **Health Equity Hackathon** which was hosted and organized by **[Slalom](https://www.slalom.com)**, partnered with **[Covo](https://stl.hellocovo.com/)** and **[Johego](https://www.johego.org/)**, and sponsored by **[AWS](https://aws.amazon.com/)**. And it was a blast 🚀 !
 
 Personally, I wasn't planning on take part in the Hackathon at first. But I changed my mind immediately when I read the more about the Hack, which I'll elaborate more down below. One of the reasons that I was hesitant to join in the beginning was because my "*usual hack-mates*" were busy (*At least, that's what I thought through our daily chat*). When I decided to participate, I joined by myself and hoped to get in a team during **Team Formation** session of the Hack. Here's how it went.
@@ -340,4 +342,4 @@ At this point, my `queriedbmfs` collection should have quite a bit more data wit
     - **WEBSITE** has value of `"None"`
 2. A lot of organizations do not provide `PHONE_NUM`
 
-So we're missing quite a few `PHONE_NUM` and `WEBSITE` information which are crucial in terms of Accessibility. After this query-run, it's starting to get heavily into more `JavaScript` with web scrapping and stuffs. My teammates were also ready to start playing with **AWS Comprehend**. All of this will have to wait to **Part 2** of the blog because this one is getting quite lengthy. Thank you for getting this far and hopefully you will continue to follow me through this journey in **Part 2** (*I will update the link when it's available*).
+So we're missing quite a few `PHONE_NUM` and `WEBSITE` information which are crucial in terms of Accessibility. After this query-run, it's starting to get heavily into more `JavaScript` with web scrapping and stuffs. My teammates were also ready to start playing with **AWS Comprehend**. All of this will have to wait to **Part 2** of the blog because this one is getting quite lengthy. Thank you for getting this far and hopefully you will continue to follow me through this journey in **[Part 2](/blogs/slalom-health-equity-hackathon-2)**.
