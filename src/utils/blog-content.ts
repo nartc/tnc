@@ -74,10 +74,11 @@ const blogContentStyles = (theme: Theme) =>
     },
     "& div.gatsby-highlight": {
       '& pre[class*="language-"].line-numbers': {
+        fontFamily: "Menlo, Consolas, ".concat(theme.typography.fontFamily as string),
         "& span.line-numbers-rows": {
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-evenly",
+          justifyContent: "space-between",
           height: "100%",
           fontSize: theme.typography.fontSize * 0.75,
           "& span": {
@@ -91,6 +92,7 @@ const blogContentStyles = (theme: Theme) =>
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
+        fontFamily: "Menlo, ".concat(theme.typography.fontFamily as string),
       },
     },
     '& :not(pre) > code[class*="language-"]': {

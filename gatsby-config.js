@@ -3,6 +3,7 @@ module.exports = {
     title: `tnc`,
     description: "Yet another dev blog.",
     author: `@nartc`,
+    siteUrl: "https://nartc.netlify.com",
     baseUrl: "https://nartc.netlify.com",
     socials: [
       {
