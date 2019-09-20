@@ -22,7 +22,9 @@ Now, if you're a developer, or developer-to-be and wants to setup your `Macbook`
 - After `Xcode` finishes, open your `Terminal` and run the following command which will install `Xcode Command Line Tools` which is required for many other tools, especially `Homebrew`
 
 ```bash
+ 
 xcode-select --install
+ 
 ```
 
 ### 2. Homebrew
@@ -30,13 +32,17 @@ xcode-select --install
 Next, we'll install `Homebrew`. `Homebrew` is like `npm` but for your systems rather than your JS applications. With `Homebrew`, you can install all kind of tools/applications and manages them in one place. Open your `Terminal` and run the following command:
 
 ```bash
+ 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+ 
 ```
 
 After the process is finished, you can run `brew doctor` in the same terminal to check if "your system is ready to brew". Once you're "ready", let's run:
 
 ```bash
+ 
 brew tap caskroom/cask
+ 
 ```
 
 Following are some most used `Homebrew` commands that you'll probably use:
@@ -44,19 +50,25 @@ Following are some most used `Homebrew` commands that you'll probably use:
 - To search for a package (or **Formulae** or **Cask** in `Homebrew` vocabulary):
 
 ```bash
+ 
 brew search search_phrase
+ 
 ```
 
 - To install a **formulae**:
 
 ```bash
+ 
 brew install formulae_name
+ 
 ```
 
 - To install a **cask**:
 
 ```bash
+ 
 brew cask install cask_name
+ 
 ```
 
 ![](../images/brew-search.png) 
@@ -69,8 +81,10 @@ brew cask install cask_name
 With `Homebrew` installed, you should start installing two things: `iTerm2` and `Alfred 4`
 
 ```bash
+ 
 brew cask install iterm2
 brew cask install alfred
+ 
 ```
 
 Run `iTerm2` and start setting a couple of things up. **The following items are all optional**
@@ -103,13 +117,17 @@ c. Run `Alfred`. Check `Launch Alfred at login` and change your `Alfred Hotkey` 
 One of the reasons why `iTerm2` is so much more powerful than `Terminal` is that you can customize it. There are many different *frameworks* that can make your `iTerm2` experience up another level. Personally, I always go with `zsh` and `oh-my-zsh` because of how well-known it is, easy to look for answers you know 😋. To install `zsh`, we'll use `Homebrew`.
 
 ```bash
+ 
 brew install zsh
+ 
 ```
 
 After that's done, run the following command to install `oh-my-zsh`:
 
 ```bash
+ 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+ 
 ```
 
 Now you have the power of `oh-my-zsh` in your `iTerm2`. Your main configuration file will be `~/.zshrc` instead of `~/.bash_profile` or `~/.bashrc`. We'll start setting up `oh-my-zsh` with some productivity stuffs.
@@ -117,14 +135,18 @@ Now you have the power of `oh-my-zsh` in your `iTerm2`. Your main configuration 
 a. By default, `zsh` provides an `alias` to quickly open `~/.zshrc` from the terminal. However, you might want to install your favorite text editor before doing so. I usually install `nvim` and `vscode` at this point.
 
 ```bash
+ 
 brew install nvim
 brew cask install visual-studio-code
+ 
 ```
 
 `nvim` feels easier to me and `VSCode` has that `code` command that you can open `VSCode` from the terminal. Go ahead and execute:
 
 ```bash
+ 
 nvim ~/.zshrc
+ 
 ```
 > You can use `code` if you want to. If `code` is not available, run `Visual Studio Code` -> Open the `Command Palette` -> `Shell Command: install 'code' command in PATH`
 
@@ -133,6 +155,7 @@ nvim ~/.zshrc
 Let's setup some aliases to make your life easier. The following list is my current aliases which I find super helpful.
 
 ```shell
+ 
 # change to code if you use vscode
 alias zshconfig="nvim ~/.zshrc"
 # you need to source zshrc after you make change like adding plugins
@@ -158,25 +181,32 @@ alias listios="xcrun simctl list devices"
 alias cra="create-react-app"
 alias crl="create-react-library"
 alias rn="react-native"
+ 
 ```
 
 If you're from `~/.bash_profile` or `~/.bashrc`, you'll need to add the next line to your `~/.zshrc`
 
 ```shell
+ 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+ 
 ```
 
 ```shell
+ 
 # extraneous stuffs
 export CLICOLOR=1
 export LC_ALL=en_US.UTF-8
+ 
 ```
 
 b. Theming: You can go to [Themes](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes) and pick a theme you like. Then edit the following line
 
 ```shell
+ 
 ZSH_THEME="theme_name"
+ 
 ```
  
 c. Plugins. By default, `zsh` comes with various plugins and will enable `git` plugin by default. `git` plugin provides you with all kinds of `git` shortcuts. Check this [link](https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index) out. I have the following plugins enabled.
@@ -189,9 +219,11 @@ c. Plugins. By default, `zsh` comes with various plugins and will enable `git` p
 Now that we have setup our terminal, it's time to start installing some applications. Use `brew search` to search for an app that you want.
 
 ```bash 
+ 
 brew cask install google-chrome
 brew cask install appcleaner
 brew cask install postman
+ 
 ```
     
 ### 5. NodeJS
@@ -201,16 +233,20 @@ There are many ways to install `NodeJS` but I'd recommend using `nvm` to manage 
 a. Install `nvm`
 
 ```bash
+ 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
+ 
 ```
 
 b. Run `zshsource`
 c. Run `command -v nvm` to check if `nvm` is available. If you have issue, it's most likely that `nvm` is missing in your `PATH`. Fix by adding the following block to your `~/.zshrc`
 
 ```shell
+ 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+ 
 ```
 
 d. Run `nvm install node`. This will install the latest version of `NodeJS` on your machine.
@@ -224,13 +260,17 @@ Even though I don't use `Python` as a programming language, but some tools are b
 a. Install `pyenv`
 
 ```bash
+ 
 brew install pyenv
+ 
 ```
 
 b. Update `PATH`
 
 ```bash
+ 
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+ 
 ```
 
 c. Run `pyenv install --list`. If you have issue here, restart your terminal.
@@ -245,8 +285,13 @@ Again, consult [https://sourabhbajaj.com/mac-setup/](https://sourabhbajaj.com/ma
 `Docker` can be installed by visiting this [link](https://docs.docker.com/docker-for-mac/install/). If you like GUI, I'd recommend `Kitematic` which is awesome.
 
 ```bash
+ 
 brew cask install kitematic
+ 
 ```
+
+![](../images/kitematic.png) 
+*Kitematic*
 
 ### 9. MongoDB
 
@@ -259,9 +304,11 @@ Again, I like GUI because it saves a lot of times and there are many `Mongo GUI 
 I am a **Jetbrains** fan. **Jetbrains** is a suite of well-known IDEs like **IntelliJ**, **Webstorm**, **PyCharm**, **PHPStorm**, **Android Studio** ..etc... Only thing to note here is if you use **Jetbrains**, consider installing their toolbox **Jetbrains Toolbox** and it's available via `Homebrew`
 
 ```bash
+ 
 brew cask install jetbrains-toolbox
+ 
 ```
 
 **Jetbrains Toolbox** allows you to manage your IDEs installation and versions. It also allows you to install certain `shell` commands so you can open your IDEs from the terminal.
 
-That is all I have to share for **Development Environment Setup**. I hope you find the information helpful. My next blob will probably be on **Jetbrains** specific so I can share my productivity tips with you through the tools that we use everyday. Go and be productive. Thanks for reading 😀.  
+That is all I have to share for **Development Environment Setup**. I hope you find the information helpful. My next blob will probably be on **Jetbrains** specific so I can share my productivity tips with you through the tools that we use everyday. Go and be productive, and make sure to always install things with `Homebrew` whenever possible. Thanks for reading 😀.  
