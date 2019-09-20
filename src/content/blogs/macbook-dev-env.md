@@ -12,7 +12,7 @@ Today, I am going to share with you guys my **development environment** which ha
 
 Now, if you're a developer, or developer-to-be and wants to setup your `Macbook` for **development**, I'll pick you up right here after you're finishing `Setup your Mac for first use`.
 
-> I use [https://sourabhbajaj.com/mac-setup/](https://sourabhbajaj.com/mac-setup/) as my reference but mine is more concentrated on `JavaScript Dev`. Please check out [this guide](hhttps://sourabhbajaj.com/mac-setup/SystemPreferences/) for **System Preferences** related setup.
+> I use [https://sourabhbajaj.com/mac-setup/](https://sourabhbajaj.com/mac-setup/) as my reference but mine is more concentrated on `JavaScript Dev`. Please check out [this guide](https://sourabhbajaj.com/mac-setup/SystemPreferences/) for **System Preferences** related setup.
   
 ### 1. Install Xcode
 
