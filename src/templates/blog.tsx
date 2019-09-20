@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/styles";
 import { graphql } from "gatsby";
 import Img from "gatsby-image";
 import React, { FC, memo } from "react";
+import GoToTop from "../components/blog/go-to-top";
 import HomeButton from "../components/blog/home-btn";
 import NextPrev from "../components/blog/next-prev";
 import WrittenBy from "../components/blog/written-by";
@@ -209,6 +210,7 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
         </Paper>
         <Divider />
         <NextPrev next={pageContext.next} prev={pageContext.prev} />
+        <GoToTop />
         <Socials socials={data.site.siteMetadata.socials} />
         <WrittenBy />
       </Container>
