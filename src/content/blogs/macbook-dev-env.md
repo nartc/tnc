@@ -285,7 +285,7 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 
 ### 7, Database
 
-Again, consult [https://sourabhbajaj.com/mac-setup/](https://sourabhbajaj.com/mac-setup/) as my reference but mine is more concentrated on `JavaScript Dev`. Please check out [this guide](hhttps://sourabhbajaj.com/mac-setup/SystemPreferences/) and pick the ones that are relevant to you.
+Again, consult [https://sourabhbajaj.com/mac-setup/](https://sourabhbajaj.com/mac-setup/) and pick the ones that are relevant to you.
 
 ### 8. Docker
 
