@@ -74,7 +74,8 @@ const blogContentStyles = (theme: Theme) =>
     },
     "& div.gatsby-highlight": {
       '& pre[class*="language-"].line-numbers': {
-        fontFamily: "Menlo, Consolas, ".concat(theme.typography.fontFamily as string),
+        fontFamily: "Menlo, Consolas, ".concat(theme.typography
+          .fontFamily as string),
         "& span.line-numbers-rows": {
           display: "flex",
           flexDirection: "column",
@@ -107,6 +108,80 @@ const blogContentStyles = (theme: Theme) =>
     "& div.gatsby-code-button": {
       background: "#c4c4c4",
     },
+    "& table": {
+      border: "2px solid",
+      borderColor: theme.palette.secondary.main,
+      width: "100%",
+      textAlign: "center",
+      borderCollapse: "collapse",
+
+      "& td, th": {
+        border: "1px solid",
+        borderColor: theme.palette.secondary.main,
+        padding: "3px 4px",
+      },
+      "& tbody td": {
+        fontSize: theme.typography.fontSize,
+      },
+      "& thead": {
+        background: theme.palette.background,
+        borderBottom: "4px solid",
+        borderBottomColor: theme.palette.secondary.main,
+
+        "& th": {
+          fontSize: theme.typography.fontSize * 1.1,
+          fontWeight: "bold",
+          textAlign: "center",
+          borderLeft: "2px solid",
+          borderLeftColor: theme.palette.secondary.main,
+          "&:first-child": {
+            borderLeft: "none",
+          },
+        },
+      },
+    },
   } as StyleRules);
 
 export default blogContentStyles;
+
+/**
+ table.greyGridTable {
+  border: 2px solid #FFFFFF;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+ table.greyGridTable td, table.greyGridTable th {
+  border: 1px solid #FFFFFF;
+  padding: 3px 4px;
+}
+ table.greyGridTable tbody td {
+  font-size: 13px;
+}
+ table.greyGridTable td:nth-child(even) {
+  background: #EBEBEB;
+}
+ table.greyGridTable thead {
+  background: #FFFFFF;
+  border-bottom: 4px solid #333333;
+}
+ table.greyGridTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  border-left: 2px solid #333333;
+}
+ table.greyGridTable thead th:first-child {
+  border-left: none;
+}
+
+ table.greyGridTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  border-top: 4px solid #333333;
+}
+ table.greyGridTable tfoot td {
+  font-size: 14px;
+}*/
