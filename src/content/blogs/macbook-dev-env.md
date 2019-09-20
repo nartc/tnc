@@ -89,7 +89,7 @@ brew cask install alfred
 
 Run `iTerm2` and start setting a couple of things up. **The following items are all optional**
 
-a. Go to `Preferences -> Profiles -> Keys`, and add new 4 **shortcuts**:
+- Go to `Preferences -> Profiles -> Keys`, and add new 4 **shortcuts**:
 
 |shortcut|action|esc+|
 |---|---|---|
@@ -98,19 +98,22 @@ a. Go to `Preferences -> Profiles -> Keys`, and add new 4 **shortcuts**:
 |⌥←|Send Escape Sequence|b|
 |⌥→|Send Escape Sequence|f|
 
-b. Go to `Preferences -> Profiles -> Session`, and check `Status bar enabled` and configure them how you want. I personally have: `Current Directory`, `CPU Utilization` and `Memory Utilization`
+- Go to `Preferences -> Profiles -> Session`, and check `Status bar enabled` and configure them how you want. I personally have: `Current Directory`, `CPU Utilization` and `Memory Utilization`
 
 ![](../images/status-bar-iterm.png)
 *Status Bar Components*  
 
-c. If you want to change your typography, go to `Preferences -> Profiles -> Text`. I use `Menlo 14pt`.
-d. Finally, browse to [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes/tree/master/schemes) to pick a theme that you like. Then go to `Preferences -> Profiles -> Colors`, import the preset that you picked and select it.  I personally use `Dracula`
+- If you want to change your typography, go to `Preferences -> Profiles -> Text`. I use `Menlo 14pt`.
+
+- Finally, browse to [iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes/tree/master/schemes) to pick a theme that you like. Then go to `Preferences -> Profiles -> Colors`, import the preset that you picked and select it.  I personally use `Dracula`
 
 Next up is `Alfred 4`. `Alfred` is `Spotlight` replacement and if you're willing to pay (which you should) for the `Power Pack`, you'll never live your life normally without `Alfred`. First of all, we need to disable `Spotlight`.
 
-a. Run `Spotlight` and uncheck everything that you don't want. I uncheck `Fonts`, `Images` and such.
-b. Click on `Keyboard Shortcuts` and uncheck `Show Spotlight Search`. While you're here, click on `Services`, look for `Search man Page Index in Terminal` and uncheck that as well. I will explain later.
-c. Run `Alfred`. Check `Launch Alfred at login` and change your `Alfred Hotkey` to `⌘ Space`. Then you're all set.
+- Run `Spotlight` and uncheck everything that you don't want. I uncheck `Fonts`, `Images` and such.
+
+- Click on `Keyboard Shortcuts` and uncheck `Show Spotlight Search`. While you're here, click on `Services`, look for `Search man Page Index in Terminal` and uncheck that as well. I will explain later.
+
+- Run `Alfred`. Check `Launch Alfred at login` and change your `Alfred Hotkey` to `⌘ Space`. Then you're all set.
 
 ### 4. zsh and oh-my-zsh
 
@@ -132,7 +135,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 Now you have the power of `oh-my-zsh` in your `iTerm2`. Your main configuration file will be `~/.zshrc` instead of `~/.bash_profile` or `~/.bashrc`. We'll start setting up `oh-my-zsh` with some productivity stuffs.
 
-a. By default, `zsh` provides an `alias` to quickly open `~/.zshrc` from the terminal. However, you might want to install your favorite text editor before doing so. I usually install `nvim` and `vscode` at this point.
+- By default, `zsh` provides an `alias` to quickly open `~/.zshrc` from the terminal. However, you might want to install your favorite text editor before doing so. I usually install `nvim` and `vscode` at this point.
 
 ```bash
  
@@ -150,7 +153,7 @@ nvim ~/.zshrc
 ```
 > You can use `code` if you want to. If `code` is not available, run `Visual Studio Code` -> Open the `Command Palette` -> `Shell Command: install 'code' command in PATH`
 
-> `alias` is your shortcut to any shell/combinations of shell command.  
+> `alias` is your shortcut to any shell/combinations of shell -  
 
 Let's setup some aliases to make your life easier. The following list is my current aliases which I find super helpful.
 
@@ -201,7 +204,7 @@ export LC_ALL=en_US.UTF-8
  
 ```
 
-b. Theming: You can go to [Themes](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes) and pick a theme you like. Then edit the following line
+- Theming: You can go to [Themes](https://github.com/robbyrussell/oh-my-zsh/wiki/Themes) and pick a theme you like. Then edit the following line
 
 ```shell
  
@@ -209,7 +212,7 @@ ZSH_THEME="theme_name"
  
 ```
  
-c. Plugins. By default, `zsh` comes with various plugins and will enable `git` plugin by default. `git` plugin provides you with all kinds of `git` shortcuts. Check this [link](https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index) out. I have the following plugins enabled.
+- Plugins. By default, `zsh` comes with various plugins and will enable `git` plugin by default. `git` plugin provides you with all kinds of `git` shortcuts. Check this [link](https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index) out. I have the following plugins enabled.
     - `colored-man-pages`: comes with `zsh`
     - `colorize`: comes with `zsh`
     - `zsh-syntax-highlighting`: [INSTALL.md](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
@@ -230,7 +233,7 @@ brew cask install postman
 
 There are many ways to install `NodeJS` but I'd recommend using `nvm` to manage `NodeJS` on your machine. `nvm` stands for `Node Version Manager` and it allows you to install and switch between versions very easily.
 
-a. Install `nvm`
+- Install `nvm`
 
 ```bash
  
@@ -238,8 +241,9 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | b
  
 ```
 
-b. Run `zshsource`
-c. Run `command -v nvm` to check if `nvm` is available. If you have issue, it's most likely that `nvm` is missing in your `PATH`. Fix by adding the following block to your `~/.zshrc`
+- Run `zshsource`
+
+- Run `command -v nvm` to check if `nvm` is available. If you have issue, it's most likely that `nvm` is missing in your `PATH`. Fix by adding the following block to your `~/.zshrc`
 
 ```shell
  
@@ -249,15 +253,17 @@ export NVM_DIR="$HOME/.nvm"
  
 ```
 
-d. Run `nvm install node`. This will install the latest version of `NodeJS` on your machine.
-e. Run `nvm ls` to list installed `Node` versions.
-f. Run `nvm ls-remote` to list `Node` versions that you can install
+- Run `nvm install node`. This will install the latest version of `NodeJS` on your machine.
+
+- Run `nvm ls` to list installed `Node` versions.
+
+- Run `nvm ls-remote` to list `Node` versions that you can install
 
 ### 6. Python
 
 Even though I don't use `Python` as a programming language, but some tools are built with `Python`. So I'd also recommend installing `Python` using `pyenv` (just like `nvm` for `NodeJS`).
 
-a. Install `pyenv`
+- Install `pyenv`
 
 ```bash
  
@@ -265,7 +271,7 @@ brew install pyenv
  
 ```
 
-b. Update `PATH`
+- Update `PATH`
 
 ```bash
  
@@ -273,8 +279,9 @@ echo 'eval "$(pyenv init -)"' >> ~/.zshrc
  
 ```
 
-c. Run `pyenv install --list`. If you have issue here, restart your terminal.
-d. Run `pyenv install version_here` to install `Python`. I usually install latest 2.x and latest 3.x
+- Run `pyenv install --list`. If you have issue here, restart your terminal.
+
+- Run `pyenv install version_here` to install `Python`. I usually install latest 2.x and latest 3.x
 
 ### 7, Database
 
