@@ -93,7 +93,7 @@ const blogContentStyles = (theme: Theme) =>
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
-        fontFamily: "Menlo, ".concat(theme.typography.fontFamily as string),
+        fontFamily: "Andale Mono, ".concat(theme.typography.fontFamily as string),
       },
     },
     '& :not(pre) > code[class*="language-"]': {
@@ -104,6 +104,7 @@ const blogContentStyles = (theme: Theme) =>
       paddingRight: theme.spacing(),
       paddingLeft: theme.spacing(),
       borderRadius: 5,
+      fontFamily: "Andale Mono, ".concat(theme.typography.fontFamily as string),
     },
     "& div.gatsby-code-button": {
       background: "#c4c4c4",

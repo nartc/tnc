@@ -16,7 +16,7 @@ const buildTheme = (blogTheme: BlogTheme) => {
     },
     typography: {
       fontFamily: [
-        "Nunito Sans",
+        "Be Vietnam",
         "Helvetica Neue",
         "-apple-system",
         "Segoe UI",
