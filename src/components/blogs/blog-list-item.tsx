@@ -31,7 +31,11 @@ const useStyles = makeStyles<Theme>(theme => ({
   excerptRoot: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    minHeight: 70
   },
+  titleRoot: {
+    minHeight: 80
+  }
 }));
 
 const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
@@ -59,7 +63,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
           image={coverImg}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" classes={{root: classes.titleRoot}}>
             {frontmatter.title}
           </Typography>
           {!!tags.length && <BlogTagList tags={tags} />}

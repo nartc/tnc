@@ -1,4 +1,5 @@
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 import TablePagination from "@material-ui/core/TablePagination";
 import Typography from "@material-ui/core/Typography";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
@@ -38,13 +39,19 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
   return (
     <>
       <SEO title={"blogs"} />
-      <Container maxWidth={"md"}>
-        <Typography variant={"h3"}>
+      <Container maxWidth={"lg"}>
+        <Typography variant={"h3"} gutterBottom>
           <LibraryBooksOutlinedIcon fontSize={"large"} /> Blogs
         </Typography>
-        {data.allMarkdownRemark.edges.map((edge, index) => {
-          return <BlogListItem item={edge} key={index} navigate={navigateFn} />;
-        })}
+        <Grid container spacing={6}>
+          {data.allMarkdownRemark.edges.map((edge, index) => {
+            return (
+              <Grid item key={index} xs={12} md={6}>
+                <BlogListItem item={edge} navigate={navigateFn} />
+              </Grid>
+            );
+          })}
+        </Grid>
         {(pageContext.numPages as number) > 1 && (
           <TablePagination
             labelRowsPerPage={null}
