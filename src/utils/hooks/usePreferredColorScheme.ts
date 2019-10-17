@@ -41,11 +41,6 @@ export default (setTheme: Dispatch<SetStateAction<BlogTheme>>) => {
       activeMatches.push(mq);
     });
 
-    if (!activeMatches.filter(Boolean).length) {
-      activeMatches = [];
-      return;
-    }
-
     if (!isSettingUp.current) {
       for (let i = 0; i < activeMatches.length; i++) {
         const mq = activeMatches[i];
