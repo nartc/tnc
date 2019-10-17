@@ -1,5 +1,5 @@
-import { grey, pink } from "@material-ui/core/colors";
-import { darken, Theme } from "@material-ui/core/styles";
+import { orange, pink } from "@material-ui/core/colors";
+import { darken, lighten, Theme } from "@material-ui/core/styles";
 import { StyleRules } from "@material-ui/styles";
 
 const blogContentStyles = (theme: Theme) =>
@@ -93,12 +93,16 @@ const blogContentStyles = (theme: Theme) =>
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
-        fontFamily: "Andale Mono, ".concat(theme.typography.fontFamily as string),
+        fontFamily: "Andale Mono, ".concat(theme.typography
+          .fontFamily as string),
       },
     },
     '& :not(pre) > code[class*="language-"]': {
-      background: grey["100"],
-      color: pink["500"],
+      background:
+        theme.palette.type === "dark"
+          ? lighten(theme.palette.background.default, 0.15)
+          : darken(theme.palette.background.default, 0.04),
+      color: theme.palette.type === "dark" ? orange["600"] : pink["500"],
       paddingTop: 0,
       paddingBottom: 0,
       paddingRight: theme.spacing(),
