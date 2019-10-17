@@ -32,10 +32,13 @@ export default (setTheme: Dispatch<SetStateAction<BlogTheme>>) => {
     let activeMatches: MediaQueryList[] = [];
     Object.values(colorSchemes).forEach(scheme => {
       const mq = window.matchMedia(scheme);
-      if (mq) {
+      if (mq.addEventListener) {
         mq.addEventListener("change", listener);
-        activeMatches.push(mq);
+      } else {
+        mq.addListener(listener);
       }
+
+      activeMatches.push(mq);
     });
 
     if (!activeMatches.filter(Boolean).length) {
@@ -59,7 +62,13 @@ export default (setTheme: Dispatch<SetStateAction<BlogTheme>>) => {
     }
 
     return () => {
-      activeMatches.forEach(mq => mq.removeEventListener("change", listener));
+      activeMatches.forEach(mq => {
+        if (mq.removeEventListener) {
+          mq.removeEventListener("change", listener);
+        } else {
+          mq.removeListener(listener);
+        }
+      });
       activeMatches = [];
     };
   });
