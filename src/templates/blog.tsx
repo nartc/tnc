@@ -79,10 +79,8 @@ const useStyles = makeStyles<Theme>(theme => ({
     borderRadius: theme.shape.borderRadius,
   },
   coverContainer: {
-    [theme.breakpoints.down("md")]: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
+    paddingLeft: 0,
+    paddingRight: 0,
   },
 }));
 
@@ -157,7 +155,7 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
         <meta name="twitter:creator" content={data.site.siteMetadata.author} />
       </SEO>
       <HomeButton />
-      <Container maxWidth={"md"}>
+      <Container maxWidth={"lg"}>
         <Typography
           variant={"h2"}
           classes={{ root: classes.title }}
@@ -188,7 +186,7 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
           {frontmatter.date} | {data.markdownRemark.timeToRead} min read
         </Typography>
       </Container>
-      <Container maxWidth={"lg"} classes={{ root: classes.coverContainer }}>
+      <Container maxWidth={"xl"} classes={{ root: classes.coverContainer }}>
         {imgFluid && (
           <div className={classes.cover}>
             <Img
@@ -198,9 +196,9 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
           </div>
         )}
       </Container>
-      <Container maxWidth={"md"}>
+      <Container maxWidth={"lg"}>
         <Paper classes={{ root: classes.content }}>
-          <Container maxWidth={"lg"}>
+          <Container maxWidth={"xl"}>
             <div
               dangerouslySetInnerHTML={{
                 __html: data.markdownRemark.html as string,
