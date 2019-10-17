@@ -6,10 +6,12 @@ import {
   ThemeChangerProvider,
   useThemeChangerContext,
 } from "../contexts/theme-changer-context";
+import usePreferredColorScheme from "../utils/hooks/usePreferredColorScheme";
 import buildTheme from "../utils/mui-theme";
 
 const Layout: FC = ({ children }) => {
-  const { theme } = useThemeChangerContext();
+  const { theme, setTheme } = useThemeChangerContext();
+  usePreferredColorScheme(setTheme);
   const muiTheme = useMemo(() => buildTheme(theme), [theme]);
 
   return (
