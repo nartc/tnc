@@ -32,9 +32,16 @@ export default (setTheme: Dispatch<SetStateAction<BlogTheme>>) => {
     let activeMatches: MediaQueryList[] = [];
     Object.values(colorSchemes).forEach(scheme => {
       const mq = window.matchMedia(scheme);
-      mq.addEventListener("change", listener);
-      activeMatches.push(mq);
+      if (mq) {
+        mq.addEventListener("change", listener);
+        activeMatches.push(mq);
+      }
     });
+
+    if (!activeMatches.filter(Boolean).length) {
+      activeMatches = [];
+      return;
+    }
 
     if (!isSettingUp.current) {
       for (let i = 0; i < activeMatches.length; i++) {
