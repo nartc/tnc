@@ -12,10 +12,7 @@ import buildTheme from "../utils/mui-theme";
 const Layout: FC = ({ children }) => {
   const { theme, setTheme } = useThemeChangerContext();
   usePreferredColorScheme(setTheme);
-
   const muiTheme = useMemo(() => buildTheme(theme), [theme]);
-
-  console.log(muiTheme);
 
   return (
     <ThemeProvider theme={muiTheme}>
