@@ -36,7 +36,7 @@ const blogContentStyles = (theme: Theme) =>
     "& p": {
       fontSize: theme.typography.fontSize,
       fontWeight: theme.typography.body1.fontWeight,
-      lineHeight: "1.5rem",
+      lineHeight: "2rem",
       textAlign: "justify",
       "& > span.gatsby-resp-image-wrapper ~ em": {
         display: "flex",
