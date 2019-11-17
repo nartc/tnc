@@ -44,6 +44,12 @@ const blogContentStyles = (theme: Theme) =>
         justifyContent: "center",
         fontSize: "smaller",
       },
+      "& > img ~ em": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "smaller",
+      },
     },
     "& li": {
       marginTop: theme.spacing(),
@@ -75,8 +81,9 @@ const blogContentStyles = (theme: Theme) =>
     },
     "& div.gatsby-highlight": {
       '& pre[class*="language-"].line-numbers': {
-        fontFamily: "Menlo, Consolas, ".concat(theme.typography
-          .fontFamily as string),
+        fontFamily: "Menlo, Consolas, ".concat(
+          theme.typography.fontFamily as string
+        ),
         "& span.line-numbers-rows": {
           display: "flex",
           flexDirection: "column",
@@ -94,8 +101,9 @@ const blogContentStyles = (theme: Theme) =>
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
-        fontFamily: "Andale Mono, ".concat(theme.typography
-          .fontFamily as string),
+        fontFamily: "Andale Mono, ".concat(
+          theme.typography.fontFamily as string
+        ),
       },
     },
     '& :not(pre) > code[class*="language-"]': {

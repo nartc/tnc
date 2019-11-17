@@ -66,8 +66,6 @@ const buildTheme = (blogTheme: BlogTheme) => {
     },
   };
 
-  theme.shape.borderRadius = theme.shape.borderRadius * 5;
-
   return responsiveFontSizes(theme);
 };
 
