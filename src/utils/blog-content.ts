@@ -101,7 +101,7 @@ const blogContentStyles = (theme: Theme) =>
       },
       '& code[class*="language-"]': {
         fontSize: theme.typography.fontSize * 0.75,
-        fontFamily: "Andale Mono, ".concat(
+        fontFamily: "Menlo, Consolas,".concat(
           theme.typography.fontFamily as string
         ),
       },
