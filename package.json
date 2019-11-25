@@ -18,7 +18,7 @@
     "gatsby-plugin-offline": "3.0.23",
     "gatsby-plugin-prefetch-google-fonts": "1.4.3",
     "gatsby-plugin-react-helmet": "3.1.15",
-    "gatsby-plugin-sharp": "2.3.1",
+    "gatsby-plugin-sharp": "2.3.3",
     "gatsby-plugin-typescript": "2.1.18",
     "gatsby-prismjs-dracula": "0.1.15",
     "gatsby-remark-abbr": "2.0.0",
