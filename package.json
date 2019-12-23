@@ -9,7 +9,7 @@
     "@material-ui/icons": "4.5.1",
     "@material-ui/styles": "4.7.1",
     "gatsby": "2.18.12",
-    "gatsby-image": "2.2.36",
+    "gatsby-image": "2.2.37",
     "gatsby-plugin-canonical-urls": "2.1.18",
     "gatsby-plugin-feed": "2.3.25",
     "gatsby-plugin-layout": "1.1.18",
