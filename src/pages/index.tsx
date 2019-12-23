@@ -1,5 +1,5 @@
-import { graphql, useStaticQuery } from "gatsby";
-import React from "react";
+import { graphql, PageRendererProps, useStaticQuery } from "gatsby";
+import React, { FC } from "react";
 
 import Intro from "../components/intro";
 import ParticlesBg from "../components/particles";
@@ -10,7 +10,7 @@ import {
   SiteSiteMetadataSocials,
 } from "../graph-types";
 
-const IndexPage = () => {
+const IndexPage: FC<PageRendererProps> = ({ location }) => {
   const data = useStaticQuery<{
     site: Site;
   }>(graphql`
@@ -34,6 +34,7 @@ const IndexPage = () => {
       <SEO title="Home" />
       <ParticlesBg />
       <Intro
+        atIndex={location.pathname === "/"}
         description={siteMetadata.description as string}
         socials={siteMetadata.socials as Array<SiteSiteMetadataSocials>}
       />

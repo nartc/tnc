@@ -7,7 +7,7 @@ import { Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 import { graphql } from "gatsby";
-import Img from "gatsby-image";
+import Img, { FluidObject } from "gatsby-image";
 import React, { FC, memo } from "react";
 import GoToTop from "../components/blog/go-to-top";
 import HomeButton from "../components/blog/home-btn";
@@ -16,9 +16,6 @@ import WrittenBy from "../components/blog/written-by";
 import SEO from "../components/seo";
 import Socials from "../components/socials";
 import {
-  File,
-  ImageSharp,
-  ImageSharpFluid,
   MarkdownRemark,
   MarkdownRemarkConnection,
   MarkdownRemarkFields,
@@ -91,10 +88,7 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
     .frontmatter as MarkdownRemarkFrontmatter;
   const slug = (data.markdownRemark.fields as MarkdownRemarkFields)
     .slug as string;
-  const imgFluid = frontmatter.cover
-    ? (((frontmatter.cover as File).childImageSharp as ImageSharp)
-        .fluid as ImageSharpFluid)
-    : null;
+  const imgFluid = frontmatter.cover?.childImageSharp?.fluid;
   const tags = frontmatter.tags as string[];
 
   return (
@@ -191,7 +185,7 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
           <div className={classes.cover}>
             <Img
               style={{ height: 700, width: "auto" }}
-              fluid={imgFluid as any}
+              fluid={imgFluid as FluidObject}
             />
           </div>
         )}

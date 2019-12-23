@@ -1,5 +1,5 @@
 # source: http://localhost:8000/___graphql
-# timestamp: Wed Sep 11 2019 22:33:47 GMT-0500 (Central Daylight Time)
+# timestamp: Mon Dec 23 2019 08:57:52 GMT-0600 (Central Standard Time)
 
 """Provides default value for input field."""
 directive @default(value: JSON!) on INPUT_FIELD_DEFINITION
@@ -85,16 +85,12 @@ input DateQueryOperatorInput {
 }
 
 type Directory implements Node {
-  id: ID!
-  parent: Node
-  children: [Node!]!
-  internal: Internal!
-  sourceInstanceName: String
-  absolutePath: String
-  relativePath: String
-  extension: String
-  size: Int
-  prettySize: String
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
   modifiedTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -115,7 +111,7 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   accessTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -136,7 +132,7 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   changeTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -157,7 +153,7 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   birthTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -178,26 +174,23 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
-  root: String
-  dir: String
-  base: String
-  ext: String
-  name: String
-  relativeDirectory: String
-  dev: Int
-  mode: Int
-  nlink: Int
-  uid: Int
-  gid: Int
-  rdev: Int
-  blksize: Int
-  ino: Int
-  blocks: Int
-  atimeMs: Float
-  mtimeMs: Float
-  ctimeMs: Float
-  birthtimeMs: Float
+  ): Date!
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
   atime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -218,7 +211,7 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   mtime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -239,7 +232,7 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   ctime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -260,28 +253,15 @@ type Directory implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
-  birthtime(
-    """
-    Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
-    MMMM DD")`. See https://momentjs.com/docs/#/displaying/format/ for
-    documentation for different tokens.
-    """
-    formatString: String
-
-    """Returns a string generated with Moment.js' `fromNow` function"""
-    fromNow: Boolean
-
-    """
-    Returns the difference between this date and the current time. Defaults to
-    "milliseconds" but you can also pass in as the measurement "years",
-    "months", "weeks", "days", "hours", "minutes", and "seconds".
-    """
-    difference: String
-
-    """Configures the locale Moment.js will use to format the date."""
-    locale: String
-  ): Date
+  ): Date!
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+  blksize: Int
+  blocks: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
 }
 
 type DirectoryConnection {
@@ -300,6 +280,39 @@ type DirectoryEdge {
 }
 
 enum DirectoryFieldsEnum {
+  sourceInstanceName
+  absolutePath
+  relativePath
+  extension
+  size
+  prettySize
+  modifiedTime
+  accessTime
+  changeTime
+  birthTime
+  root
+  dir
+  base
+  ext
+  name
+  relativeDirectory
+  dev
+  mode
+  nlink
+  uid
+  gid
+  rdev
+  ino
+  atimeMs
+  mtimeMs
+  ctimeMs
+  atime
+  mtime
+  ctime
+  birthtime
+  birthtimeMs
+  blksize
+  blocks
   id
   parent___id
   parent___parent___id
@@ -386,46 +399,9 @@ enum DirectoryFieldsEnum {
   internal___mediaType
   internal___owner
   internal___type
-  sourceInstanceName
-  absolutePath
-  relativePath
-  extension
-  size
-  prettySize
-  modifiedTime
-  accessTime
-  changeTime
-  birthTime
-  root
-  dir
-  base
-  ext
-  name
-  relativeDirectory
-  dev
-  mode
-  nlink
-  uid
-  gid
-  rdev
-  blksize
-  ino
-  blocks
-  atimeMs
-  mtimeMs
-  ctimeMs
-  birthtimeMs
-  atime
-  mtime
-  ctime
-  birthtime
 }
 
 input DirectoryFilterInput {
-  id: StringQueryOperatorInput
-  parent: NodeFilterInput
-  children: NodeFilterListInput
-  internal: InternalFilterInput
   sourceInstanceName: StringQueryOperatorInput
   absolutePath: StringQueryOperatorInput
   relativePath: StringQueryOperatorInput
@@ -448,17 +424,21 @@ input DirectoryFilterInput {
   uid: IntQueryOperatorInput
   gid: IntQueryOperatorInput
   rdev: IntQueryOperatorInput
-  blksize: IntQueryOperatorInput
-  ino: IntQueryOperatorInput
-  blocks: IntQueryOperatorInput
+  ino: FloatQueryOperatorInput
   atimeMs: FloatQueryOperatorInput
   mtimeMs: FloatQueryOperatorInput
   ctimeMs: FloatQueryOperatorInput
-  birthtimeMs: FloatQueryOperatorInput
   atime: DateQueryOperatorInput
   mtime: DateQueryOperatorInput
   ctime: DateQueryOperatorInput
   birthtime: DateQueryOperatorInput
+  birthtimeMs: FloatQueryOperatorInput
+  blksize: IntQueryOperatorInput
+  blocks: IntQueryOperatorInput
+  id: StringQueryOperatorInput
+  parent: NodeFilterInput
+  children: NodeFilterListInput
+  internal: InternalFilterInput
 }
 
 type DirectoryGroupConnection {
@@ -482,14 +462,12 @@ input DuotoneGradient {
 }
 
 type File implements Node {
-  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
-  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
-  sourceInstanceName: String
-  absolutePath: String
-  relativePath: String
-  extension: String
-  size: Int
-  prettySize: String
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
   modifiedTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -510,7 +488,7 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   accessTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -531,7 +509,7 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   changeTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -552,7 +530,7 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   birthTime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -573,25 +551,23 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
-  root: String
-  dir: String
-  base: String
-  ext: String
-  name: String
-  relativeDirectory: String
-  dev: Int
-  mode: Int
-  nlink: Int
-  uid: Int
-  gid: Int
-  rdev: Int
-  blksize: Int
-  ino: Int
-  blocks: Int
-  atimeMs: Float
-  mtimeMs: Float
-  ctimeMs: Float
+  ): Date!
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
   atime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -612,7 +588,7 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   mtime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -633,7 +609,7 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
   ctime(
     """
     Format the date using Moment.js' date tokens, e.g. `date(formatString: "YYYY
@@ -654,15 +630,19 @@ type File implements Node {
 
     """Configures the locale Moment.js will use to format the date."""
     locale: String
-  ): Date
+  ): Date!
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+  blksize: Int
+  blocks: Int
 
   """Copy file to static directory and return public url to it"""
   publicURL: String
+  childImageSharp: ImageSharp
   id: ID!
   parent: Node
   children: [Node!]!
   internal: Internal!
-  childImageSharp: ImageSharp
   childMarkdownRemark: MarkdownRemark
 }
 
@@ -682,8 +662,6 @@ type FileEdge {
 }
 
 enum FileFieldsEnum {
-  birthtime
-  birthtimeMs
   sourceInstanceName
   absolutePath
   relativePath
@@ -706,103 +684,18 @@ enum FileFieldsEnum {
   uid
   gid
   rdev
-  blksize
   ino
-  blocks
   atimeMs
   mtimeMs
   ctimeMs
   atime
   mtime
   ctime
+  birthtime
+  birthtimeMs
+  blksize
+  blocks
   publicURL
-  id
-  parent___id
-  parent___parent___id
-  parent___parent___parent___id
-  parent___parent___parent___children
-  parent___parent___children
-  parent___parent___children___id
-  parent___parent___children___children
-  parent___parent___internal___content
-  parent___parent___internal___contentDigest
-  parent___parent___internal___description
-  parent___parent___internal___fieldOwners
-  parent___parent___internal___ignoreType
-  parent___parent___internal___mediaType
-  parent___parent___internal___owner
-  parent___parent___internal___type
-  parent___children
-  parent___children___id
-  parent___children___parent___id
-  parent___children___parent___children
-  parent___children___children
-  parent___children___children___id
-  parent___children___children___children
-  parent___children___internal___content
-  parent___children___internal___contentDigest
-  parent___children___internal___description
-  parent___children___internal___fieldOwners
-  parent___children___internal___ignoreType
-  parent___children___internal___mediaType
-  parent___children___internal___owner
-  parent___children___internal___type
-  parent___internal___content
-  parent___internal___contentDigest
-  parent___internal___description
-  parent___internal___fieldOwners
-  parent___internal___ignoreType
-  parent___internal___mediaType
-  parent___internal___owner
-  parent___internal___type
-  children
-  children___id
-  children___parent___id
-  children___parent___parent___id
-  children___parent___parent___children
-  children___parent___children
-  children___parent___children___id
-  children___parent___children___children
-  children___parent___internal___content
-  children___parent___internal___contentDigest
-  children___parent___internal___description
-  children___parent___internal___fieldOwners
-  children___parent___internal___ignoreType
-  children___parent___internal___mediaType
-  children___parent___internal___owner
-  children___parent___internal___type
-  children___children
-  children___children___id
-  children___children___parent___id
-  children___children___parent___children
-  children___children___children
-  children___children___children___id
-  children___children___children___children
-  children___children___internal___content
-  children___children___internal___contentDigest
-  children___children___internal___description
-  children___children___internal___fieldOwners
-  children___children___internal___ignoreType
-  children___children___internal___mediaType
-  children___children___internal___owner
-  children___children___internal___type
-  children___internal___content
-  children___internal___contentDigest
-  children___internal___description
-  children___internal___fieldOwners
-  children___internal___ignoreType
-  children___internal___mediaType
-  children___internal___owner
-  children___internal___type
-  internal___content
-  internal___contentDigest
-  internal___description
-  internal___fieldOwners
-  internal___ignoreType
-  internal___mediaType
-  internal___owner
-  internal___type
-  childImageSharp___id
   childImageSharp___fixed___base64 @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___fixed___tracedSVG @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___fixed___aspectRatio @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -856,6 +749,7 @@ enum FileFieldsEnum {
   childImageSharp___resize___height @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___resize___aspectRatio @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___resize___originalName @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___parent___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___parent___parent___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___parent___parent___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -893,13 +787,97 @@ enum FileFieldsEnum {
   childImageSharp___internal___mediaType @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___internal___owner @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childImageSharp___internal___type @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  id
+  parent___id
+  parent___parent___id
+  parent___parent___parent___id
+  parent___parent___parent___children
+  parent___parent___children
+  parent___parent___children___id
+  parent___parent___children___children
+  parent___parent___internal___content
+  parent___parent___internal___contentDigest
+  parent___parent___internal___description
+  parent___parent___internal___fieldOwners
+  parent___parent___internal___ignoreType
+  parent___parent___internal___mediaType
+  parent___parent___internal___owner
+  parent___parent___internal___type
+  parent___children
+  parent___children___id
+  parent___children___parent___id
+  parent___children___parent___children
+  parent___children___children
+  parent___children___children___id
+  parent___children___children___children
+  parent___children___internal___content
+  parent___children___internal___contentDigest
+  parent___children___internal___description
+  parent___children___internal___fieldOwners
+  parent___children___internal___ignoreType
+  parent___children___internal___mediaType
+  parent___children___internal___owner
+  parent___children___internal___type
+  parent___internal___content
+  parent___internal___contentDigest
+  parent___internal___description
+  parent___internal___fieldOwners
+  parent___internal___ignoreType
+  parent___internal___mediaType
+  parent___internal___owner
+  parent___internal___type
+  children
+  children___id
+  children___parent___id
+  children___parent___parent___id
+  children___parent___parent___children
+  children___parent___children
+  children___parent___children___id
+  children___parent___children___children
+  children___parent___internal___content
+  children___parent___internal___contentDigest
+  children___parent___internal___description
+  children___parent___internal___fieldOwners
+  children___parent___internal___ignoreType
+  children___parent___internal___mediaType
+  children___parent___internal___owner
+  children___parent___internal___type
+  children___children
+  children___children___id
+  children___children___parent___id
+  children___children___parent___children
+  children___children___children
+  children___children___children___id
+  children___children___children___children
+  children___children___internal___content
+  children___children___internal___contentDigest
+  children___children___internal___description
+  children___children___internal___fieldOwners
+  children___children___internal___ignoreType
+  children___children___internal___mediaType
+  children___children___internal___owner
+  children___children___internal___type
+  children___internal___content
+  children___internal___contentDigest
+  children___internal___description
+  children___internal___fieldOwners
+  children___internal___ignoreType
+  children___internal___mediaType
+  children___internal___owner
+  children___internal___type
+  internal___content
+  internal___contentDigest
+  internal___description
+  internal___fieldOwners
+  internal___ignoreType
+  internal___mediaType
+  internal___owner
+  internal___type
   childMarkdownRemark___id
   childMarkdownRemark___frontmatter___title
   childMarkdownRemark___frontmatter___date
   childMarkdownRemark___frontmatter___tags
   childMarkdownRemark___frontmatter___draft
-  childMarkdownRemark___frontmatter___cover___birthtime
-  childMarkdownRemark___frontmatter___cover___birthtimeMs
   childMarkdownRemark___frontmatter___cover___sourceInstanceName
   childMarkdownRemark___frontmatter___cover___absolutePath
   childMarkdownRemark___frontmatter___cover___relativePath
@@ -922,15 +900,17 @@ enum FileFieldsEnum {
   childMarkdownRemark___frontmatter___cover___uid
   childMarkdownRemark___frontmatter___cover___gid
   childMarkdownRemark___frontmatter___cover___rdev
-  childMarkdownRemark___frontmatter___cover___blksize
   childMarkdownRemark___frontmatter___cover___ino
-  childMarkdownRemark___frontmatter___cover___blocks
   childMarkdownRemark___frontmatter___cover___atimeMs
   childMarkdownRemark___frontmatter___cover___mtimeMs
   childMarkdownRemark___frontmatter___cover___ctimeMs
   childMarkdownRemark___frontmatter___cover___atime
   childMarkdownRemark___frontmatter___cover___mtime
   childMarkdownRemark___frontmatter___cover___ctime
+  childMarkdownRemark___frontmatter___cover___birthtime
+  childMarkdownRemark___frontmatter___cover___birthtimeMs
+  childMarkdownRemark___frontmatter___cover___blksize
+  childMarkdownRemark___frontmatter___cover___blocks
   childMarkdownRemark___frontmatter___cover___publicURL
   childMarkdownRemark___frontmatter___cover___id
   childMarkdownRemark___frontmatter___cover___children
@@ -989,8 +969,6 @@ enum FileFieldsEnum {
 }
 
 input FileFilterInput {
-  birthtime: DateQueryOperatorInput
-  birthtimeMs: FloatQueryOperatorInput
   sourceInstanceName: StringQueryOperatorInput
   absolutePath: StringQueryOperatorInput
   relativePath: StringQueryOperatorInput
@@ -1013,21 +991,23 @@ input FileFilterInput {
   uid: IntQueryOperatorInput
   gid: IntQueryOperatorInput
   rdev: IntQueryOperatorInput
-  blksize: IntQueryOperatorInput
-  ino: IntQueryOperatorInput
-  blocks: IntQueryOperatorInput
+  ino: FloatQueryOperatorInput
   atimeMs: FloatQueryOperatorInput
   mtimeMs: FloatQueryOperatorInput
   ctimeMs: FloatQueryOperatorInput
   atime: DateQueryOperatorInput
   mtime: DateQueryOperatorInput
   ctime: DateQueryOperatorInput
+  birthtime: DateQueryOperatorInput
+  birthtimeMs: FloatQueryOperatorInput
+  blksize: IntQueryOperatorInput
+  blocks: IntQueryOperatorInput
   publicURL: StringQueryOperatorInput
+  childImageSharp: ImageSharpFilterInput
   id: StringQueryOperatorInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
-  childImageSharp: ImageSharpFilterInput
   childMarkdownRemark: MarkdownRemarkFilterInput
 }
 
@@ -1084,9 +1064,8 @@ enum ImageFormat {
 }
 
 type ImageSharp implements Node {
-  id: ID!
-  fixed(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, toFormat: ImageFormat = NO_CHANGE, toFormatBase64: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpFixed
-  resolutions(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, toFormat: ImageFormat = NO_CHANGE, toFormatBase64: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResolutions @deprecated(reason: "Resolutions was deprecated in Gatsby v2. It's been renamed to \"fixed\" https://example.com/write-docs-and-fix-this-example-link")
+  fixed(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, toFormat: ImageFormat = NO_CHANGE, toFormatBase64: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpFixed
+  resolutions(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, toFormat: ImageFormat = NO_CHANGE, toFormatBase64: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResolutions @deprecated(reason: "Resolutions was deprecated in Gatsby v2. It's been renamed to \"fixed\" https://example.com/write-docs-and-fix-this-example-link")
   fluid(
     maxWidth: Int
     maxHeight: Int
@@ -1097,6 +1076,9 @@ type ImageSharp implements Node {
     duotone: DuotoneGradient
     traceSVG: Potrace
     quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
     toFormat: ImageFormat = NO_CHANGE
     toFormatBase64: ImageFormat = NO_CHANGE
     cropFocus: ImageCropFocus = ATTENTION
@@ -1121,6 +1103,9 @@ type ImageSharp implements Node {
     duotone: DuotoneGradient
     traceSVG: Potrace
     quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
     toFormat: ImageFormat = NO_CHANGE
     toFormatBase64: ImageFormat = NO_CHANGE
     cropFocus: ImageCropFocus = ATTENTION
@@ -1136,7 +1121,8 @@ type ImageSharp implements Node {
     srcSetBreakpoints: [Int] = []
   ): ImageSharpSizes @deprecated(reason: "Sizes was deprecated in Gatsby v2. It's been renamed to \"fluid\" https://example.com/write-docs-and-fix-this-example-link")
   original: ImageSharpOriginal
-  resize(width: Int, height: Int, quality: Int, jpegProgressive: Boolean = true, pngCompressionLevel: Int = 9, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, base64: Boolean = false, traceSVG: Potrace, toFormat: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResize
+  resize(width: Int, height: Int, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, jpegProgressive: Boolean = true, pngCompressionLevel: Int = 9, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, base64: Boolean = false, traceSVG: Potrace, toFormat: ImageFormat = NO_CHANGE, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResize
+  id: ID!
   parent: Node
   children: [Node!]!
   internal: Internal!
@@ -1158,7 +1144,6 @@ type ImageSharpEdge {
 }
 
 enum ImageSharpFieldsEnum {
-  id
   fixed___base64 @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fixed___tracedSVG @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fixed___aspectRatio @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1212,6 +1197,7 @@ enum ImageSharpFieldsEnum {
   resize___height @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   resize___aspectRatio @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   resize___originalName @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   parent___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   parent___parent___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   parent___parent___parent___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1300,13 +1286,13 @@ enum ImageSharpFieldsEnum {
 }
 
 input ImageSharpFilterInput {
-  id: StringQueryOperatorInput
   fixed: ImageSharpFixedFilterInput
   resolutions: ImageSharpResolutionsFilterInput
   fluid: ImageSharpFluidFilterInput
   sizes: ImageSharpSizesFilterInput
   original: ImageSharpOriginalFilterInput
   resize: ImageSharpResizeFilterInput
+  id: StringQueryOperatorInput
   parent: NodeFilterInput
   children: NodeFilterListInput
   internal: InternalFilterInput
@@ -1556,7 +1542,7 @@ type MarkdownRemark implements Node {
   excerptAst(pruneLength: Int = 140, truncate: Boolean = false): JSON
   headings(depth: MarkdownHeadingLevels): [MarkdownHeading]
   timeToRead: Int
-  tableOfContents(pathToSlugField: String = "fields.slug", maxDepth: Int, heading: String): String
+  tableOfContents(absolute: Boolean = true, pathToSlugField: String = "fields.slug", maxDepth: Int, heading: String): String
   wordCount: MarkdownWordCount
   parent: Node
   children: [Node!]!
@@ -1588,8 +1574,6 @@ enum MarkdownRemarkFieldsEnum {
   frontmatter___date
   frontmatter___tags
   frontmatter___draft
-  frontmatter___cover___birthtime
-  frontmatter___cover___birthtimeMs
   frontmatter___cover___sourceInstanceName
   frontmatter___cover___absolutePath
   frontmatter___cover___relativePath
@@ -1612,16 +1596,20 @@ enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___uid
   frontmatter___cover___gid
   frontmatter___cover___rdev
-  frontmatter___cover___blksize
   frontmatter___cover___ino
-  frontmatter___cover___blocks
   frontmatter___cover___atimeMs
   frontmatter___cover___mtimeMs
   frontmatter___cover___ctimeMs
   frontmatter___cover___atime
   frontmatter___cover___mtime
   frontmatter___cover___ctime
+  frontmatter___cover___birthtime
+  frontmatter___cover___birthtimeMs
+  frontmatter___cover___blksize
+  frontmatter___cover___blocks
   frontmatter___cover___publicURL
+  frontmatter___cover___childImageSharp___id @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  frontmatter___cover___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___id
   frontmatter___cover___parent___id
   frontmatter___cover___parent___children
@@ -1636,8 +1624,6 @@ enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___internal___mediaType
   frontmatter___cover___internal___owner
   frontmatter___cover___internal___type
-  frontmatter___cover___childImageSharp___id
-  frontmatter___cover___childImageSharp___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___id
   frontmatter___cover___childMarkdownRemark___excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1886,20 +1872,20 @@ enum PotraceTurnPolicy {
 }
 
 type Query {
-  file(birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, blksize: IntQueryOperatorInput, ino: IntQueryOperatorInput, blocks: IntQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, publicURL: StringQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, childImageSharp: ImageSharpFilterInput, childMarkdownRemark: MarkdownRemarkFilterInput): File
+  file(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, publicURL: StringQueryOperatorInput, childImageSharp: ImageSharpFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, childMarkdownRemark: MarkdownRemarkFilterInput): File
   allFile(filter: FileFilterInput, sort: FileSortInput, skip: Int, limit: Int): FileConnection!
-  imageSharp(id: StringQueryOperatorInput, fixed: ImageSharpFixedFilterInput, resolutions: ImageSharpResolutionsFilterInput, fluid: ImageSharpFluidFilterInput, sizes: ImageSharpSizesFilterInput, original: ImageSharpOriginalFilterInput, resize: ImageSharpResizeFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ImageSharp
+  directory(sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, ino: FloatQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): Directory
+  allDirectory(filter: DirectoryFilterInput, sort: DirectorySortInput, skip: Int, limit: Int): DirectoryConnection!
+  imageSharp(fixed: ImageSharpFixedFilterInput, resolutions: ImageSharpResolutionsFilterInput, fluid: ImageSharpFluidFilterInput, sizes: ImageSharpSizesFilterInput, original: ImageSharpOriginalFilterInput, resize: ImageSharpResizeFilterInput, id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): ImageSharp
   allImageSharp(filter: ImageSharpFilterInput, sort: ImageSharpSortInput, skip: Int, limit: Int): ImageSharpConnection!
   markdownRemark(id: StringQueryOperatorInput, frontmatter: MarkdownRemarkFrontmatterFilterInput, excerpt: StringQueryOperatorInput, rawMarkdownBody: StringQueryOperatorInput, fileAbsolutePath: StringQueryOperatorInput, fields: MarkdownRemarkFieldsFilterInput, html: StringQueryOperatorInput, htmlAst: JSONQueryOperatorInput, excerptAst: JSONQueryOperatorInput, headings: MarkdownHeadingFilterListInput, timeToRead: IntQueryOperatorInput, tableOfContents: StringQueryOperatorInput, wordCount: MarkdownWordCountFilterInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput): MarkdownRemark
   allMarkdownRemark(filter: MarkdownRemarkFilterInput, sort: MarkdownRemarkSortInput, skip: Int, limit: Int): MarkdownRemarkConnection!
-  sitePage(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, path: StringQueryOperatorInput, internalComponentName: StringQueryOperatorInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, context: SitePageContextFilterInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput, componentPath: StringQueryOperatorInput): SitePage
-  allSitePage(filter: SitePageFilterInput, sort: SitePageSortInput, skip: Int, limit: Int): SitePageConnection!
-  sitePlugin(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, resolve: StringQueryOperatorInput, name: StringQueryOperatorInput, version: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, nodeAPIs: StringQueryOperatorInput, browserAPIs: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, pluginFilepath: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput): SitePlugin
-  allSitePlugin(filter: SitePluginFilterInput, sort: SitePluginSortInput, skip: Int, limit: Int): SitePluginConnection!
   site(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, siteMetadata: SiteSiteMetadataFilterInput, port: IntQueryOperatorInput, host: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, pathPrefix: StringQueryOperatorInput, buildTime: DateQueryOperatorInput): Site
   allSite(filter: SiteFilterInput, sort: SiteSortInput, skip: Int, limit: Int): SiteConnection!
-  directory(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, sourceInstanceName: StringQueryOperatorInput, absolutePath: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, extension: StringQueryOperatorInput, size: IntQueryOperatorInput, prettySize: StringQueryOperatorInput, modifiedTime: DateQueryOperatorInput, accessTime: DateQueryOperatorInput, changeTime: DateQueryOperatorInput, birthTime: DateQueryOperatorInput, root: StringQueryOperatorInput, dir: StringQueryOperatorInput, base: StringQueryOperatorInput, ext: StringQueryOperatorInput, name: StringQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, dev: IntQueryOperatorInput, mode: IntQueryOperatorInput, nlink: IntQueryOperatorInput, uid: IntQueryOperatorInput, gid: IntQueryOperatorInput, rdev: IntQueryOperatorInput, blksize: IntQueryOperatorInput, ino: IntQueryOperatorInput, blocks: IntQueryOperatorInput, atimeMs: FloatQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, atime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, ctime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput): Directory
-  allDirectory(filter: DirectoryFilterInput, sort: DirectorySortInput, skip: Int, limit: Int): DirectoryConnection!
+  sitePlugin(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, resolve: StringQueryOperatorInput, name: StringQueryOperatorInput, version: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, nodeAPIs: StringQueryOperatorInput, browserAPIs: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, pluginFilepath: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput): SitePlugin
+  allSitePlugin(filter: SitePluginFilterInput, sort: SitePluginSortInput, skip: Int, limit: Int): SitePluginConnection!
+  sitePage(id: StringQueryOperatorInput, parent: NodeFilterInput, children: NodeFilterListInput, internal: InternalFilterInput, path: StringQueryOperatorInput, internalComponentName: StringQueryOperatorInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, context: SitePageContextFilterInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput, componentPath: StringQueryOperatorInput): SitePage
+  allSitePage(filter: SitePageFilterInput, sort: SitePageSortInput, skip: Int, limit: Int): SitePageConnection!
 }
 
 type Site implements Node {
@@ -2040,6 +2026,7 @@ enum SiteFieldsEnum {
   siteMetadata___title
   siteMetadata___description
   siteMetadata___author
+  siteMetadata___siteUrl
   siteMetadata___baseUrl
   siteMetadata___socials
   siteMetadata___socials___type
@@ -2339,6 +2326,10 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___plugins___browserAPIs
   pluginCreator___pluginOptions___plugins___ssrAPIs
   pluginCreator___pluginOptions___plugins___pluginFilepath
+  pluginCreator___pluginOptions___trackingId
+  pluginCreator___pluginOptions___head
+  pluginCreator___pluginOptions___anonymize
+  pluginCreator___pluginOptions___respectDNT
   pluginCreator___pluginOptions___fonts
   pluginCreator___pluginOptions___fonts___family
   pluginCreator___pluginOptions___fonts___variants
@@ -2359,6 +2350,8 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___withWebp
   pluginCreator___pluginOptions___tracedSVG
   pluginCreator___pluginOptions___loading
+  pluginCreator___pluginOptions___disableBgImageOnAlpha
+  pluginCreator___pluginOptions___disableBgImage
   pluginCreator___pluginOptions___target
   pluginCreator___pluginOptions___rel
   pluginCreator___pluginOptions___short_name
@@ -2380,6 +2373,7 @@ enum SitePageFieldsEnum {
   pluginCreator___packageJson___description
   pluginCreator___packageJson___version
   pluginCreator___packageJson___main
+  pluginCreator___packageJson___author
   pluginCreator___packageJson___license
   pluginCreator___packageJson___dependencies
   pluginCreator___packageJson___dependencies___name
@@ -2566,11 +2560,17 @@ enum SitePluginFieldsEnum {
   pluginOptions___plugins___pluginOptions___withWebp
   pluginOptions___plugins___pluginOptions___tracedSVG
   pluginOptions___plugins___pluginOptions___loading
+  pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha
+  pluginOptions___plugins___pluginOptions___disableBgImage
   pluginOptions___plugins___pluginOptions___target
   pluginOptions___plugins___pluginOptions___rel
   pluginOptions___plugins___browserAPIs
   pluginOptions___plugins___ssrAPIs
   pluginOptions___plugins___pluginFilepath
+  pluginOptions___trackingId
+  pluginOptions___head
+  pluginOptions___anonymize
+  pluginOptions___respectDNT
   pluginOptions___fonts
   pluginOptions___fonts___family
   pluginOptions___fonts___variants
@@ -2591,6 +2591,8 @@ enum SitePluginFieldsEnum {
   pluginOptions___withWebp
   pluginOptions___tracedSVG
   pluginOptions___loading
+  pluginOptions___disableBgImageOnAlpha
+  pluginOptions___disableBgImage
   pluginOptions___target
   pluginOptions___rel
   pluginOptions___short_name
@@ -2612,6 +2614,7 @@ enum SitePluginFieldsEnum {
   packageJson___description
   packageJson___version
   packageJson___main
+  packageJson___author
   packageJson___license
   packageJson___dependencies
   packageJson___dependencies___name
@@ -2655,6 +2658,7 @@ type SitePluginPackageJson {
   description: String
   version: String
   main: String
+  author: String
   license: String
   dependencies: [SitePluginPackageJsonDependencies]
   devDependencies: [SitePluginPackageJsonDevDependencies]
@@ -2695,6 +2699,7 @@ input SitePluginPackageJsonFilterInput {
   description: StringQueryOperatorInput
   version: StringQueryOperatorInput
   main: StringQueryOperatorInput
+  author: StringQueryOperatorInput
   license: StringQueryOperatorInput
   dependencies: SitePluginPackageJsonDependenciesFilterListInput
   devDependencies: SitePluginPackageJsonDevDependenciesFilterListInput
@@ -2718,6 +2723,10 @@ input SitePluginPackageJsonPeerDependenciesFilterListInput {
 
 type SitePluginPluginOptions {
   plugins: [SitePluginPluginOptionsPlugins]
+  trackingId: String
+  head: Boolean
+  anonymize: Boolean
+  respectDNT: Boolean
   fonts: [SitePluginPluginOptionsFonts]
   name: String
   path: String
@@ -2736,6 +2745,8 @@ type SitePluginPluginOptions {
   withWebp: Boolean
   tracedSVG: Boolean
   loading: String
+  disableBgImageOnAlpha: Boolean
+  disableBgImage: Boolean
   target: String
   rel: String
   short_name: String
@@ -2767,6 +2778,10 @@ input SitePluginPluginOptionsFeedsFilterListInput {
 
 input SitePluginPluginOptionsFilterInput {
   plugins: SitePluginPluginOptionsPluginsFilterListInput
+  trackingId: StringQueryOperatorInput
+  head: BooleanQueryOperatorInput
+  anonymize: BooleanQueryOperatorInput
+  respectDNT: BooleanQueryOperatorInput
   fonts: SitePluginPluginOptionsFontsFilterListInput
   name: StringQueryOperatorInput
   path: StringQueryOperatorInput
@@ -2785,6 +2800,8 @@ input SitePluginPluginOptionsFilterInput {
   withWebp: BooleanQueryOperatorInput
   tracedSVG: BooleanQueryOperatorInput
   loading: StringQueryOperatorInput
+  disableBgImageOnAlpha: BooleanQueryOperatorInput
+  disableBgImage: BooleanQueryOperatorInput
   target: StringQueryOperatorInput
   rel: StringQueryOperatorInput
   short_name: StringQueryOperatorInput
@@ -2852,6 +2869,8 @@ type SitePluginPluginOptionsPluginsPluginOptions {
   withWebp: Boolean
   tracedSVG: Boolean
   loading: String
+  disableBgImageOnAlpha: Boolean
+  disableBgImage: Boolean
   target: String
   rel: String
 }
@@ -2872,6 +2891,8 @@ input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
   withWebp: BooleanQueryOperatorInput
   tracedSVG: BooleanQueryOperatorInput
   loading: StringQueryOperatorInput
+  disableBgImageOnAlpha: BooleanQueryOperatorInput
+  disableBgImage: BooleanQueryOperatorInput
   target: StringQueryOperatorInput
   rel: StringQueryOperatorInput
 }
@@ -2885,6 +2906,7 @@ type SiteSiteMetadata {
   title: String
   description: String
   author: String
+  siteUrl: String
   baseUrl: String
   socials: [SiteSiteMetadataSocials]
   blogsPerPage: Int
@@ -2894,6 +2916,7 @@ input SiteSiteMetadataFilterInput {
   title: StringQueryOperatorInput
   description: StringQueryOperatorInput
   author: StringQueryOperatorInput
+  siteUrl: StringQueryOperatorInput
   baseUrl: StringQueryOperatorInput
   socials: SiteSiteMetadataSocialsFilterListInput
   blogsPerPage: IntQueryOperatorInput

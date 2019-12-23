@@ -27,6 +27,15 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        trackingId: "UA-154847070-1",
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+      },
+    },
+    {
       resolve: "gatsby-plugin-prefetch-google-fonts",
       options: {
         fonts: [
@@ -54,8 +63,8 @@ module.exports = {
           {
             resolve: "gatsby-remark-code-buttons",
             options: {
-              toasterText: "Copied to clipboard 📋"
-            }
+              toasterText: "Copied to clipboard 📋",
+            },
           },
           {
             resolve: "gatsby-remark-responsive-iframe",
@@ -72,8 +81,8 @@ module.exports = {
           {
             resolve: "gatsby-remark-prismjs",
             options: {
-              showLineNumbers: true
-            }
+              showLineNumbers: true,
+            },
           },
           "gatsby-remark-copy-linked-files",
           "gatsby-remark-smartypants",
@@ -91,7 +100,7 @@ module.exports = {
               target: "_blank",
               rel: "nofollow noreferrer",
             },
-          }
+          },
         ],
       },
     },
@@ -102,7 +111,7 @@ module.exports = {
         short_name: `tnc`,
         start_url: `/`,
         display: `minimal-ui`,
-        icon: "src/content/tnc.png"
+        icon: "src/content/tnc.png",
       },
     },
     {
@@ -122,16 +131,22 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({query: {site, allMarkdownRemark}}) => {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
               return allMarkdownRemark.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.baseUrl + '/blogs' + edge.node.fields.slug,
-                  guid: site.siteMetadata.baseUrl + '/blogs' + edge.node.fields.slug,
-                  custom_elements: [{"content:encoded": edge.node.html}]
-                })
-              })
+                  url:
+                    site.siteMetadata.baseUrl +
+                    "/blogs" +
+                    edge.node.fields.slug,
+                  guid:
+                    site.siteMetadata.baseUrl +
+                    "/blogs" +
+                    edge.node.fields.slug,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                });
+              });
             },
             query: `
               {
@@ -155,10 +170,10 @@ module.exports = {
             `,
             output: "/rss.xml",
             title: "tnc Blog",
-            match: "^/(blog | blogs)/"
-          }
-        ]
-      }
+            match: "^/(blog | blogs)/",
+          },
+        ],
+      },
     },
     "gatsby-plugin-material-ui",
     "gatsby-plugin-layout",

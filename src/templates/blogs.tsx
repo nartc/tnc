@@ -87,7 +87,7 @@ export const blogsQuery = graphql`
           excerpt
           timeToRead
           frontmatter {
-            date(formatString: "MM/DD/YYYY")
+            date(formatString: " MM/DD/YYYY")
             tags
             title
             cover {

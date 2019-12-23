@@ -8,10 +8,11 @@ import { SiteSiteMetadataSocials } from "../graph-types";
 import Socials from "./socials";
 
 type NavsProps = {
+  atIndex?: boolean;
   socials: Array<SiteSiteMetadataSocials>;
 } & WithTheme<Theme>;
 
-const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
+const Navs: FC<NavsProps> = memo(({ atIndex, socials, theme }) => {
   const activeStyle = useMemo(
     () => ({
       backgroundImage: `linear-gradient(to top, 
@@ -64,9 +65,13 @@ const Navs: FC<NavsProps> = memo(({ socials, theme }) => {
         </Grid>
       </Grid>
 
-      <Socials socials={socials} />
+      <Socials showDeactivateGA={!atIndex} socials={socials} />
     </>
   );
 });
+
+Navs.defaultProps = {
+  atIndex: false,
+};
 
 export default withTheme(Navs);
