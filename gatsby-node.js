@@ -4,6 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+const kebabCase = require("lodash.kebabcase");
 const { createFilePath } = require("gatsby-source-filesystem");
 const path = require("path");
 
@@ -26,10 +27,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     {
-      allMarkdownRemark (
+      allMarkdownRemark(
         sort: { fields: [frontmatter___date], order: [ASC] }
         filter: { frontmatter: { draft: { ne: true } } }
       ) {
+        group(field: frontmatter___tags) {
+          tag: fieldValue
+          totalCount
+        }
         edges {
           node {
             fields {
@@ -56,12 +61,35 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Templates
+  const tagsTemplate = path.resolve("./src/templates/tags.tsx");
   const blogsTemplate = path.resolve("./src/templates/blogs.tsx");
   const blogTemplate = path.resolve("./src/templates/blog.tsx");
 
   const blogs = result.data.allMarkdownRemark.edges;
   const blogsPerPage = result.data.site.siteMetadata.blogsPerPage;
+  const tags = result.data.allMarkdownRemark.group;
   const numPages = Math.ceil(blogs.length / blogsPerPage);
+
+  tags.forEach(({ tag, totalCount }) => {
+    const tagsPageCount = Math.ceil(totalCount / blogsPerPage);
+    Array.from({ length: tagsPageCount }).forEach((_, index) => {
+      createPage({
+        path:
+          index === 0
+            ? `/tags/${kebabCase(tag)}`
+            : `/tags/${kebabCase(tag)}/${index + 1}`,
+        component: tagsTemplate,
+        context: {
+          tag,
+          totalCount,
+          currentPage: index + 1,
+          numPages: tagsPageCount,
+          limit: blogsPerPage,
+          skip: index * blogsPerPage,
+        },
+      });
+    });
+  });
 
   Array.from({ length: numPages }).forEach((_, index) => {
     createPage({

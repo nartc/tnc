@@ -3,14 +3,13 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import TablePagination from "@material-ui/core/TablePagination";
 import Typography from "@material-ui/core/Typography";
-import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import { NavigateFn } from "@reach/router";
 import { graphql } from "gatsby";
+import TagOutline from "mdi-material-ui/TagOutline";
 import React, { FC, memo, useCallback } from "react";
 import BlogListItem from "../components/blogs/blog-list-item";
 import Navs from "../components/navs";
 import SEO from "../components/seo";
-import TagsList from "../components/tags-list";
 import {
   MarkdownRemarkConnection,
   Site,
@@ -19,7 +18,7 @@ import {
   SiteSiteMetadataSocials,
 } from "../graph-types";
 
-type BlogsProps = {
+type TagsProps = {
   data: {
     allMarkdownRemark: MarkdownRemarkConnection;
     site: Site;
@@ -28,29 +27,30 @@ type BlogsProps = {
   navigate: NavigateFn;
 };
 
-const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
+const Tags: FC<TagsProps> = memo(({ data, pageContext, navigate }) => {
+  const { tag, totalCount, limit, currentPage, numPages } = pageContext;
+
   const onChangePage = useCallback(
     (_: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
       console.log(page);
     },
     []
   );
-  const tags = (data.allMarkdownRemark?.group as unknown) as Array<{
-    tag: string;
-    totalCount: number;
-  }>;
 
   const navigateFn = useCallback(navigate, []);
 
   return (
     <>
-      <SEO title={"blogs"} />
+      <SEO title={tag as string} />
       <Container maxWidth={"lg"}>
         <Typography variant={"h3"} gutterBottom>
-          <LibraryBooksOutlinedIcon fontSize={"large"} /> Blogs
+          <TagOutline fontSize={"large"} /> Tag "{tag}"
         </Typography>
-        <TagsList tags={tags} />
+        <Typography variant={"h5"} gutterBottom>
+          {totalCount} {totalCount === 1 ? "result" : "results"}
+        </Typography>
         <Divider />
+
         <Grid container spacing={6}>
           {data.allMarkdownRemark.edges.map((edge, index) => {
             return (
@@ -60,12 +60,13 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
             );
           })}
         </Grid>
-        {(pageContext.numPages as number) > 1 && (
+
+        {(numPages as number) > 1 && (
           <TablePagination
             labelRowsPerPage={null}
-            rowsPerPage={pageContext.limit as number}
-            page={(pageContext.currentPage as number) - 1}
-            count={pageContext.total as number}
+            rowsPerPage={limit as number}
+            page={(currentPage as number) - 1}
+            count={totalCount as number}
             onChangePage={onChangePage}
           />
         )}
@@ -80,20 +81,16 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
   );
 });
 
-export default Blogs;
+export default Tags;
 
-export const blogsQuery = graphql`
-  query blogsQuery($skip: Int!, $limit: Int!) {
+export const tagsQuery = graphql`
+  query tagsQuery($skip: Int!, $limit: Int!, $tag: String!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: [DESC] }
-      filter: { frontmatter: { draft: { ne: true } } }
+      filter: { frontmatter: { draft: { ne: true }, tags: { in: [$tag] } } }
       limit: $limit
       skip: $skip
     ) {
-      group(field: frontmatter___tags) {
-        tag: fieldValue
-        totalCount
-      }
       edges {
         node {
           excerpt

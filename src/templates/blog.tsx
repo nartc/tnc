@@ -6,9 +6,11 @@ import Paper from "@material-ui/core/Paper";
 import { Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
+import { NavigateFn } from "@reach/router";
 import { graphql } from "gatsby";
 import Img, { FluidObject } from "gatsby-image";
-import React, { FC, memo } from "react";
+import kebabCase from "lodash.kebabcase";
+import React, { FC, memo, useCallback } from "react";
 import GoToTop from "../components/blog/go-to-top";
 import HomeButton from "../components/blog/home-btn";
 import NextPrev from "../components/blog/next-prev";
@@ -46,6 +48,7 @@ type BlogProps = {
       frontmatter: MarkdownRemarkFrontmatter;
     };
   };
+  navigate: NavigateFn;
 };
 
 const useStyles = makeStyles<Theme>(theme => ({
@@ -81,7 +84,7 @@ const useStyles = makeStyles<Theme>(theme => ({
   },
 }));
 
-const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
+const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
   const classes = useStyles();
 
   const frontmatter = data.markdownRemark
@@ -90,6 +93,13 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
     .slug as string;
   const imgFluid = frontmatter.cover?.childImageSharp?.fluid;
   const tags = frontmatter.tags as string[];
+
+  const onTagClick = useCallback(
+    tag => () => {
+      navigate(`/tags/${kebabCase(tag)}`);
+    },
+    []
+  );
 
   return (
     <>
@@ -166,7 +176,13 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext }) => {
           <Grid container justify={"center"} alignItems={"center"} spacing={1}>
             {tags.map((tag, index) => (
               <Grid item key={index}>
-                <Chip label={tag} clickable color={"primary"} size={"small"} />
+                <Chip
+                  label={tag}
+                  onClick={onTagClick(tag)}
+                  clickable
+                  color={"primary"}
+                  size={"small"}
+                />
               </Grid>
             ))}
           </Grid>
