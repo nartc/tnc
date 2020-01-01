@@ -50,6 +50,13 @@ const blogContentStyles = (theme: Theme) =>
         justifyContent: "center",
         fontSize: "smaller",
       },
+      "& > img": {
+        width: "80%",
+        height: "auto",
+        position: "relative",
+        left: "50%",
+        transform: "translateX(-50%)",
+      },
     },
     "& li": {
       marginTop: theme.spacing(),
@@ -117,7 +124,9 @@ const blogContentStyles = (theme: Theme) =>
       paddingRight: theme.spacing(),
       paddingLeft: theme.spacing(),
       borderRadius: 5,
-      fontFamily: "Menlo, Consolas,".concat(theme.typography.fontFamily as string),
+      fontFamily: "Menlo, Consolas,".concat(
+        theme.typography.fontFamily as string
+      ),
     },
     "& div.gatsby-code-button": {
       background: "#c4c4c4",
