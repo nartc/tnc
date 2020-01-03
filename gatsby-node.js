@@ -86,7 +86,8 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Templates
   const tagsTemplate = path.resolve("./src/templates/tags.tsx");
-  const blogsTemplate = path.resolve("./src/templates/blogs.tsx");
+  const enBlogsTemplate = path.resolve("./src/templates/blogs.en.tsx");
+  const viBlogsTemplate = path.resolve("./src/templates/blogs.vi.tsx");
   const blogTemplate = path.resolve("./src/templates/blog.tsx");
 
   const blogs = result.data.allMarkdownRemark.edges;
@@ -97,7 +98,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const numPages = Math.ceil(enBlogLength / blogsPerPage);
 
   tags.forEach(({ tag, edges }) => {
-    const totalCount = edges.filter(edge => edge.node.fields.langKey === 'en').length;
+    const totalCount = edges.filter(edge => edge.node.fields.langKey === "en")
+      .length;
     const tagsPageCount = Math.ceil(totalCount / blogsPerPage);
     Array.from({ length: tagsPageCount }).forEach((_, index) => {
       langs.forEach(lang => {
@@ -126,11 +128,11 @@ exports.createPages = async ({ graphql, actions }) => {
   Array.from({ length: numPages }).forEach((_, index) => {
     langs.forEach(lang => {
       let path = index === 0 ? "/blogs" : `/blogs/${index + 1}`;
-      path = lang === "en" ? path : `/${lang}${path}`;
+      path = lang === "en" ? path : `${path}/${lang}`;
 
       createPage({
         path,
-        component: blogsTemplate,
+        component: lang === "en" ? enBlogsTemplate : viBlogsTemplate,
         context: {
           langKey: lang,
           limit: blogsPerPage,
@@ -143,25 +145,50 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  blogs.forEach(({ node }, index) => {
-    const { slug, langKey } = node.fields;
-    const prev = index === 0 ? null : blogs[index - 1].node;
-    const next = index === blogs.length - 1 ? null : blogs[index + 1].node;
+  const consolidatedBlogs = Object.values(
+    blogs.reduce((acc, cur) => {
+      acc[cur.node.fields.slug] = acc[cur.node.fields.slug]
+        ? {
+            ...acc[cur.node.fields.slug],
+            langKeys: [
+              ...acc[cur.node.fields.slug].langKeys,
+              ...langs.filter(lang => cur.node.fields.langKey === lang),
+            ],
+          }
+        : {
+            ...cur.node.fields,
+            primaryTag: cur.node.frontmatter.tags
+              ? cur.node.frontmatter.tags[0]
+              : "",
+            langKeys: [cur.node.fields.langKey],
+          };
+      delete acc[cur.node.fields.slug].langKey;
+      return acc;
+    }, {})
+  );
 
-    createPage({
-      path:
-        "/blogs/" +
-        (langKey === "vi" ? langKey + "/" : "") +
-        slug.replace("/", ""),
-      component: blogTemplate,
-      context: {
-        // Data passed to context is available in page queries as GraphQL variables.
-        slug,
-        langKey,
-        prev,
-        next,
-        primaryTag: node.frontmatter.tags ? node.frontmatter.tags[0] : "",
-      },
-    });
-  });
+  consolidatedBlogs.forEach(
+    ({ slug, langKeys, primaryTag }, index, blogsArr) => {
+      const prev = index === 0 ? null : blogsArr[index - 1].node;
+      const next =
+        index === blogsArr.length - 1 ? null : blogsArr[index + 1].node;
+
+      for (const langKey of langKeys) {
+        createPage({
+          path:
+            "/blogs/" +
+            (langKey === "vi" ? langKey + "/" : "") +
+            slug.replace("/", ""),
+          component: blogTemplate,
+          context: {
+            slug,
+            langKey,
+            prev,
+            next,
+            primaryTag,
+          },
+        });
+      }
+    }
+  );
 };

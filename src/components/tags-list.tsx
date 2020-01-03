@@ -26,22 +26,28 @@ const useStyles = makeStyles<Theme>(theme => ({
 const TagsList: FC<TagsListProps> = memo(({ tags }) => {
   const classes = useStyles();
 
-  const tagItem = (tag: string, totalCount: number, index: number) => (
-    <Link key={index} to={`/tags/${kebabCase(tag)}`} className={classes.link}>
+  const tagItem = (
+    tag: string,
+    totalCount: number,
+    index: number,
+    lastIndex: number
+  ) => (
+    <Link
+      key={index + tag + totalCount}
+      to={`/tags/${kebabCase(tag)}`}
+      className={classes.link}
+    >
       <Typography variant={"caption"} classes={{ root: classes.title }}>
         {tag} ({totalCount})
       </Typography>
+      {index !== lastIndex ? ",  " : ""}
     </Link>
   );
 
   return (
     <Grid container alignItems={"center"} classes={{ root: classes.container }}>
       {tags.map(({ tag, totalCount }, index) => {
-        return index === tags.length - 1 ? (
-          tagItem(tag, totalCount, index)
-        ) : (
-          <>{tagItem(tag, totalCount, index)},&nbsp;&nbsp;</>
-        );
+        return tagItem(tag, totalCount, index, tags.length - 1);
       })}
     </Grid>
   );
