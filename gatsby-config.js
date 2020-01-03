@@ -24,6 +24,7 @@ module.exports = {
       },
     ],
     blogsPerPage: 10,
+    langs: ["en", "vi"],
   },
   plugins: [
     {

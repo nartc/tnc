@@ -83,10 +83,13 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
 export default Blogs;
 
 export const blogsQuery = graphql`
-  query blogsQuery($skip: Int!, $limit: Int!) {
+  query blogsQuery($skip: Int!, $limit: Int!, $langKey: String!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: [DESC] }
-      filter: { frontmatter: { draft: { ne: true } } }
+      filter: {
+        frontmatter: { draft: { ne: true } }
+        fields: { langKey: {eq: $langKey} }
+      }
       limit: $limit
       skip: $skip
     ) {
