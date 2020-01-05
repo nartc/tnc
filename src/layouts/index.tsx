@@ -1,22 +1,30 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
-import React, { FC, useMemo } from "react";
-import ThemeToggler from "../components/theme-toggler";
+import { ReplaceComponentRendererArgs } from "gatsby";
+import React, { FC, ReactElement, useMemo } from "react";
+import Togglers from "../components/togglers";
+import { LanguageChangerProvider } from "../contexts/language-changer-context";
 import {
   ThemeChangerProvider,
   useThemeChangerContext,
 } from "../contexts/theme-changer-context";
+import useLanguageChange from "../utils/hooks/useLanguageChange";
 import buildTheme from "../utils/mui-theme";
 
-const Layout: FC = ({ children }) => {
+type LayoutProps = {
+  children: ReactElement<ReplaceComponentRendererArgs["props"]>;
+};
+
+const Layout: FC<LayoutProps> = ({children}) => {
   const { theme } = useThemeChangerContext();
   // usePreferredColorScheme(setTheme);
   const muiTheme = useMemo(() => buildTheme(theme), [theme]);
+  useLanguageChange(children.props);
 
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
-      <ThemeToggler />
+      <Togglers />
       {children}
     </ThemeProvider>
   );
@@ -25,7 +33,9 @@ const Layout: FC = ({ children }) => {
 const LayoutWithThemeChanger: FC = ({ children }) => {
   return (
     <ThemeChangerProvider>
-      <Layout>{children}</Layout>
+      <LanguageChangerProvider>
+        <Layout>{children as any}</Layout>
+      </LanguageChangerProvider>
     </ThemeChangerProvider>
   );
 };

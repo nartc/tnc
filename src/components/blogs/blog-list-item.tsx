@@ -16,6 +16,7 @@ import {
 } from "../../graph-types";
 import BlogTagList from "./blog-tag-list";
 import BlogTimeToRead from "./blog-time-to-read";
+import Grid from "@material-ui/core/Grid";
 
 type BlogListItemProps = {
   item: MarkdownRemarkEdge;
@@ -80,7 +81,9 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
           >
             {item.node.excerpt}
           </Typography>
-          <BlogTimeToRead timeToRead={item.node.timeToRead as number} />
+          <Grid container justify={"space-between"} alignItems={"center"}>
+            <BlogTimeToRead timeToRead={item.node.timeToRead as number} />
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>
