@@ -28,8 +28,6 @@ export default (props: BlogsProps) => {
     []
   );
 
-  console.log(updatedEdges, edges);
-
   return (
     <BlogList
       {...props}
@@ -44,7 +42,7 @@ export default (props: BlogsProps) => {
   );
 };
 
-export const blogsQuery = graphql`
+export const viBlogsQuery = graphql`
   query viBlogsQuery($skip: Int!, $limit: Int!) {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: [DESC] }
@@ -61,6 +59,7 @@ export const blogsQuery = graphql`
           excerpt
           timeToRead
           frontmatter {
+            langs
             date(formatString: " MM/DD/YYYY")
             tags
             title

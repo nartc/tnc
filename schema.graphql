@@ -1,5 +1,5 @@
 # source: http://localhost:8000/___graphql
-# timestamp: Wed Jan 01 2020 21:24:59 GMT-0600 (Central Standard Time)
+# timestamp: Sun Jan 05 2020 20:58:33 GMT-0600 (Central Standard Time)
 
 """Provides default value for input field."""
 directive @default(value: JSON!) on INPUT_FIELD_DEFINITION
@@ -914,6 +914,7 @@ enum FileFieldsEnum {
   childMarkdownRemark___frontmatter___cover___publicURL
   childMarkdownRemark___frontmatter___cover___id
   childMarkdownRemark___frontmatter___cover___children
+  childMarkdownRemark___frontmatter___langs
   childMarkdownRemark___excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1637,6 +1638,7 @@ enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___childMarkdownRemark___timeToRead @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___tableOfContents @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  frontmatter___langs
   excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1790,6 +1792,7 @@ type MarkdownRemarkFrontmatter {
   tags: [String]
   draft: Boolean
   cover: File
+  langs: [String]
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
@@ -1798,6 +1801,7 @@ input MarkdownRemarkFrontmatterFilterInput {
   tags: StringQueryOperatorInput
   draft: BooleanQueryOperatorInput
   cover: FileFilterInput
+  langs: StringQueryOperatorInput
 }
 
 type MarkdownRemarkGroupConnection {
@@ -2101,8 +2105,6 @@ type SitePageContext {
   skip: Int
   total: Int
   slug: String
-  prev: SitePageContextPrev
-  next: SitePageContextNext
   primaryTag: String
 }
 
@@ -2116,69 +2118,7 @@ input SitePageContextFilterInput {
   skip: IntQueryOperatorInput
   total: IntQueryOperatorInput
   slug: StringQueryOperatorInput
-  prev: SitePageContextPrevFilterInput
-  next: SitePageContextNextFilterInput
   primaryTag: StringQueryOperatorInput
-}
-
-type SitePageContextNext {
-  fields: SitePageContextNextFields
-  frontmatter: SitePageContextNextFrontmatter
-}
-
-type SitePageContextNextFields {
-  slug: String
-  langKey: String
-}
-
-input SitePageContextNextFieldsFilterInput {
-  slug: StringQueryOperatorInput
-  langKey: StringQueryOperatorInput
-}
-
-input SitePageContextNextFilterInput {
-  fields: SitePageContextNextFieldsFilterInput
-  frontmatter: SitePageContextNextFrontmatterFilterInput
-}
-
-type SitePageContextNextFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextNextFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
-}
-
-type SitePageContextPrev {
-  fields: SitePageContextPrevFields
-  frontmatter: SitePageContextPrevFrontmatter
-}
-
-type SitePageContextPrevFields {
-  slug: String
-  langKey: String
-}
-
-input SitePageContextPrevFieldsFilterInput {
-  slug: StringQueryOperatorInput
-  langKey: StringQueryOperatorInput
-}
-
-input SitePageContextPrevFilterInput {
-  fields: SitePageContextPrevFieldsFilterInput
-  frontmatter: SitePageContextPrevFrontmatterFilterInput
-}
-
-type SitePageContextPrevFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextPrevFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
 }
 
 type SitePageEdge {
@@ -2288,14 +2228,6 @@ enum SitePageFieldsEnum {
   context___skip
   context___total
   context___slug
-  context___prev___fields___slug
-  context___prev___fields___langKey
-  context___prev___frontmatter___title
-  context___prev___frontmatter___tags
-  context___next___fields___slug
-  context___next___fields___langKey
-  context___next___frontmatter___title
-  context___next___frontmatter___tags
   context___primaryTag
   pluginCreator___id
   pluginCreator___parent___id

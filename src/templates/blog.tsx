@@ -229,8 +229,8 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
 export default Blog;
 
 export const blogQuery = graphql`
-  query($slug: String, $primaryTag: String) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query($slug: String, $primaryTag: String, $langKey: String) {
+    markdownRemark(fields: { slug: { eq: $slug }, langKey: { eq: $langKey } }) {
       html
       excerpt
       frontmatter {

@@ -2,6 +2,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
 import { Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
@@ -14,9 +15,8 @@ import {
   MarkdownRemarkFields,
   MarkdownRemarkFrontmatter,
 } from "../../graph-types";
-import BlogTagList from "./blog-tag-list";
+import BlogChipList from "./blog-chip-list";
 import BlogTimeToRead from "./blog-time-to-read";
-import Grid from "@material-ui/core/Grid";
 
 type BlogListItemProps = {
   item: MarkdownRemarkEdge;
@@ -25,8 +25,6 @@ type BlogListItemProps = {
 
 const useStyles = makeStyles<Theme>(theme => ({
   cardRoot: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(5),
     borderRadius: theme.shape.borderRadius,
   },
   excerptRoot: {
@@ -44,6 +42,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
   const frontmatter = item.node.frontmatter as MarkdownRemarkFrontmatter;
   const slug = (item.node.fields as MarkdownRemarkFields).slug;
   const tags = frontmatter.tags as string[];
+  const langs = frontmatter.langs as string[];
   const cover = frontmatter.cover;
   const coverImg = !!cover
     ? (((cover.childImageSharp as ImageSharp).fluid as ImageSharpFluid)
@@ -72,7 +71,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
           >
             {frontmatter.title}
           </Typography>
-          {!!tags.length && <BlogTagList tags={tags} />}
+          {!!tags.length && <BlogChipList chips={tags} />}
           <Typography
             variant="body2"
             color="textSecondary"
@@ -83,6 +82,10 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
           </Typography>
           <Grid container justify={"space-between"} alignItems={"center"}>
             <BlogTimeToRead timeToRead={item.node.timeToRead as number} />
+            <BlogChipList
+              chips={langs.map(lang => lang.toUpperCase())}
+              isOutline
+            />
           </Grid>
         </CardContent>
       </CardActionArea>

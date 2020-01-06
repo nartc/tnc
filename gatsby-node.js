@@ -135,7 +135,10 @@ exports.createPages = async ({ graphql, actions }) => {
         component: lang === "en" ? enBlogsTemplate : viBlogsTemplate,
         context: {
           langKey: lang,
-          limit: blogsPerPage,
+          limit:
+            lang === "en"
+              ? blogsPerPage
+              : blogs.length - enBlogLength + blogsPerPage,
           skip: index * blogsPerPage,
           numPages,
           currentPage: index + 1,

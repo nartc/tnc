@@ -1,9 +1,11 @@
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import { Theme } from "@material-ui/core/styles";
 import TablePagination from "@material-ui/core/TablePagination";
 import Typography from "@material-ui/core/Typography";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import { makeStyles } from "@material-ui/styles";
 import { NavigateFn } from "@reach/router";
 import React, { FC, memo, useCallback } from "react";
 import {
@@ -27,7 +29,15 @@ export type BlogsProps = {
   navigate: NavigateFn;
 };
 
+const useStyles = makeStyles<Theme>(theme => ({
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+}));
+
 const BlogList: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
+  const classes = useStyles();
   const onChangePage = useCallback(
     (_: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
       console.log(page);
@@ -49,7 +59,7 @@ const BlogList: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
           <LibraryBooksOutlinedIcon fontSize={"large"} /> Blogs
         </Typography>
         <TagsList tags={tags} />
-        <Divider />
+        <Divider classes={{ root: classes.divider }} />
         <Grid container spacing={6}>
           {data.allMarkdownRemark.edges.map((edge, index) => {
             return (

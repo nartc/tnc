@@ -4,6 +4,7 @@ date: 2019-09-02T21:50:57.313Z
 tags: ["Programming", "Personal"]
 draft: false
 cover: ../covers/start.jpg
+langs: ["en"]
 ---
 *[CS]: Computer Science
 *[IS]: Information Systems

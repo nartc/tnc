@@ -736,6 +736,7 @@ export enum FileFieldsEnum {
   childMarkdownRemark___frontmatter___cover___publicURL = 'childMarkdownRemark___frontmatter___cover___publicURL',
   childMarkdownRemark___frontmatter___cover___id = 'childMarkdownRemark___frontmatter___cover___id',
   childMarkdownRemark___frontmatter___cover___children = 'childMarkdownRemark___frontmatter___cover___children',
+  childMarkdownRemark___frontmatter___langs = 'childMarkdownRemark___frontmatter___langs',
   childMarkdownRemark___excerpt = 'childMarkdownRemark___excerpt',
   childMarkdownRemark___rawMarkdownBody = 'childMarkdownRemark___rawMarkdownBody',
   childMarkdownRemark___fileAbsolutePath = 'childMarkdownRemark___fileAbsolutePath',
@@ -1589,6 +1590,7 @@ export enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___childMarkdownRemark___timeToRead = 'frontmatter___cover___childMarkdownRemark___timeToRead',
   frontmatter___cover___childMarkdownRemark___tableOfContents = 'frontmatter___cover___childMarkdownRemark___tableOfContents',
   frontmatter___cover___childMarkdownRemark___children = 'frontmatter___cover___childMarkdownRemark___children',
+  frontmatter___langs = 'frontmatter___langs',
   excerpt = 'excerpt',
   rawMarkdownBody = 'rawMarkdownBody',
   fileAbsolutePath = 'fileAbsolutePath',
@@ -1723,6 +1725,7 @@ export type MarkdownRemarkFrontmatter = {
   tags?: Maybe<Array<Maybe<Scalars['String']>>>,
   draft?: Maybe<Scalars['Boolean']>,
   cover?: Maybe<File>,
+  langs?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 
@@ -1739,6 +1742,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   tags?: Maybe<StringQueryOperatorInput>,
   draft?: Maybe<BooleanQueryOperatorInput>,
   cover?: Maybe<FileFilterInput>,
+  langs?: Maybe<StringQueryOperatorInput>,
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -2288,8 +2292,6 @@ export type SitePageContext = {
   skip?: Maybe<Scalars['Int']>,
   total?: Maybe<Scalars['Int']>,
   slug?: Maybe<Scalars['String']>,
-  prev?: Maybe<SitePageContextPrev>,
-  next?: Maybe<SitePageContextNext>,
   primaryTag?: Maybe<Scalars['String']>,
 };
 
@@ -2303,75 +2305,7 @@ export type SitePageContextFilterInput = {
   skip?: Maybe<IntQueryOperatorInput>,
   total?: Maybe<IntQueryOperatorInput>,
   slug?: Maybe<StringQueryOperatorInput>,
-  prev?: Maybe<SitePageContextPrevFilterInput>,
-  next?: Maybe<SitePageContextNextFilterInput>,
   primaryTag?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNext = {
-   __typename?: 'SitePageContextNext',
-  fields?: Maybe<SitePageContextNextFields>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatter>,
-};
-
-export type SitePageContextNextFields = {
-   __typename?: 'SitePageContextNextFields',
-  slug?: Maybe<Scalars['String']>,
-  langKey?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextNextFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-  langKey?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNextFilterInput = {
-  fields?: Maybe<SitePageContextNextFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>,
-};
-
-export type SitePageContextNextFrontmatter = {
-   __typename?: 'SitePageContextNextFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextNextFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrev = {
-   __typename?: 'SitePageContextPrev',
-  fields?: Maybe<SitePageContextPrevFields>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatter>,
-};
-
-export type SitePageContextPrevFields = {
-   __typename?: 'SitePageContextPrevFields',
-  slug?: Maybe<Scalars['String']>,
-  langKey?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextPrevFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-  langKey?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrevFilterInput = {
-  fields?: Maybe<SitePageContextPrevFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatterFilterInput>,
-};
-
-export type SitePageContextPrevFrontmatter = {
-   __typename?: 'SitePageContextPrevFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextPrevFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
 };
 
 export type SitePageEdge = {
@@ -2482,14 +2416,6 @@ export enum SitePageFieldsEnum {
   context___skip = 'context___skip',
   context___total = 'context___total',
   context___slug = 'context___slug',
-  context___prev___fields___slug = 'context___prev___fields___slug',
-  context___prev___fields___langKey = 'context___prev___fields___langKey',
-  context___prev___frontmatter___title = 'context___prev___frontmatter___title',
-  context___prev___frontmatter___tags = 'context___prev___frontmatter___tags',
-  context___next___fields___slug = 'context___next___fields___slug',
-  context___next___fields___langKey = 'context___next___fields___langKey',
-  context___next___frontmatter___title = 'context___next___frontmatter___title',
-  context___next___frontmatter___tags = 'context___next___frontmatter___tags',
   context___primaryTag = 'context___primaryTag',
   pluginCreator___id = 'pluginCreator___id',
   pluginCreator___parent___id = 'pluginCreator___parent___id',

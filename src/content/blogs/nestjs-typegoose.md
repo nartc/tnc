@@ -4,6 +4,7 @@ date: 2019-12-10T17:06:55.354Z
 tags: ["Programming", "Typescript", "NestJS"]
 draft: false
 cover: ../covers/nestjs.jpg
+langs: ["en"]
 ---
 
 Today, I am going to share with you a workflow/technique (whatever you want to call it 🗿) that I've been using when I work with **NestJS** and **MongoDB**. This workflow leverages the power of **TypeScript** and an `npm` package called [Typegoose](https://github.com/typegoose/typegoose). This blog will be a quick one so let's jump in.

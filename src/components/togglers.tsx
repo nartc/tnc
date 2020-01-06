@@ -7,6 +7,7 @@ import ThemeToggler from "./theme-toggler";
 
 const useStyles = makeStyles<Theme>(theme => ({
   togglers: {
+    width: "auto",
     position: "fixed",
     top: theme.spacing(),
     right: theme.spacing(),

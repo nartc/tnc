@@ -4,6 +4,7 @@ date: 2020-01-01T17:06:55.354Z
 tags: ["Programming", "Angular"]
 draft: false
 cover: ../covers/tooltip-extend.jpg
+langs: ["en"]
 ---
 
 Happy New Year everyone 🎇! I hope everyone will have a prosperous new year ahead of you all. As for me, I want to kick off 2020 with a new blog post, to stay **productive** you know 💪. So what are we going to do today? We are going to look at how we can customize 3rd party library (if applicable 🤞) in an **Angular** application.

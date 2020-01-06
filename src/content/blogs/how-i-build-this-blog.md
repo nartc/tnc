@@ -4,6 +4,7 @@ date: 2019-09-01T17:06:55.354Z
 tags: ["Programming", "Gatsby", "React", "Typescript"]
 draft: false
 cover: ../covers/fabio.jpg
+langs: ["en"]
 ---
 
 It's been a while since I first *init* a "personal blog" project but I haven't found the time to actually complete one until now. When I first started with the project, I went with [Angular](https://angular.io/) and [Angular Universal](https://angular.io/guide/universal). At the time, I was working on a [React](https://reactjs.org) project at work so I couldn't switch context between **Angular** and **React** to finish the blog. Then, I discovered [GatsbyJS](https://www.gatsbyjs.org) and it changed my mind on how I wanted to build my blog. After a long time (*since Gatsby v1*), I finally put this blog together and here's how I did it with: **Gatsby**, **React** and **TypeScript**.

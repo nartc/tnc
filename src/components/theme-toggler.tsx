@@ -1,5 +1,5 @@
 import Fab from "@material-ui/core/Fab";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import React, { FC, memo } from "react";
 import { useThemeChangerContext } from "../contexts/theme-changer-context";

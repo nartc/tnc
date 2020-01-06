@@ -4,6 +4,7 @@ date: 2019-11-16T17:06:55.354Z
 tags: ["Programming", "Typescript", "AutoMapper"]
 draft: false
 cover: ../covers/automapper.jpg
+langs: ["en"]
 ---
 
 Hi everyone, it's been exactly a month (again) since my last blog 😄 and you're probably getting bored of me saying that. Last month, I published a blog explaining why I wanted to create an `AutoMapper` library in `TypeScript`. In today's blog, I am going to dive deeper into how it works in `TypeScript` by officially introducing my library for the first time: **@nartc/automapper**

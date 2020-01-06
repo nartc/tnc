@@ -12,14 +12,14 @@ export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
       firstRender.current = true;
     } else {
       if (lang === "en") {
-        if (path.startsWith("/blogs") || path.startsWith("/tags")) {
+        if (path.startsWith("/blogs") || path.includes("/tags")) {
           navigate(path.replace("/vi", ""));
         }
       } else {
         if (path.startsWith("/blogs")) {
           navigate(path.replace("/blogs", "/blogs/vi"));
-        } else if (path.startsWith("/tags")) {
-          navigate(path.replace("/tags", "/tags/vi"));
+        } else if (path.includes("/tags")) {
+          navigate(path.replace("/tags", "/vi/tags"));
         }
       }
     }

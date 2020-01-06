@@ -24,6 +24,7 @@ export const blogsQuery = graphql`
           excerpt
           timeToRead
           frontmatter {
+            langs
             date(formatString: " MM/DD/YYYY")
             tags
             title
