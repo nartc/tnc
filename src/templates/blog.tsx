@@ -238,6 +238,7 @@ export const blogQuery = graphql`
         tags
         draft
         title
+        langs
         cover {
           childImageSharp {
             fluid(maxWidth: 1080, fit: COVER, quality: 80) {
@@ -265,6 +266,7 @@ export const blogQuery = graphql`
             title
             tags
             draft
+            langs
           }
           timeToRead
           fields {

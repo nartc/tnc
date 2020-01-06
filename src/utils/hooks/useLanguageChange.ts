@@ -5,7 +5,10 @@ import { useLanguageChangerContext } from "../../contexts/language-changer-conte
 export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
   const firstRender = useRef(false);
   const { lang } = useLanguageChangerContext();
-  const { path, navigate } = pageProps;
+  const { path, navigate, data } = pageProps;
+
+  const isBlogItem = !!(data as any).markdownRemark;
+  const langs = (data as any)?.markdownRemark?.frontmatter?.langs;
 
   useEffect(() => {
     if (!firstRender.current) {
@@ -16,10 +19,16 @@ export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
           navigate(path.replace("/vi", ""));
         }
       } else {
-        if (path.startsWith("/blogs")) {
-          navigate(path.replace("/blogs", "/blogs/vi"));
-        } else if (path.includes("/tags")) {
-          navigate(path.replace("/tags", "/vi/tags"));
+        if (isBlogItem) {
+          if (langs && langs.length >= 2) {
+            navigate(path.replace("/blogs", "/blogs/vi"));
+          }
+        } else {
+          if (path.startsWith("/blogs")) {
+            navigate(path.replace("/blogs", "/blogs/vi"));
+          } else if (path.includes("/tags")) {
+            navigate(path.replace("/tags", "/vi/tags"));
+          }
         }
       }
     }

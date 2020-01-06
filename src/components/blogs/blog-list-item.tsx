@@ -41,6 +41,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
   const classes = useStyles();
   const frontmatter = item.node.frontmatter as MarkdownRemarkFrontmatter;
   const slug = (item.node.fields as MarkdownRemarkFields).slug;
+  const langKey = item.node.fields?.langKey;
   const tags = frontmatter.tags as string[];
   const langs = frontmatter.langs as string[];
   const cover = frontmatter.cover;
@@ -50,7 +51,8 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
     : "http://lorempixel.com/600/480/";
 
   const onItemClicked = useCallback(() => {
-    navigate(`/blogs/${(slug as string).replace("/", "")}`);
+    const path = `/blogs/${(slug as string).replace("/", "")}`;
+    navigate(langKey === "en" ? path : path.replace("/blogs/", "/blogs/vi/"));
   }, [slug]);
 
   return (
