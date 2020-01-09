@@ -17,8 +17,15 @@ export type LanguageChangerContext = {
 
 const context = createContext<LanguageChangerContext | null>(null);
 
-export const LanguageChangerProvider: FC = ({ children }) => {
-  const [lang, setLang] = useState<Lang>("en");
+type LanguageChangerProviderProps = {
+  initialLang: Lang;
+};
+
+export const LanguageChangerProvider: FC<LanguageChangerProviderProps> = ({
+  children,
+  initialLang,
+}) => {
+  const [lang, setLang] = useState<Lang>(initialLang);
   return (
     <context.Provider value={{ lang, setLang: useCallback(setLang, []) }}>
       {children}

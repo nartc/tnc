@@ -15,7 +15,7 @@ type LayoutProps = {
   children: ReactElement<ReplaceComponentRendererArgs["props"]>;
 };
 
-const Layout: FC<LayoutProps> = ({children}) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   const { theme } = useThemeChangerContext();
   // usePreferredColorScheme(setTheme);
   const muiTheme = useMemo(() => buildTheme(theme), [theme]);
@@ -31,9 +31,14 @@ const Layout: FC<LayoutProps> = ({children}) => {
 };
 
 const LayoutWithThemeChanger: FC = ({ children }) => {
+  const initialLang =
+    (children as any).key && (children as any).key.includes("/vi")
+      ? "vi"
+      : "en";
+
   return (
     <ThemeChangerProvider>
-      <LanguageChangerProvider>
+      <LanguageChangerProvider initialLang={initialLang}>
         <Layout>{children as any}</Layout>
       </LanguageChangerProvider>
     </ThemeChangerProvider>
