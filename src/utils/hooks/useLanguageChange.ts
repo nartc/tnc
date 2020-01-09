@@ -7,7 +7,7 @@ export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
   const { lang } = useLanguageChangerContext();
   const { path, navigate, data } = pageProps;
 
-  const isBlogItem = !!(data as any).markdownRemark;
+  const isBlogItem = data && !!(data as any).markdownRemark;
   const langs = (data as any)?.markdownRemark?.frontmatter?.langs;
 
   useEffect(() => {

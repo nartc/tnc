@@ -590,18 +590,16 @@ export class DynamicDialogRootComponent implements AfterViewInit, OnDestroy {
 
 Các bạn có nhớ mình nói là chúng ta sẽ dùng đến `animationState` để quyết định việc đóng **Dialog** không? Hàm `startExitAnimation()` sẽ giúp chúng ta bắt đầu được quy trình đóng **Dialog** này. Phù, vẫn có một số việc cần phải làm trong `DynamicDialogRootComponent` nữa, nhưng chúng ta sẽ phải quay lại file này sau. Điểm đến kế tiếp sẽ là `DynamicDialogRef`, con hàng quan trọng không kém 💪
 
-To be continued in Vietnamese...
-
 ### DynamicDialogRef
 
-`DynamicDialogRef` is the reference to the current instance `Overlay` that is being opened (and managed by **Angular CDK**). We will need a couple of fields and methods in `DynamicDialogRef`
+`DynamicDialogRef` là một con trỏ đến instance hiện tại của `Overlay` đang được mở (và được quản lý bởi **Angular CDK**). Chúng ta sẽ cần một số fields và hàm trong `DynamicDialogRef` sau:
 
-1. `beforeClosed$`: This will be a `Subject` that will emit when the **Dialog** is **about** to close. We will keep the `Subject` private and expose the `Observable` counterpart via a `getter`
-2. `afterClosed$`: Same concept as `beforeClosed$` but this is for when the **Dialog** has already been closed. We will also pass some optional `data` back to the consumers with `afterClosed$` as well.
-3. `componentInstance`: The instance of `DynamicDialogRootComponent` which is being used by the `Overlay` to render the **Dialog**. We will hook onto the `animationStateChanged` on `DynamicDialogRootComponent` so we can determine when `beforeClosed$` and `afterClosed$` should emit.
-4. `close(data?: TReturnType): void`: We are going to make the `DynamicDialogRef` available in **Dependency Injection Context** so that the **Dialog Content Component** can have access to the current `DynamicDialogRef` and will be able to call `close()` and pass in some `data` . Eg: when you close a **Confirmation Dialog** and upon close, you will want to pass `true` or `false` back to the **Dialog Invoker** so you can make a decision whether the user confirms the action or not. Again, `data` has a **Generic Type** `TReturnType` that we can pass in upon injecting `DynamicDialogRef` in a **Dialog Content Component**.
+1. `beforeClosed$`: Đây là một `Subject` và `Subject` này sẽ emit khi **Dialog** **chuẩn bị** được đóng. Chúng ta sẽ giữ cho `Subject` này `private` và sẽ chỉ cung cấp cho người dùng phần `Observable` thông qua một `getter` mà thôi.
+2. `afterClosed$`: Tương tự như `beforeClosed$`. Khi **Dialog** đã được đóng lại, thì chúng ta sẽ truyền kèm theo một số `data` (nếu có) mà người dùng muốn truyền.
+3. `componentInstance`: Instane của `DynamicDialogRootComponent` đang được sử dụng bởi `Overlay` để hiển thị **Dialog**. Chúng ta sẽ cần tới `DynamicDialogRootComponent` và hàm `animationStateChanged` của hắn để có thể xác định được đúng thời điểm mà `beforeClosed$` và `afterClosed$` cần emit.
+4. `close(data?: TReturnType)`: `DynamicDialogRef` sẽ được đưa vào **Dependency Injection** bằng **Injector** để người dùng có thể inject `DynamicDialogRef` vào **Dialog Content Component** mà họ tạo và sẽ gọi được hàm `dialogRef.close()` này. Ví dụ: khi người dùng đóng một **Dialog Xác Nhận**, chúng ta sẽ muốn biết được là người dùng chọn **Xác Nhận** hay **Huỷ bỏ** khi **Dialog** được đóng, vì thế tuỳ thuộc vào lựa chọn của người dùng mà chúng ta có thể truyền `data` vào cho hàm `close()` để nơi mở **Dialog** (**Dialog Invoker**) có thể nhận được `data` này và thực thi thao tác tiếp theo sau khi người dùng **Xác Nhận**.
 
-Beside these 4 things, we also need to inject `OverlayRef` so we can do some clean-up for the `Overlay` itself. Now, let's fill this bad boy up
+Ngoài 4 thứ trên, chúng ta cũng sẽ cần inject `OverlayRef` từ **Angular CDK** để có thể thực hiện một số tác vụ dọn dẹp trên thằng `Overlay`. Giờ thì quẩy code thôi.
 
 ```typescript
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -610,7 +608,7 @@ import { filter, take } from 'rxjs/operators';
 import { DynamicDialogRootComponent } from './dynamic-dialog-root.component';
 import { AnimationState } from './models/animation-state.enum';
 
-// A local constant.
+// Hằng số local.
 const AnimationPhase = {
   START: 'start',
   DONE: 'done'
@@ -659,19 +657,21 @@ export class DynamicDialogRef<TReturnType = any> {
 }
 ```
 
-Quite a lot is happening here. Let's go through it
+Quá trời thứ xảy ra ở đây. Hãy đi qua từng cái một nhé.
 
-1. `AnimationPhase` is just a local constant that has `START` and `DONE` properties on it. You can extract this out to its own file or some other place where you keep track of all of your constants. To me, this would work fine. 
-2. In the `constructor`, we subscribe to `backdropClick()` on the `overlayRef` and call `close()` method.
-3. Declare all of our fields `beforeClosed$` , `beforeClosed` getter, `afterClosed$`, `afterClosed` getter, `componentInstance`, injected `OverlayRef`, and `close()` method.
-4. `beforeClosed` and `afterClosed` getters will allow us to provide the underline `Observable` from their `Subject` without exposing the `Subject`. `Subject` has the ability to emit new values and we do not want the consumers to be able to do that. 
-5. `close(data?: TReturnType)`: The meat of `DynamicDialogRef`. We setup two `Subscription` to `animationStateChanged`: one is for when `AnimationPhase.START` and another is for when `AnimationPhase.DONE`. When we first invoke `close()`, the animations will actually start first and `@angular/animations` allows us to hook into these `AnimationEvent` . So during `AnimationPhase.START`, we will have the `Subscription` to `filter` by the `phaseName`, and we are only interested in **ONE** and **ONLY ONE** emitted value so we `take(1)`. Then, we have `beforeClosed$` emit and complete right away so it cleans itself up. Finally, we will have the `overlayRef` to `detachBackdrop()`. The other `Subscription` works in a similar manner. `filter` by `phaseName`, `take(1)` and have `afterClosed$` emit new value with `data` then complete itself. We also call `overlayRef.dispose()` to finally dispose the `Overlay` and nullify `componentInstance`. After setting up the `Subscriptions`, we actually invoke `startExitAnimation()` so the `Subscriptions` are **ready** when the animation starts.
+1. `AnimationPhase` chỉ là một hằng số local thôi. Thay vì dùng magic-string `'start'` với `'done'` thì mình dùng `AnimationPhase`. Nếu muốn, bạn có thể đem `AnimationPhase` ra một file riêng cũng được.
+2. Trong `constructor`, chúng ta sẽ lắng nghe thằng `backdropClick()` trên `overlayRef` và sẽ gọi hàm `close()` khi `backdrop` được `click`.
+3. Khai báo tất cả các fields được nhắc đến ở trên: `beforeClosed$`, `afterClosed$`, mấy cái `getters`, `componentInstance`, `OverlayRef` được inject, và hàm `close()`
+4. Hàm `close()`: con hàng quan trọng của `DynamicDialogRef`. Trong đây, chúng ta xác lập 2 `Subscriptions` đến `animationStateChanged`: Một cái là sẽ lắng nghe `AnimationPhase.START` và cái còn lại là lắng nghe `AnimationPhase.DONE`. Khi chúng ta bắt đầu gọi hàm `closse()`,
+ thì thực tế các animations của **Dialog** sẽ bắt đầu chạy trước và `@angular/animations` cho phép chúng ta lắng nghe những `AnimationEvent` này. Trong quá trình `AnimationPhase.START` (animations bắt đầu) chạy, chúng ta `filter` các sự kiện `Animation` này theo `phaseName` và chúng ta cũng chỉ cần nhận giá trị của **MỘT** sự kiện duy nhât mà thôi nên chúng ta dùng `take(1)`. Ở thời điểm này, `beforeClosed$` sẽ emit và cũng sẽ tự hoàn thành để tự dọn dẹp luôn. Cuối cùng ở chuỗi sự kiến `AnimationPhase.START`, chúng ta sẽ gọi hàm `overlayRef.detachBackdrop()` để dọn dẹp thằng `backdrop`. `Subscription` còn lại thì chúng ta cũng dùng các bước tương tự, `filter` bằng `phaseName`, `take(1)` và cho `afterClosed$` emit. Khác biệt ở đây là chúng ta sẽ gọi `overlayRef.dispose()` để dọn dẹp thằng `Overlay` trước, sau đó sẽ cho `afterClosed$` emit `data` mà người dùng cần rồi hoàn tất. Ở cuối chuỗi sự kiện, chúng ta sẽ dọn dẹp luôn thằng `componentInstance` bằng cách gán `null` cho nó, vì chúng ta không cần nó nữa.
+ 
+ > Các bạn lưu ý ở đây là **RxJS** là asynchronous (bất đồng bộ). Chúng ta chỉ mới thiết lập 2 `Subscriptions` mà thôi, code ở trong 2 `Subscriptions` này sẽ không được thực thi ngay lập tức khi hàm `close()` được gọi. Đây chỉ gọi là "khâu chuẩn bị" mà thôi.
 
-That's it for `DynamicDialogRef`. Now, let's go back to `DynamicDialogRootComponent` since we have `DynamicDialogRef.close()` ready.
+Sau khi chuẩn bị xong các `Subscriptions`, thì chúng ta gọi `componentInstance.startExitAnimation()` để bắt đầu chuỗi sự kiện đóng **Dialog**. `DynamicDialogRef` đã hoàn tất. Bây giờ chúng ta sẽ quay lại `DynamicDialogRootComponent` để hoàn tất nó luôn.
 
-### Finish up DynamicDialogRootComponent
+### Hoàn tất DynamicDialogRootComponent
 
-Let's first setup some methods that will invoke `DynamicDialogRef.close()` by default. 
+Đầu tiên thì hãy thiết lập một số hàm mà sẽ gọi `dynamicDialogRef.close()` mặc định.
 
 ```typescript
 import { AnimationEvent } from '@angular/animations';
@@ -770,14 +770,14 @@ export class DynamicDialogRootComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-We added 2 methods
+Chúng ta thêm vào 2 hàm mới 
 
-1. `closeDialog()`: Handle closing the **Dialog** upon clicking the **Close Icon** on the header or clicking on the backdrop.
-2. `handleEscapeKey()`: A `HostListener` that listens to `document:keydown` event and will check if it's the `Escape` key to close the **Dialog**.
+1. `closeDialog()`: Xử lý việc đóng **Dialog** khi `backdrop` hoặc `close icon` được click.
+2. `handleEscapeKey()`: Xử lý đóng **Dialog** khi phím Escape được bấm bằng việc dùng `HostListener` lắng nghe sự kiện `document:keydown`.
 
-Now, we are going to add `animations` to this `DynamicDialogRootComponent`
+Giờ thì chúng ta sẽ thêm `animations` vào cho `DynamicDialogRootComponent`
 
-I'm going to utilize an npm package called `ng-animate` to help with my animation skills. If you want to follow along, please run `npm i ng-animate`
+> Mình sẽ dùng một gói npm tên là `ng-animate` để hỗ trợ khả năng animations dở ẹc của mình. Nếu các bạn muốn thì hãy cài `ng-animate` bằng lệnh `npm i ng-animate`
 
 ```typescript
 import { animateChild, AnimationEvent, group, query, transition, trigger, useAnimation } from '@angular/animations';
@@ -795,7 +795,7 @@ import {
     HostListener
 } from '@angular/core';
 import { fadeIn, fadeOut, zoomIn, zoomOut } from 'ng-animate';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -905,9 +905,9 @@ export class DynamicDialogRootComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-Ok, this is going to be painful. I would suggest reading more about [Angular Animations](https://angular.io/guide/animations). Basically, we setup two `triggers` : `zoom` and `animation`. `zoom` will be responsible for animating the **Dialog Content** while `animation` will be responsible for animating the **Dialog Container**. In `animation` trigger, we setup `fadeIn` and `fadeOut` animation (from `ng-animate`, if you're comfortable with **Animations** in general, feel free to setup your own animations) based on the `state` , we also leverage `Animation Params` (eg: `{{timing}}`) to pass in configurable `Animation Configuration` to our animations. Remember `containerAnimationTiming` and `contentAnimationTiming` and such? Those will come into play here. Last but not least, we also setup `query` for `zoom` trigger inside of `animation` trigger so we are able to run `animateChild` with `delay`, again, remember `animateChildDelay` 😅?! Again, I would encourage reading more about **Angular Animations**.
+Ok, giờ giải thích mới dã man đây. Trước tiên thì mình xin gợi ý các bạn đọc thêm về [Angular Animations](https://angular.io/guide/animations) để không hoang mang, vì mình giải thích animations không được tốt. Về căn bản, chúng ta thiết lập 2 animations: `animation` và `zoom`. `zoom` sẽ chịu trách nhiệm animating thằng **Dialog Content** trong khi `animation` sẽ chịu trách nhiệm cho thằng **Dialog Container**. Ở trong `animation`, chúng ta thiết lập `fadeIn` và `fadeOut` được dựng sẵn (từ `ng-animate`, nếu các bạn tự viết **Animations** thoải mái, thì cứ việc tự viết nhé) dựa vào `state`, chúng ta cũng sẽ dùng đến `Animation Params` (ví dụ: `{{timing}}`) để có thể truyền các tham số liên quan đến `Animation` vào trong các animations này. Các bạn có nhớ `containerAnimationTiming` với `contentAnimationTiming` không? Được dùng ở đây nè. Cuối cùng, chúng ta cũng thiết lập `query` cho `zoom` bên trong `animation` để chúng ta có thể chạy được `animationChild` với `delay`. Ví dụ muốn chạy animation cho `container` xong, đợi một chút rồi mới chạy animation của `content`?! Một lần nữa, mình tha thiết mong các bạn đọc qua **Angular Animations**.
 
-Finally, let's finish up the `template` and hook everything together
+Giờ thì hoàn tất thằng `template` để kết nối các hàm và animations vừa thiết lập xong 
 
 ```typescript
 import { animateChild, AnimationEvent, group, query, transition, trigger, useAnimation } from '@angular/animations';
@@ -925,7 +925,7 @@ import {
     HostListener
 } from '@angular/core';
 import { fadeIn, fadeOut, zoomIn, zoomOut } from 'ng-animate';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -1050,13 +1050,13 @@ export class DynamicDialogRootComponent implements AfterViewInit, OnDestroy {
 }
 ```
 
-We hook up `animation` trigger to the top **DOM** element which is the `modal` and `zoom` trigger to `modal-card`. We also use `dialogConfig` to pass in the configurable **Animation Params**. Next, we set `@animation.start` and `@animation.done` event then have `animationStateChanged` emit accordingly. You see how `startExitAnimation`, `DynamicDialogRef.close()` and `animationStateChanged` all play together now? Finally, we hook up `closeDialog()` to `modal-background` and `button.delete` (`close icon`) on the `header`. 
+Chúng ta dùng `animation` trên phần tử **DOM** trên cùng, là cái `modal`. Và dùng `zoom` trên `modal-card`. Chúng ta cũng dùng đến `dialogConfig` để truyền tham số vào cho animations. Kế đến, chúng ta cài đặt hai sự kiện `@animation.start` và `@animation.done` rồi cho `animationStateChanged` emit. Giờ ngẫm một chút thì các bạn có thấy: `startExitAnimation()`, `dynamicDialogRef.close()` và `animationStateChanged` chạy theo một chuỗi như thế nào chưa? Cuối cùng thì chúng ta dùng `closeDialog()` trên `modal-background` và `button.delete` (`close icon`) là xong 🔥.
 
-Woohoo 🔥, we are 60% done now 😅. Let's finish up the last 40% with `DynamicDialogService`
+Đến đây thì xong khoản 60% rồi 😅. Hoàn tất 40% còn lại với `DynamicDialogService` thôi.
 
 ### DynamicDialogService
 
-Beside `DynamicDialogRef`, `DynamicDialogService` is the last piece that will allow the consumers to interact with our whole **Dynamic Dialog.** So open up `dynamic-dialog.service.ts` and jump right in. `DynamicDialogService` only exposes one method which is `open<TReturnType = any>()` so the consumers can use this method to **open** the **Dialog**. 
+Ngoài `DynamicDialogRef`, `DynamicDialogService` là mảng cuối cùng giúp cho người dùng có thể tương tác được với **Dynamic Dialog**. Mở file `dynamic-dialog.service.ts` rồi quẩy thôi. `DynamicDialogService` chỉ cung cấp một hàm duy nhất cho người dùng, đó là `open<TReturnType = any>()`, để người dùng có thể dùng hàm này để thực thi việc **mở** **Dialog**.
 
 ```typescript
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
@@ -1097,15 +1097,15 @@ export class DynamicDialogService {
 }
 ```
 
-Let's import everything we need first. After that, we declare a `private readonly defaultDialogConfig` which will hold our default configuration of the **Dialog**. We did setup some default configurations inside of `DynamicDialogConfig` upon instantiation. Here in the `constructor`, we are going to be **defaulting** some `OverlayConfig` as well
+Hãy import và inject mấy thứ mình cần trước. Sau đó, chúng ta sẽ khai báo `private readonly defaultDialogConfig`. Biến này sẽ giữ một số cấu hình mặc định cho **Dialog**. Chúng ta đã thiết lập một số cấu hình mặc định bên trong `DynamicDialogConfig` rồi. Ở đây, chúng ta sẽ thiết lập cấu hình mặc định cho `OverlayConfig`.
 
-1. `disposeOnNavigation`: Self-explanatory. We want to close the dialog if we navigate away from the current page so we clean up and prevent potential memory-leak.
-2. `hasBackdrop`: This can be set default or not. I set it to `true`. If it's `true`, then `Overlay` will also render a `cdk-backdrop` element along side the `cdk-overlay` on our **DOM Tree**.
-3. `panelClass`: Customizable `HTML` class so we can customize the `Overlay` element should we desire.
-4. `scrollStrategy`: Self-explanatory. Set the scrolling behavior when the `Overlay` is opened. We default it to `BlockScrollStrategy` here. Read more about [ScrollStrategies](https://material.angular.io/cdk/overlay/overview#scroll-strategies)
-5. `positionStrategy`: Set the position of the `Overlay` when it's opened. Default to `center`. Read more about [PositionStrategies](https://material.angular.io/cdk/overlay/overview#position-strategies)
+1. `disposeOnNavigation`: Đọc phát hiểu luôn. Chúng ta muốn đóng **Dialog** khi chúng ta chuyển sang một trang khác. Việc này giúp cho **Dialog** được dọn dẹp, phòng ngừa tràn bộ nhớ không cần thiết.
+2. `hasBackdrop`: Cái này có thể thiết lập hoặc không. Ở đây thì mình sẽ thiết lập nó thành `true`. Nếu là `true`, thì `Overlay` sẽ cho hiển thị một element có class là `cdk-backdrop` cùng với `cdk-overlay` trên cây **DOM**.
+3. `panelClass`: Class các bạn muốn `Overlay` có, để tinh chỉnh bằng `CSS` nếu muốn.
+4. `scrollStrategy`: Dễ hiểu. Thiết lập tác vụ Scrolling khi `Overlay` được mở. Chúng ta sẽ mặc định nó về `BlockScrollStrategy`. Đọc thêm về [ScrollStrategies](https://material.angular.io/cdk/overlay/overview#scroll-strategies)
+5. `positionStrategy`: Thiết lập vị trí của `Overlay` khi được mở. Mặc định về `center`. Đọc thêm về [PositionStrategies](https://material.angular.io/cdk/overlay/overview#position-strategies)
 
-Next, we declare `open()` method. `open()` takes in an optional **Generic Type** `TReturnType` . We will have the `open()` method to return an `DynamicDialogRef<TReturnType>` so the `DynamicDialogRef.afterClosed` will have the correct type when the consumers subscribe to it. `open()` will expect a `Component` for the **Dialog Content** (remember `contentComponentType`, here's the **earlier point** that we set the `contentComponentType`) and a `DynamicDialogConfig` to be merged with `defaultDialogConfig`. Afterward, we create our `OverlayRef`. Let's implement `createOverlay()` now. 
+Kế tiếp, chúng ta khai báo hàm `open()`. `open()` nhận vào một **Generic Type** `TReturnType`. Chúng ta sẽ cần hàm `open()` trả về `DynamicDialogRef<TReturnType>` để `dynamicDialogRef.afterClosed` sẽ có được type chuẩn xác khi người dùng đăng ký vào nó. `open()` sẽ cần 2 tham số: `Component` để dùng cho **Dialog Content** (nhớ `contentComponentType` trên `DynamicDialogRootComponent` không?) và `DynamicDialogConfig`. Nếu cấu hình `DynamicDialogConfig` được truyền vào, thì cấu hình truyền vào này sẽ được gộp chung với `defaultDialogConfig`. Sau đó, chúng ta sẽ tạo `OverlayRef` nên quẩy hàm `createOverlay()` thôi 
 
 ```typescript
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
@@ -1150,7 +1150,7 @@ export class DynamicDialogService {
 }
 ```
 
-Very simple. We call `overlay.create()` and pass in the `OverlayConfig` from `DynamicDialogConfig.overlayConfig`. Now that we have `OverlayRef`, we can start creating our custom `DynamicDialogRef`
+Cực kỳ đơn giản luôn. Chỉ cần gọi `overlay.create()` và truyền vào `OverlayConfig` từ `DynamicDialogConfig.overlayConfig` thôi. Giờ có `OverlayRef` rồi, chúng ta có thể bắt đầu khởi tạo `DynamicDialogRef`
 
 ```typescript
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
@@ -1197,7 +1197,7 @@ export class DynamicDialogService {
 }
 ```
 
-Remember `componentInstance` on `DynamicDialogRef` that has the type of `DynamicDialogRootComponent`. `DynamicDialogRootComponent` will still be created dynamically and this is really where `Overlay` and `Portal` from **Angular CDK** come into play. `OverlayRef` is a `PortalOutlet` which can `attach` a `ComponentPortal` to render that `Component` dynamically on the screen. Normally, you can leverage [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) to create the `Component` dynamically. However, `Overlay` and `Portal` from **Angular** **CDK** provide better APIs to work with, and to clean up. With that in mind, let’s work on `attachDialogContainer` method
+Các bạn nhớ `componentInstance` trên `DynamicDialogRef` có type là `DynamicDialogRootComponent` chứ? `DynamicDialogRootComponent` vẫn sẽ được khởi tạo động và đây chính là nới mà `Overlay` với `Portal` từ **Angular CDK** toả sáng. `OverlayRef` là một `PortalOutlet` mà bạn có thể dùng để `attach` một `ComponentPortal` để hiển thị động `Component` đó trên màn hình. Thông thường, các bạn có thể dùng tới [Dynamic Component Loader](https://angular.io/guide/dynamic-component-loader) để tạo động `Component`. Tuy nhiên, `Overlay` và `Portal` từ **Angular CDK** cung cấp APIs tốt hơn, dễ sử dụng hơn, dễ dọn dẹp hơn. Giờ thì chiến hàm `attachDialogContainer` thôi.
 
 ```typescript
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
@@ -1260,11 +1260,11 @@ export class DynamicDialogService {
 }
 ```
 
-First thing is we want to `createInjector()` for the **Dialog** because we want `DynamicDialogRef` and `DynamicDialogConfig` to be available via **Dependency** **Injection** in the `Overlay` instance which ultimately manages `DynamicDialogRootComponent` and custom **Dialog** **Content** **Component** which will also have access to the same **Injector** which provides the same `DynamicDialogRef` and `DynamicDialogConfig` instances used when the **Dialog** is opened with `open()`. `PortalInjector` will just merge a token map (`WeakMap` here) with the `parentInjector` so it can provide our custom tokens to the **Injector.** With the `PortalInjector` ready, we can then create an instance of `ComponentPortal` with the `PortalInjector` and our own `DynamicDialogRootComponent`. All that’s left to do is to attach this `ComponentPortal` to the `OverlayRef`. Call `overlayRef.attach()` to do so. Returned value is the reference to the underline `Component` used to instantiate `ComponentPortal`, which in this case is our `DynamicDialogRootComponent` and this is where we will assign the passed-in `component` that `contentComponentType` field. Finally, we return the `ref.instance` which is the instance of `DynamicDialogRootComponent` which is being managed by the current `Overlay`. Ultimately, we return the `dialogRef` for `open()` so the consumers have a hold of the `dialogRef` so they can subscribe to its events when it’s closed. 
+Điều đầu tiên cần làm là `createInjector()` cho **Dialog** vì chúng ta cần đem `DynamicDialogRef` và `DynamicDialogConfig` vào **Dependency Injection** trong instance của `Overlay`. `Overlay` instance này sẽ quản lý `DynamicDialogRootComponent` và **Dialog Content Component** cho nên nếu `Overlay` có truy xuất đến được `DynamicDialogRef` và `DynamicDialogConfig`, thì trong `DynamicDialogRootComponent` và **Dialog Content Component** cũng sẽ truy xuất được đến cùng `ref` và `config` này. Chúng ta sẽ dùng đến `PortalInjector`. `PortalInjector` sẽ nhập các `InjectionToken` trong `WeakMap` vào với `parentInjector` (là `Injector` mà chúng ta đã inject bên trong `DynamicDialogService` bên trên). Với `PortalInjector` sẵn sàng rồi, chúng ta có thể bắt đầu khởi tạo tiếp `ComponentPortal` với `PortalInjector` và `DynamicDialogRootComponent`. Giờ thì chỉ cần `attach` thằng `ComponentPortal` này lên `OverlayRef` thôi. Gọi hàm `overlayRef.attach()` để làm điều đó. Giá trị được trả về là một con trỏ dẫn đến `DynamicDialogRootComponent`. Đây chính là nơi mà mình gán giá trị cho `contentComponentType` bằng tham số `component` được truyền vào cho hàm `open()`. Cuối cùng, chúng ta sẽ trả về giá trị `ref.instance`, chính là con trỏ đến `DynamicDialogRootComponent` đang được quản lý bởi `Overlay`. Sau đó, mình sẽ trả về giá trị `dialogRef` cho hàm `open()`. Khi người dùng dùng hàm `open()` để mở một **Dialog** nào đó, họ sẽ được trả về con trỏ của `DynamicDialogRef` đó. Với `DynamicDialogRef`, họ có thể lắng nghe vào sự kiện `afterClosed` và nhận `data` để thực hiện tiếp logic của ứng dụng.
 
 ### DynamicDialogModule
 
-Every pieces of the **Dynamic Dialog** has been completed. However, we need to put everything in `DynamicDialogModule` before we can use it. Open `dynamic-dialog.module.ts`
+Tất cả các mảnh ghép của **Dynamic Dialog** đã hoàn tất rồi. Tuy nhiên, chúng ta cần phải quăng tất cả vào `DynamicDialogModule` thì mới dùng được. Mở file `dynamic-dialog.module.ts`
 
 ```typescript
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -1278,19 +1278,20 @@ import { DynamicDialogService } from './dynamic-dialog.service';
 @NgModule({
   declarations: [DynamicDialogContentDirective, DynamicDialogRootComponent],
   imports: [CommonModule, OverlayModule], // <-- import OverlayModule
-  entryComponents: [DynamicDialogRootComponent], // <-- add DynamicDialogRootComponent to entryComponents. Make sure to put it under declarations as well if you haven't already
+  entryComponents: [DynamicDialogRootComponent], // <-- thêm DynamicDialogRootComponent vào entryComponents. Chắc chắn rằng DynamicDialogRootComponent cũng được đặt vào declarations nhé.
   providers: [DynamicDialogService] // provide DynamicDialogService
 })
 export class DynamicDialogModule {
 }
 ```
 
-### Simple Usage
+### Cách dùng
 
-Before we use our **Dialog**, let's create a simple `Component` to be our **Dialog Content**. Run the following command
+Trước khi dùng được **Dialog**, hãy tạo một `Component` đơn giản để làm **Dialog Content**. Chạy lệnh sau
 
 ```shell script
 # assume you are at the root level of the project (cdk-bulma-dialog)
+# mặc định là bạn đang ở root của dự án (cdk-bulma-dialog)
 ng generate component test-dialog 
 --skipTests 
 --inlineTemplate 
@@ -1299,7 +1300,7 @@ ng generate component test-dialog
 --entryComponent
 ```
 
-We use the **CLI** to generate a `Component` with `inlineTemplate`, `inlineStyle`, `skipTests`, `changeDetection=OnPush`, and `entryComponent` flags. This component will be really simple so we will have everything `inline`. `entryComponent` flag will put this component in `entryComponents` array automatically for us. Now, let's open `test-dialog.component.ts`
+Chúng ta dùng **CLI** để khởi tạo `Component` với `inlineTemplate`, `inlineStyle`, `skipTests`, `changeDetection=OnPush`, và `entryComponent`. Component này sẽ cực kì đơn giản nên mình sẽ gom tất cả vào 1 file `*.component.ts`. `entryComponent` sẽ đặt `Component` này vào `entryComponents` trên `AppModule` luôn. Giờ thì mở file `test-dialog.component.ts` và quẩy thôi 
 
 ```typescript
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -1328,13 +1329,13 @@ export class TestDialogComponent implements OnInit {
 }
 ```
 
-We only add a `button` with `(click)` bound to `close()` method. We also inject `DynamicDialogConfig` and `DynamicDialogRef<string>` to check if our `PortalInjector` works or not. In `close()`, we call `dialogRef.close()` and pass in a string `'closed from inside content dialog'`. Now, open `app.component.html` 
+Chúng ta chỉ thêm một `button` với `(click)` được gán cho hàm `close()`. Chúng ta cũng inject `DynamicDialogConfig` và `DynamicDialogRef<string>` để kiểm tra xem `PortalInjector` có hoạt động hay không. Ở trong hàm `close()`, chúng ta gọi `dialogRef.close()` và truyền vào một chuỗi `'closed from inside content dialog'`. Giờ thì mở `app.component.html` và thêm vào dòng code sau
 
 ```html
 <button class="button" (click)="showOverlay()">Show Overlay</button>
 ```
 
-then open `app.component.ts`
+rồi mở file `app.component.ts`
 
 ```typescript
 import { Component } from '@angular/core';
@@ -1362,13 +1363,13 @@ export class AppComponent {
 }
 ```
 
-We inject `DynamicDialogService` and implement `showOverlay()` method:
+Inject `DynamicDialogService` và triển hàm `showOverlay()`:
 
-1. Instantiate a new `DynamicDialogConfig`, set the `header` to the name of `TestDialogComponent`.
-2. Call `dynamicDialogService.open()` , with `TestDialogComponent` and `config` as the arguments, then assign the returned `DynamicDialogRef` back to local variable `ref`
-3. Subscribe to `ref.afterClosed` and log the `data` passed from within `TestDialogComponent.close()` method.
+1. Khởi tạo một instance `DynamicDialogConfig` mới, gán chuối `'TestDialogComponent'` vào `header`.
+2. Gọi hàm `dynamicDialogService.open()`, với `TestDialogComponent` và `config` là tham số, sau đó gán giá trị được trả về cho biến nội bộ `ref`. 
+3. Lắng nghe vào sự kiện `ref.afterClosed` và log `data` được truyền ra từ bên trong hàm `TestDialogComponent.close()`.
 
-Open `app.module.ts` 
+Mở file `app.module.ts` 
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -1388,37 +1389,37 @@ export class AppModule {
 }
 ```
 
-Make sure you have `TestDialogComponent` in `entryComponents` and `DynamicDialogModule` in `imports`. Now, everything is ready. Moment of truth! Run your **Angular** application
+Bảo đảm là bạn có `TestDialogComponent` trong `entryComponents` và `DynamicDialogModule` trong `imports`. Ok, giờ thì mọi thứ sẵn sàng rồi. Khoảnh khắc sự thật là đây! Chạy ứng dụng thôi
 
 ```shell script
 ng serve -o
 ```
 
-You should see the following on the screen
+Bạn sẽ thấy được cái nút như sau trên màn hình
 
 ![](../images/dynamic-dialog/show-overlay-btn.png)
 *Lonely Show Overlay button*
 
-Clicking on the `Show Overlay` button will bring up our `TestDialogComponent` as a **Dialog**
+Click vào `Show Overlay` sẽ mở `TestDialogComponent` với backdrop màu xám đậm.
 
 ![](../images/dynamic-dialog/overlay.png)
 *Tada!*
 
-Open your **Console**, and click on `Close` button, you'll see 
+Mở **Console** lên, rồi click vào `Close`, các bạn sẽ thấy 
 
 ```shell script
 closed with data closed from inside content dialog
 ```
 
-logged to the **Console**. 👍
+được log ra **Console**. 👍
 
 ### Recap
 
-To recap, I have a little ugly diagram
+Để điểm lại, mình có vẽ một cái diagram gớm ghiếc này
 
 ![](../images/dynamic-dialog/diagram.png)
 *...😢*
 
-Here is the encapsulation of what's happening under the hood when you call `dynamicDialogService.open()`. `Overlay` instance is created to manage the current `OverlayRef` that is being used to handle the current `PortalOutlet` which renders the `DynamicDialogRootComponent` as its `ComponentPortal`. Then, we have the `PortalInjector` to inject the current instances of `DynamicDialogRef` and `DynamicDialogConfig` so we can have access to those in the **Dialog Content Component** (`TestDialogComponent`). That's all there is to it. `Overlay` and `Portal` are two very powerful tools that **Angular CDK** provides with robust APIs which allows developers like us build high quality components like the **DynamicDialog**. With the same concept, you can apply `Overlay` and `Portal` to build many different common overlay behaviors like: **Tooltip, Drawer, Toast** etc... 💪
+Ở một góc nhìn toàn diện, sau đây là mọi thứ diễn ra khi bạn gọi hàm `dynamicDialogService.open()`. `Overlay` instance sẽ được khởi tạo để quản lý `OverlayRef`. `OverlayRef` xử lý `PortalOutlet` và trên `PortalOutlet`, chúng ta hiển thị `DynamicDialogRootComponent` thông qua `ComponentPortal`. Sau đó, chúng ta có thiết lập `PortalInjector` để inject những instances hiện tại của `DynamicDialogRef` và `DynamicDialogConfig`. 2 thằng này sau khi được `PortalInjector` inject thì sẽ có thể được truy xuất tới trong **Dialog Content Component** (là `TestDialogComponent` trong ví dụ). Tất cả mọi thứ chỉ có vậy thôi. `Overlay` và `Portal` là hai công cụ cực kỳ ngon mà **Angular CDK** cung cấp cho các bạn tạo điều kiện cho developers có thể xây dựng những components chất lượng như **Dynamic Dialog**. Với kiến thức tương tự, các bạn có thể áp dụng `Overlay` và `Portal` để xây dựng những components tương tự khác như: **Tooltip**, **Drawer**, **Toast** etc... 💪
 
-To conclude, I hope that I was able to share something and you learn something new after this long blog post 🚀. Have fun and good luck. I'll see you all in the next blog 👋
+Kết bài, mình hy vọng là đã chia sẻ được cái gì đó và các bạn đã học thêm được cái gì đó qua bài blog dài ngoằng này 🚀. Have fun và good luck nhé. Hẹn gặp lại các bạn trong bài blog kế tiếp 👋

@@ -307,7 +307,7 @@ import {
     ComponentFactoryResolver,
     ChangeDetectorRef
 } from '@angular/core';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 
@@ -359,7 +359,7 @@ import {
     ChangeDetectorRef,
     ViewChild
 } from '@angular/core';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -433,7 +433,7 @@ import {
     ChangeDetectorRef,
     ViewChild
 } from '@angular/core';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -516,7 +516,7 @@ import {
     ChangeDetectorRef,
     ViewChild
 } from '@angular/core';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -686,7 +686,7 @@ import {
     ViewChild,
     HostListener
 } from '@angular/core';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -775,7 +775,7 @@ We added 2 methods
 
 Now, we are going to add `animations` to this `DynamicDialogRootComponent`
 
-I'm going to utilize an npm package called `ng-animate` to help with my animation skills. If you want to follow along, please run `npm i ng-animate`
+> I'm going to utilize an npm package called `ng-animate` to help with my animation skills. If you want to follow along, please run `npm i ng-animate`
 
 ```typescript
 import { animateChild, AnimationEvent, group, query, transition, trigger, useAnimation } from '@angular/animations';
@@ -793,7 +793,7 @@ import {
     HostListener
 } from '@angular/core';
 import { fadeIn, fadeOut, zoomIn, zoomOut } from 'ng-animate';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -923,7 +923,7 @@ import {
     HostListener
 } from '@angular/core';
 import { fadeIn, fadeOut, zoomIn, zoomOut } from 'ng-animate';
-import { AnimationState } from './models/animation-state.enum'; // <-- import AnimationState
+import { AnimationState } from './models/animation-state.enum';
 import { DynamicDialogConfig } from './models/dynamic-dialog-config.model';
 import { DynamicDialogRef } from './dynamic-dialog-ref';
 import { DynamicDialogContentDirective } from './dynamic-dialog-content.directive';
@@ -1095,7 +1095,7 @@ export class DynamicDialogService {
 }
 ```
 
-Let's import everything we need first. After that, we declare a `private readonly defaultDialogConfig` which will hold our default configuration of the **Dialog**. We did setup some default configurations inside of `DynamicDialogConfig` upon instantiation. Here in the `constructor`, we are going to be **defaulting** some `OverlayConfig` as well
+Let's import and inject everything we need first. After that, we declare a `private readonly defaultDialogConfig` which will hold our default configuration of the **Dialog**. We did setup some default configurations inside of `DynamicDialogConfig` upon instantiation. Here in the `constructor`, we are going to be **defaulting** some `OverlayConfig` as well
 
 1. `disposeOnNavigation`: Self-explanatory. We want to close the dialog if we navigate away from the current page so we clean up and prevent potential memory-leak.
 2. `hasBackdrop`: This can be set default or not. I set it to `true`. If it's `true`, then `Overlay` will also render a `cdk-backdrop` element along side the `cdk-overlay` on our **DOM Tree**.

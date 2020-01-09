@@ -99,6 +99,7 @@ export const tagsQuery = graphql`
             date(formatString: " MM/DD/YYYY")
             tags
             title
+            langs
             cover {
               childImageSharp {
                 fluid(maxWidth: 1080, fit: COVER, quality: 80) {
