@@ -2,7 +2,8 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 
-import React, { FC, memo } from "react";
+import React, { FC, memo, useEffect } from "react";
+import { useLanguageChangerContext } from "../contexts/language-changer-context";
 import { SiteSiteMetadataSocials } from "../graph-types";
 import Navs from "./navs";
 
@@ -24,6 +25,10 @@ type IntroProps = {
 
 const Intro: FC<IntroProps> = memo(({ atIndex, description, socials }) => {
   const classes = useStyles();
+  const { setLang } = useLanguageChangerContext();
+  useEffect(() => {
+    setLang("en");
+  }, []);
   return (
     <Container maxWidth={"md"} classes={{ root: classes.introWrapper }}>
       <Typography variant={"h3"} align={"center"}>
