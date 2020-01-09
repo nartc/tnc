@@ -1426,5 +1426,5 @@ Kết bài, mình hy vọng là đã chia sẻ được cái gì đó và các b
 
 ### Reference
 
-- [](https://blog.thoughtram.io/angular/2017/11/20/custom-overlays-with-angulars-cdk.html)
-- [](https://netbasal.com/creating-powerful-components-with-angular-cdk-2cef53d81cea)
+- [Custom Overlays With Angular CDK](https://blog.thoughtram.io/angular/2017/11/20/custom-overlays-with-angulars-cdk.html)
+- [Creating Powerful Components With Angular CDK](https://netbasal.com/creating-powerful-components-with-angular-cdk-2cef53d81cea)  
