@@ -84,10 +84,12 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
           </Typography>
           <Grid container justify={"space-between"} alignItems={"center"}>
             <BlogTimeToRead timeToRead={item.node.timeToRead as number} />
-            <BlogChipList
-              chips={langs.map(lang => lang.toUpperCase())}
-              isOutline
-            />
+            {langs && (
+              <BlogChipList
+                chips={langs.map(lang => lang.toUpperCase())}
+                isOutline
+              />
+            )}
           </Grid>
         </CardContent>
       </CardActionArea>
