@@ -1423,3 +1423,8 @@ closed with data closed from inside content dialog
 Ở một góc nhìn toàn diện, sau đây là mọi thứ diễn ra khi bạn gọi hàm `dynamicDialogService.open()`. `Overlay` instance sẽ được khởi tạo để quản lý `OverlayRef`. `OverlayRef` xử lý `PortalOutlet` và trên `PortalOutlet`, chúng ta hiển thị `DynamicDialogRootComponent` thông qua `ComponentPortal`. Sau đó, chúng ta có thiết lập `PortalInjector` để inject những instances hiện tại của `DynamicDialogRef` và `DynamicDialogConfig`. 2 thằng này sau khi được `PortalInjector` inject thì sẽ có thể được truy xuất tới trong **Dialog Content Component** (là `TestDialogComponent` trong ví dụ). Tất cả mọi thứ chỉ có vậy thôi. `Overlay` và `Portal` là hai công cụ cực kỳ ngon mà **Angular CDK** cung cấp cho các bạn tạo điều kiện cho developers có thể xây dựng những components chất lượng như **Dynamic Dialog**. Với kiến thức tương tự, các bạn có thể áp dụng `Overlay` và `Portal` để xây dựng những components tương tự khác như: **Tooltip**, **Drawer**, **Toast** etc... 💪
 
 Kết bài, mình hy vọng là đã chia sẻ được cái gì đó và các bạn đã học thêm được cái gì đó qua bài blog dài ngoằng này 🚀. Have fun và good luck nhé. Hẹn gặp lại các bạn trong bài blog kế tiếp 👋
+
+### Reference
+
+- [](https://blog.thoughtram.io/angular/2017/11/20/custom-overlays-with-angulars-cdk.html)
+- [](https://netbasal.com/creating-powerful-components-with-angular-cdk-2cef53d81cea)

@@ -1420,3 +1420,8 @@ To recap, I have a little ugly diagram
 Here is the encapsulation of what's happening under the hood when you call `dynamicDialogService.open()`. `Overlay` instance is created to manage the current `OverlayRef` that is being used to handle the current `PortalOutlet` which renders the `DynamicDialogRootComponent` as its `ComponentPortal`. Then, we have the `PortalInjector` to inject the current instances of `DynamicDialogRef` and `DynamicDialogConfig` so we can have access to those in the **Dialog Content Component** (`TestDialogComponent`). That's all there is to it. `Overlay` and `Portal` are two very powerful tools that **Angular CDK** provides with robust APIs which allows developers like us build high quality components like the **DynamicDialog**. With the same concept, you can apply `Overlay` and `Portal` to build many different common overlay behaviors like: **Tooltip, Drawer, Toast** etc... 💪
 
 To conclude, I hope that I was able to share something and you learn something new after this long blog post 🚀. Have fun and good luck. I'll see you all in the next blog 👋
+
+### Reference
+
+- [](https://blog.thoughtram.io/angular/2017/11/20/custom-overlays-with-angulars-cdk.html)
+- [](https://netbasal.com/creating-powerful-components-with-angular-cdk-2cef53d81cea)  
