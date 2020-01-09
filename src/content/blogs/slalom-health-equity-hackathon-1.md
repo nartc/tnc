@@ -4,6 +4,7 @@ date: 2019-09-08T17:06:55.354Z
 tags: ["Programming", "Hackathon", "AWS Comprehend", "NLP", "MongoDB"]
 draft: false
 cover: ../covers/health_hack.png
+langs: ["en"]
 ---
 
 This is **Part One** of a two-part series about my journey through **Slalom Health Equity Hackathon**. You can read about **[Part Two](/blogs/slalom-health-equity-hackathon-2)** here.

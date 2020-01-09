@@ -4,6 +4,7 @@ date: 2019-10-16T17:06:55.354Z
 tags: ["Programming", "Typescript", "AutoMapper"]
 draft: false
 cover: ../covers/missing_puzzle.jpg
+langs: ["en"]
 ---
 
 Hey, it's been around a month since my last blog post 😢. Work has been pretty busy lately for me. Talk about work, this week marks my 2 years as a **Developer** at [ArchitectNow](http://architectnow.net). Over the course of 2 years, I've learned so many cool technologies like: `.NET Core`, `Swagger/OpenAPI` and especially `AutoMapper`.

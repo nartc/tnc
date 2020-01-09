@@ -4,6 +4,7 @@ date: 2019-09-19T17:06:55.354Z
 tags: ["Programming", "Environment", "Macbook"]
 draft: false
 cover: ../covers/macbook.jpeg
+langs: ["en"]
 ---
 
 Today, I am going to share with you guys my **development environment** which has been serving me really well for the past year. By all means, mine is not that special or anything but I want to share because there might be people out there who might find this interesting, and for me to have a source that I could come back to every time I install `Parallels` 😂

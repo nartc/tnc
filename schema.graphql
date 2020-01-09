@@ -1,5 +1,5 @@
 # source: http://localhost:8000/___graphql
-# timestamp: Mon Dec 23 2019 18:50:38 GMT-0600 (Central Standard Time)
+# timestamp: Sun Jan 05 2020 20:58:33 GMT-0600 (Central Standard Time)
 
 """Provides default value for input field."""
 directive @default(value: JSON!) on INPUT_FIELD_DEFINITION
@@ -914,10 +914,12 @@ enum FileFieldsEnum {
   childMarkdownRemark___frontmatter___cover___publicURL
   childMarkdownRemark___frontmatter___cover___id
   childMarkdownRemark___frontmatter___cover___children
+  childMarkdownRemark___frontmatter___langs
   childMarkdownRemark___excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___fields___slug @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  childMarkdownRemark___fields___langKey @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___html @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___htmlAst @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___excerptAst @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1566,6 +1568,7 @@ type MarkdownRemarkEdge {
 
 type MarkdownRemarkFields {
   slug: String
+  langKey: String
 }
 
 enum MarkdownRemarkFieldsEnum {
@@ -1635,10 +1638,12 @@ enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___childMarkdownRemark___timeToRead @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___tableOfContents @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   frontmatter___cover___childMarkdownRemark___children @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  frontmatter___langs
   excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fields___slug @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
+  fields___langKey @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   html @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   htmlAst @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   excerptAst @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1739,6 +1744,7 @@ enum MarkdownRemarkFieldsEnum {
 
 input MarkdownRemarkFieldsFilterInput {
   slug: StringQueryOperatorInput
+  langKey: StringQueryOperatorInput
 }
 
 input MarkdownRemarkFilterInput {
@@ -1786,6 +1792,7 @@ type MarkdownRemarkFrontmatter {
   tags: [String]
   draft: Boolean
   cover: File
+  langs: [String]
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
@@ -1794,6 +1801,7 @@ input MarkdownRemarkFrontmatterFilterInput {
   tags: StringQueryOperatorInput
   draft: BooleanQueryOperatorInput
   cover: FileFilterInput
+  langs: StringQueryOperatorInput
 }
 
 type MarkdownRemarkGroupConnection {
@@ -2032,6 +2040,7 @@ enum SiteFieldsEnum {
   siteMetadata___socials___type
   siteMetadata___socials___link
   siteMetadata___blogsPerPage
+  siteMetadata___langs
   port
   host
   polyfill
@@ -2088,86 +2097,28 @@ type SitePageConnection {
 
 type SitePageContext {
   tag: String
+  langKey: String
   totalCount: Int
+  currentPage: Int
+  numPages: Int
   limit: Int
   skip: Int
-  numPages: Int
-  currentPage: Int
   total: Int
   slug: String
-  prev: SitePageContextPrev
-  next: SitePageContextNext
   primaryTag: String
 }
 
 input SitePageContextFilterInput {
   tag: StringQueryOperatorInput
+  langKey: StringQueryOperatorInput
   totalCount: IntQueryOperatorInput
+  currentPage: IntQueryOperatorInput
+  numPages: IntQueryOperatorInput
   limit: IntQueryOperatorInput
   skip: IntQueryOperatorInput
-  numPages: IntQueryOperatorInput
-  currentPage: IntQueryOperatorInput
   total: IntQueryOperatorInput
   slug: StringQueryOperatorInput
-  prev: SitePageContextPrevFilterInput
-  next: SitePageContextNextFilterInput
   primaryTag: StringQueryOperatorInput
-}
-
-type SitePageContextNext {
-  fields: SitePageContextNextFields
-  frontmatter: SitePageContextNextFrontmatter
-}
-
-type SitePageContextNextFields {
-  slug: String
-}
-
-input SitePageContextNextFieldsFilterInput {
-  slug: StringQueryOperatorInput
-}
-
-input SitePageContextNextFilterInput {
-  fields: SitePageContextNextFieldsFilterInput
-  frontmatter: SitePageContextNextFrontmatterFilterInput
-}
-
-type SitePageContextNextFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextNextFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
-}
-
-type SitePageContextPrev {
-  fields: SitePageContextPrevFields
-  frontmatter: SitePageContextPrevFrontmatter
-}
-
-type SitePageContextPrevFields {
-  slug: String
-}
-
-input SitePageContextPrevFieldsFilterInput {
-  slug: StringQueryOperatorInput
-}
-
-input SitePageContextPrevFilterInput {
-  fields: SitePageContextPrevFieldsFilterInput
-  frontmatter: SitePageContextPrevFrontmatterFilterInput
-}
-
-type SitePageContextPrevFrontmatter {
-  title: String
-  tags: [String]
-}
-
-input SitePageContextPrevFrontmatterFilterInput {
-  title: StringQueryOperatorInput
-  tags: StringQueryOperatorInput
 }
 
 type SitePageEdge {
@@ -2269,19 +2220,14 @@ enum SitePageFieldsEnum {
   componentChunkName
   isCreatedByStatefulCreatePages
   context___tag
+  context___langKey
   context___totalCount
+  context___currentPage
+  context___numPages
   context___limit
   context___skip
-  context___numPages
-  context___currentPage
   context___total
   context___slug
-  context___prev___fields___slug
-  context___prev___frontmatter___title
-  context___prev___frontmatter___tags
-  context___next___fields___slug
-  context___next___frontmatter___title
-  context___next___frontmatter___tags
   context___primaryTag
   pluginCreator___id
   pluginCreator___parent___id
@@ -2345,8 +2291,19 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___wrapperStyle
   pluginCreator___pluginOptions___offsetY
   pluginCreator___pluginOptions___showLineNumbers
+  pluginCreator___pluginOptions___ignoreFileExtensions
   pluginCreator___pluginOptions___maxWidth
   pluginCreator___pluginOptions___quality
+  pluginCreator___pluginOptions___pathPrefix
+  pluginCreator___pluginOptions___backgroundColor
+  pluginCreator___pluginOptions___linkImagesToOriginal
+  pluginCreator___pluginOptions___showCaptions
+  pluginCreator___pluginOptions___markdownCaptions
+  pluginCreator___pluginOptions___withWebp
+  pluginCreator___pluginOptions___tracedSVG
+  pluginCreator___pluginOptions___loading
+  pluginCreator___pluginOptions___disableBgImageOnAlpha
+  pluginCreator___pluginOptions___disableBgImage
   pluginCreator___pluginOptions___target
   pluginCreator___pluginOptions___rel
   pluginCreator___pluginOptions___short_name
@@ -2544,8 +2501,19 @@ enum SitePluginFieldsEnum {
   pluginOptions___plugins___pluginOptions___wrapperStyle
   pluginOptions___plugins___pluginOptions___offsetY
   pluginOptions___plugins___pluginOptions___showLineNumbers
+  pluginOptions___plugins___pluginOptions___ignoreFileExtensions
   pluginOptions___plugins___pluginOptions___maxWidth
   pluginOptions___plugins___pluginOptions___quality
+  pluginOptions___plugins___pluginOptions___pathPrefix
+  pluginOptions___plugins___pluginOptions___backgroundColor
+  pluginOptions___plugins___pluginOptions___linkImagesToOriginal
+  pluginOptions___plugins___pluginOptions___showCaptions
+  pluginOptions___plugins___pluginOptions___markdownCaptions
+  pluginOptions___plugins___pluginOptions___withWebp
+  pluginOptions___plugins___pluginOptions___tracedSVG
+  pluginOptions___plugins___pluginOptions___loading
+  pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha
+  pluginOptions___plugins___pluginOptions___disableBgImage
   pluginOptions___plugins___pluginOptions___target
   pluginOptions___plugins___pluginOptions___rel
   pluginOptions___plugins___browserAPIs
@@ -2564,8 +2532,19 @@ enum SitePluginFieldsEnum {
   pluginOptions___wrapperStyle
   pluginOptions___offsetY
   pluginOptions___showLineNumbers
+  pluginOptions___ignoreFileExtensions
   pluginOptions___maxWidth
   pluginOptions___quality
+  pluginOptions___pathPrefix
+  pluginOptions___backgroundColor
+  pluginOptions___linkImagesToOriginal
+  pluginOptions___showCaptions
+  pluginOptions___markdownCaptions
+  pluginOptions___withWebp
+  pluginOptions___tracedSVG
+  pluginOptions___loading
+  pluginOptions___disableBgImageOnAlpha
+  pluginOptions___disableBgImage
   pluginOptions___target
   pluginOptions___rel
   pluginOptions___short_name
@@ -2707,8 +2686,19 @@ type SitePluginPluginOptions {
   wrapperStyle: String
   offsetY: Int
   showLineNumbers: Boolean
+  ignoreFileExtensions: [String]
   maxWidth: Int
   quality: Int
+  pathPrefix: String
+  backgroundColor: String
+  linkImagesToOriginal: Boolean
+  showCaptions: Boolean
+  markdownCaptions: Boolean
+  withWebp: Boolean
+  tracedSVG: Boolean
+  loading: String
+  disableBgImageOnAlpha: Boolean
+  disableBgImage: Boolean
   target: String
   rel: String
   short_name: String
@@ -2751,8 +2741,19 @@ input SitePluginPluginOptionsFilterInput {
   wrapperStyle: StringQueryOperatorInput
   offsetY: IntQueryOperatorInput
   showLineNumbers: BooleanQueryOperatorInput
+  ignoreFileExtensions: StringQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   quality: IntQueryOperatorInput
+  pathPrefix: StringQueryOperatorInput
+  backgroundColor: StringQueryOperatorInput
+  linkImagesToOriginal: BooleanQueryOperatorInput
+  showCaptions: BooleanQueryOperatorInput
+  markdownCaptions: BooleanQueryOperatorInput
+  withWebp: BooleanQueryOperatorInput
+  tracedSVG: BooleanQueryOperatorInput
+  loading: StringQueryOperatorInput
+  disableBgImageOnAlpha: BooleanQueryOperatorInput
+  disableBgImage: BooleanQueryOperatorInput
   target: StringQueryOperatorInput
   rel: StringQueryOperatorInput
   short_name: StringQueryOperatorInput
@@ -2809,8 +2810,19 @@ type SitePluginPluginOptionsPluginsPluginOptions {
   wrapperStyle: String
   offsetY: Int
   showLineNumbers: Boolean
+  ignoreFileExtensions: [String]
   maxWidth: Int
   quality: Int
+  pathPrefix: String
+  backgroundColor: String
+  linkImagesToOriginal: Boolean
+  showCaptions: Boolean
+  markdownCaptions: Boolean
+  withWebp: Boolean
+  tracedSVG: Boolean
+  loading: String
+  disableBgImageOnAlpha: Boolean
+  disableBgImage: Boolean
   target: String
   rel: String
 }
@@ -2820,8 +2832,19 @@ input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
   wrapperStyle: StringQueryOperatorInput
   offsetY: IntQueryOperatorInput
   showLineNumbers: BooleanQueryOperatorInput
+  ignoreFileExtensions: StringQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   quality: IntQueryOperatorInput
+  pathPrefix: StringQueryOperatorInput
+  backgroundColor: StringQueryOperatorInput
+  linkImagesToOriginal: BooleanQueryOperatorInput
+  showCaptions: BooleanQueryOperatorInput
+  markdownCaptions: BooleanQueryOperatorInput
+  withWebp: BooleanQueryOperatorInput
+  tracedSVG: BooleanQueryOperatorInput
+  loading: StringQueryOperatorInput
+  disableBgImageOnAlpha: BooleanQueryOperatorInput
+  disableBgImage: BooleanQueryOperatorInput
   target: StringQueryOperatorInput
   rel: StringQueryOperatorInput
 }
@@ -2839,6 +2862,7 @@ type SiteSiteMetadata {
   baseUrl: String
   socials: [SiteSiteMetadataSocials]
   blogsPerPage: Int
+  langs: [String]
 }
 
 input SiteSiteMetadataFilterInput {
@@ -2849,6 +2873,7 @@ input SiteSiteMetadataFilterInput {
   baseUrl: StringQueryOperatorInput
   socials: SiteSiteMetadataSocialsFilterListInput
   blogsPerPage: IntQueryOperatorInput
+  langs: StringQueryOperatorInput
 }
 
 type SiteSiteMetadataSocials {

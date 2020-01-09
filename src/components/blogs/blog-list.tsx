@@ -1,25 +1,26 @@
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import { Theme } from "@material-ui/core/styles";
 import TablePagination from "@material-ui/core/TablePagination";
 import Typography from "@material-ui/core/Typography";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import { makeStyles } from "@material-ui/styles";
 import { NavigateFn } from "@reach/router";
-import { graphql } from "gatsby";
 import React, { FC, memo, useCallback } from "react";
-import BlogListItem from "../components/blogs/blog-list-item";
-import Navs from "../components/navs";
-import SEO from "../components/seo";
-import TagsList from "../components/tags-list";
 import {
   MarkdownRemarkConnection,
   Site,
   SitePageContext,
   SiteSiteMetadata,
   SiteSiteMetadataSocials,
-} from "../graph-types";
+} from "../../graph-types";
+import Navs from "../navs";
+import SEO from "../seo";
+import TagsList from "../tags-list";
+import BlogListItem from "./blog-list-item";
 
-type BlogsProps = {
+export type BlogsProps = {
   data: {
     allMarkdownRemark: MarkdownRemarkConnection;
     site: Site;
@@ -28,7 +29,15 @@ type BlogsProps = {
   navigate: NavigateFn;
 };
 
-const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
+const useStyles = makeStyles<Theme>(theme => ({
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+}));
+
+const BlogList: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
+  const classes = useStyles();
   const onChangePage = useCallback(
     (_: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
       console.log(page);
@@ -50,7 +59,7 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
           <LibraryBooksOutlinedIcon fontSize={"large"} /> Blogs
         </Typography>
         <TagsList tags={tags} />
-        <Divider />
+        <Divider classes={{ root: classes.divider }} />
         <Grid container spacing={6}>
           {data.allMarkdownRemark.edges.map((edge, index) => {
             return (
@@ -80,49 +89,4 @@ const Blogs: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
   );
 });
 
-export default Blogs;
-
-export const blogsQuery = graphql`
-  query blogsQuery($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: [DESC] }
-      filter: { frontmatter: { draft: { ne: true } } }
-      limit: $limit
-      skip: $skip
-    ) {
-      group(field: frontmatter___tags) {
-        tag: fieldValue
-        totalCount
-      }
-      edges {
-        node {
-          excerpt
-          timeToRead
-          frontmatter {
-            date(formatString: " MM/DD/YYYY")
-            tags
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 1080, fit: COVER, quality: 80) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
-          fields {
-            slug
-          }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        socials {
-          link
-          type
-        }
-      }
-    }
-  }
-`;
+export default BlogList;

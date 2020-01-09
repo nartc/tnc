@@ -736,10 +736,12 @@ export enum FileFieldsEnum {
   childMarkdownRemark___frontmatter___cover___publicURL = 'childMarkdownRemark___frontmatter___cover___publicURL',
   childMarkdownRemark___frontmatter___cover___id = 'childMarkdownRemark___frontmatter___cover___id',
   childMarkdownRemark___frontmatter___cover___children = 'childMarkdownRemark___frontmatter___cover___children',
+  childMarkdownRemark___frontmatter___langs = 'childMarkdownRemark___frontmatter___langs',
   childMarkdownRemark___excerpt = 'childMarkdownRemark___excerpt',
   childMarkdownRemark___rawMarkdownBody = 'childMarkdownRemark___rawMarkdownBody',
   childMarkdownRemark___fileAbsolutePath = 'childMarkdownRemark___fileAbsolutePath',
   childMarkdownRemark___fields___slug = 'childMarkdownRemark___fields___slug',
+  childMarkdownRemark___fields___langKey = 'childMarkdownRemark___fields___langKey',
   childMarkdownRemark___html = 'childMarkdownRemark___html',
   childMarkdownRemark___htmlAst = 'childMarkdownRemark___htmlAst',
   childMarkdownRemark___excerptAst = 'childMarkdownRemark___excerptAst',
@@ -1518,6 +1520,7 @@ export type MarkdownRemarkEdge = {
 export type MarkdownRemarkFields = {
    __typename?: 'MarkdownRemarkFields',
   slug?: Maybe<Scalars['String']>,
+  langKey?: Maybe<Scalars['String']>,
 };
 
 export enum MarkdownRemarkFieldsEnum {
@@ -1587,10 +1590,12 @@ export enum MarkdownRemarkFieldsEnum {
   frontmatter___cover___childMarkdownRemark___timeToRead = 'frontmatter___cover___childMarkdownRemark___timeToRead',
   frontmatter___cover___childMarkdownRemark___tableOfContents = 'frontmatter___cover___childMarkdownRemark___tableOfContents',
   frontmatter___cover___childMarkdownRemark___children = 'frontmatter___cover___childMarkdownRemark___children',
+  frontmatter___langs = 'frontmatter___langs',
   excerpt = 'excerpt',
   rawMarkdownBody = 'rawMarkdownBody',
   fileAbsolutePath = 'fileAbsolutePath',
   fields___slug = 'fields___slug',
+  fields___langKey = 'fields___langKey',
   html = 'html',
   htmlAst = 'htmlAst',
   excerptAst = 'excerptAst',
@@ -1691,6 +1696,7 @@ export enum MarkdownRemarkFieldsEnum {
 
 export type MarkdownRemarkFieldsFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>,
+  langKey?: Maybe<StringQueryOperatorInput>,
 };
 
 export type MarkdownRemarkFilterInput = {
@@ -1719,6 +1725,7 @@ export type MarkdownRemarkFrontmatter = {
   tags?: Maybe<Array<Maybe<Scalars['String']>>>,
   draft?: Maybe<Scalars['Boolean']>,
   cover?: Maybe<File>,
+  langs?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 
@@ -1735,6 +1742,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   tags?: Maybe<StringQueryOperatorInput>,
   draft?: Maybe<BooleanQueryOperatorInput>,
   cover?: Maybe<FileFilterInput>,
+  langs?: Maybe<StringQueryOperatorInput>,
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -2203,6 +2211,7 @@ export enum SiteFieldsEnum {
   siteMetadata___socials___type = 'siteMetadata___socials___type',
   siteMetadata___socials___link = 'siteMetadata___socials___link',
   siteMetadata___blogsPerPage = 'siteMetadata___blogsPerPage',
+  siteMetadata___langs = 'siteMetadata___langs',
   port = 'port',
   host = 'host',
   polyfill = 'polyfill',
@@ -2275,92 +2284,28 @@ export type SitePageConnectionGroupArgs = {
 export type SitePageContext = {
    __typename?: 'SitePageContext',
   tag?: Maybe<Scalars['String']>,
+  langKey?: Maybe<Scalars['String']>,
   totalCount?: Maybe<Scalars['Int']>,
+  currentPage?: Maybe<Scalars['Int']>,
+  numPages?: Maybe<Scalars['Int']>,
   limit?: Maybe<Scalars['Int']>,
   skip?: Maybe<Scalars['Int']>,
-  numPages?: Maybe<Scalars['Int']>,
-  currentPage?: Maybe<Scalars['Int']>,
   total?: Maybe<Scalars['Int']>,
   slug?: Maybe<Scalars['String']>,
-  prev?: Maybe<SitePageContextPrev>,
-  next?: Maybe<SitePageContextNext>,
   primaryTag?: Maybe<Scalars['String']>,
 };
 
 export type SitePageContextFilterInput = {
   tag?: Maybe<StringQueryOperatorInput>,
+  langKey?: Maybe<StringQueryOperatorInput>,
   totalCount?: Maybe<IntQueryOperatorInput>,
+  currentPage?: Maybe<IntQueryOperatorInput>,
+  numPages?: Maybe<IntQueryOperatorInput>,
   limit?: Maybe<IntQueryOperatorInput>,
   skip?: Maybe<IntQueryOperatorInput>,
-  numPages?: Maybe<IntQueryOperatorInput>,
-  currentPage?: Maybe<IntQueryOperatorInput>,
   total?: Maybe<IntQueryOperatorInput>,
   slug?: Maybe<StringQueryOperatorInput>,
-  prev?: Maybe<SitePageContextPrevFilterInput>,
-  next?: Maybe<SitePageContextNextFilterInput>,
   primaryTag?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNext = {
-   __typename?: 'SitePageContextNext',
-  fields?: Maybe<SitePageContextNextFields>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatter>,
-};
-
-export type SitePageContextNextFields = {
-   __typename?: 'SitePageContextNextFields',
-  slug?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextNextFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextNextFilterInput = {
-  fields?: Maybe<SitePageContextNextFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>,
-};
-
-export type SitePageContextNextFrontmatter = {
-   __typename?: 'SitePageContextNextFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextNextFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrev = {
-   __typename?: 'SitePageContextPrev',
-  fields?: Maybe<SitePageContextPrevFields>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatter>,
-};
-
-export type SitePageContextPrevFields = {
-   __typename?: 'SitePageContextPrevFields',
-  slug?: Maybe<Scalars['String']>,
-};
-
-export type SitePageContextPrevFieldsFilterInput = {
-  slug?: Maybe<StringQueryOperatorInput>,
-};
-
-export type SitePageContextPrevFilterInput = {
-  fields?: Maybe<SitePageContextPrevFieldsFilterInput>,
-  frontmatter?: Maybe<SitePageContextPrevFrontmatterFilterInput>,
-};
-
-export type SitePageContextPrevFrontmatter = {
-   __typename?: 'SitePageContextPrevFrontmatter',
-  title?: Maybe<Scalars['String']>,
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type SitePageContextPrevFrontmatterFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>,
-  tags?: Maybe<StringQueryOperatorInput>,
 };
 
 export type SitePageEdge = {
@@ -2463,19 +2408,14 @@ export enum SitePageFieldsEnum {
   componentChunkName = 'componentChunkName',
   isCreatedByStatefulCreatePages = 'isCreatedByStatefulCreatePages',
   context___tag = 'context___tag',
+  context___langKey = 'context___langKey',
   context___totalCount = 'context___totalCount',
+  context___currentPage = 'context___currentPage',
+  context___numPages = 'context___numPages',
   context___limit = 'context___limit',
   context___skip = 'context___skip',
-  context___numPages = 'context___numPages',
-  context___currentPage = 'context___currentPage',
   context___total = 'context___total',
   context___slug = 'context___slug',
-  context___prev___fields___slug = 'context___prev___fields___slug',
-  context___prev___frontmatter___title = 'context___prev___frontmatter___title',
-  context___prev___frontmatter___tags = 'context___prev___frontmatter___tags',
-  context___next___fields___slug = 'context___next___fields___slug',
-  context___next___frontmatter___title = 'context___next___frontmatter___title',
-  context___next___frontmatter___tags = 'context___next___frontmatter___tags',
   context___primaryTag = 'context___primaryTag',
   pluginCreator___id = 'pluginCreator___id',
   pluginCreator___parent___id = 'pluginCreator___parent___id',
@@ -2539,8 +2479,19 @@ export enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___wrapperStyle = 'pluginCreator___pluginOptions___wrapperStyle',
   pluginCreator___pluginOptions___offsetY = 'pluginCreator___pluginOptions___offsetY',
   pluginCreator___pluginOptions___showLineNumbers = 'pluginCreator___pluginOptions___showLineNumbers',
+  pluginCreator___pluginOptions___ignoreFileExtensions = 'pluginCreator___pluginOptions___ignoreFileExtensions',
   pluginCreator___pluginOptions___maxWidth = 'pluginCreator___pluginOptions___maxWidth',
   pluginCreator___pluginOptions___quality = 'pluginCreator___pluginOptions___quality',
+  pluginCreator___pluginOptions___pathPrefix = 'pluginCreator___pluginOptions___pathPrefix',
+  pluginCreator___pluginOptions___backgroundColor = 'pluginCreator___pluginOptions___backgroundColor',
+  pluginCreator___pluginOptions___linkImagesToOriginal = 'pluginCreator___pluginOptions___linkImagesToOriginal',
+  pluginCreator___pluginOptions___showCaptions = 'pluginCreator___pluginOptions___showCaptions',
+  pluginCreator___pluginOptions___markdownCaptions = 'pluginCreator___pluginOptions___markdownCaptions',
+  pluginCreator___pluginOptions___withWebp = 'pluginCreator___pluginOptions___withWebp',
+  pluginCreator___pluginOptions___tracedSVG = 'pluginCreator___pluginOptions___tracedSVG',
+  pluginCreator___pluginOptions___loading = 'pluginCreator___pluginOptions___loading',
+  pluginCreator___pluginOptions___disableBgImageOnAlpha = 'pluginCreator___pluginOptions___disableBgImageOnAlpha',
+  pluginCreator___pluginOptions___disableBgImage = 'pluginCreator___pluginOptions___disableBgImage',
   pluginCreator___pluginOptions___target = 'pluginCreator___pluginOptions___target',
   pluginCreator___pluginOptions___rel = 'pluginCreator___pluginOptions___rel',
   pluginCreator___pluginOptions___short_name = 'pluginCreator___pluginOptions___short_name',
@@ -2754,8 +2705,19 @@ export enum SitePluginFieldsEnum {
   pluginOptions___plugins___pluginOptions___wrapperStyle = 'pluginOptions___plugins___pluginOptions___wrapperStyle',
   pluginOptions___plugins___pluginOptions___offsetY = 'pluginOptions___plugins___pluginOptions___offsetY',
   pluginOptions___plugins___pluginOptions___showLineNumbers = 'pluginOptions___plugins___pluginOptions___showLineNumbers',
+  pluginOptions___plugins___pluginOptions___ignoreFileExtensions = 'pluginOptions___plugins___pluginOptions___ignoreFileExtensions',
   pluginOptions___plugins___pluginOptions___maxWidth = 'pluginOptions___plugins___pluginOptions___maxWidth',
   pluginOptions___plugins___pluginOptions___quality = 'pluginOptions___plugins___pluginOptions___quality',
+  pluginOptions___plugins___pluginOptions___pathPrefix = 'pluginOptions___plugins___pluginOptions___pathPrefix',
+  pluginOptions___plugins___pluginOptions___backgroundColor = 'pluginOptions___plugins___pluginOptions___backgroundColor',
+  pluginOptions___plugins___pluginOptions___linkImagesToOriginal = 'pluginOptions___plugins___pluginOptions___linkImagesToOriginal',
+  pluginOptions___plugins___pluginOptions___showCaptions = 'pluginOptions___plugins___pluginOptions___showCaptions',
+  pluginOptions___plugins___pluginOptions___markdownCaptions = 'pluginOptions___plugins___pluginOptions___markdownCaptions',
+  pluginOptions___plugins___pluginOptions___withWebp = 'pluginOptions___plugins___pluginOptions___withWebp',
+  pluginOptions___plugins___pluginOptions___tracedSVG = 'pluginOptions___plugins___pluginOptions___tracedSVG',
+  pluginOptions___plugins___pluginOptions___loading = 'pluginOptions___plugins___pluginOptions___loading',
+  pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha = 'pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha',
+  pluginOptions___plugins___pluginOptions___disableBgImage = 'pluginOptions___plugins___pluginOptions___disableBgImage',
   pluginOptions___plugins___pluginOptions___target = 'pluginOptions___plugins___pluginOptions___target',
   pluginOptions___plugins___pluginOptions___rel = 'pluginOptions___plugins___pluginOptions___rel',
   pluginOptions___plugins___browserAPIs = 'pluginOptions___plugins___browserAPIs',
@@ -2774,8 +2736,19 @@ export enum SitePluginFieldsEnum {
   pluginOptions___wrapperStyle = 'pluginOptions___wrapperStyle',
   pluginOptions___offsetY = 'pluginOptions___offsetY',
   pluginOptions___showLineNumbers = 'pluginOptions___showLineNumbers',
+  pluginOptions___ignoreFileExtensions = 'pluginOptions___ignoreFileExtensions',
   pluginOptions___maxWidth = 'pluginOptions___maxWidth',
   pluginOptions___quality = 'pluginOptions___quality',
+  pluginOptions___pathPrefix = 'pluginOptions___pathPrefix',
+  pluginOptions___backgroundColor = 'pluginOptions___backgroundColor',
+  pluginOptions___linkImagesToOriginal = 'pluginOptions___linkImagesToOriginal',
+  pluginOptions___showCaptions = 'pluginOptions___showCaptions',
+  pluginOptions___markdownCaptions = 'pluginOptions___markdownCaptions',
+  pluginOptions___withWebp = 'pluginOptions___withWebp',
+  pluginOptions___tracedSVG = 'pluginOptions___tracedSVG',
+  pluginOptions___loading = 'pluginOptions___loading',
+  pluginOptions___disableBgImageOnAlpha = 'pluginOptions___disableBgImageOnAlpha',
+  pluginOptions___disableBgImage = 'pluginOptions___disableBgImage',
   pluginOptions___target = 'pluginOptions___target',
   pluginOptions___rel = 'pluginOptions___rel',
   pluginOptions___short_name = 'pluginOptions___short_name',
@@ -2923,8 +2896,19 @@ export type SitePluginPluginOptions = {
   wrapperStyle?: Maybe<Scalars['String']>,
   offsetY?: Maybe<Scalars['Int']>,
   showLineNumbers?: Maybe<Scalars['Boolean']>,
+  ignoreFileExtensions?: Maybe<Array<Maybe<Scalars['String']>>>,
   maxWidth?: Maybe<Scalars['Int']>,
   quality?: Maybe<Scalars['Int']>,
+  pathPrefix?: Maybe<Scalars['String']>,
+  backgroundColor?: Maybe<Scalars['String']>,
+  linkImagesToOriginal?: Maybe<Scalars['Boolean']>,
+  showCaptions?: Maybe<Scalars['Boolean']>,
+  markdownCaptions?: Maybe<Scalars['Boolean']>,
+  withWebp?: Maybe<Scalars['Boolean']>,
+  tracedSVG?: Maybe<Scalars['Boolean']>,
+  loading?: Maybe<Scalars['String']>,
+  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>,
+  disableBgImage?: Maybe<Scalars['Boolean']>,
   target?: Maybe<Scalars['String']>,
   rel?: Maybe<Scalars['String']>,
   short_name?: Maybe<Scalars['String']>,
@@ -2968,8 +2952,19 @@ export type SitePluginPluginOptionsFilterInput = {
   wrapperStyle?: Maybe<StringQueryOperatorInput>,
   offsetY?: Maybe<IntQueryOperatorInput>,
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>,
+  ignoreFileExtensions?: Maybe<StringQueryOperatorInput>,
   maxWidth?: Maybe<IntQueryOperatorInput>,
   quality?: Maybe<IntQueryOperatorInput>,
+  pathPrefix?: Maybe<StringQueryOperatorInput>,
+  backgroundColor?: Maybe<StringQueryOperatorInput>,
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>,
+  showCaptions?: Maybe<BooleanQueryOperatorInput>,
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>,
+  withWebp?: Maybe<BooleanQueryOperatorInput>,
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>,
+  loading?: Maybe<StringQueryOperatorInput>,
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>,
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>,
   target?: Maybe<StringQueryOperatorInput>,
   rel?: Maybe<StringQueryOperatorInput>,
   short_name?: Maybe<StringQueryOperatorInput>,
@@ -3029,8 +3024,19 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   wrapperStyle?: Maybe<Scalars['String']>,
   offsetY?: Maybe<Scalars['Int']>,
   showLineNumbers?: Maybe<Scalars['Boolean']>,
+  ignoreFileExtensions?: Maybe<Array<Maybe<Scalars['String']>>>,
   maxWidth?: Maybe<Scalars['Int']>,
   quality?: Maybe<Scalars['Int']>,
+  pathPrefix?: Maybe<Scalars['String']>,
+  backgroundColor?: Maybe<Scalars['String']>,
+  linkImagesToOriginal?: Maybe<Scalars['Boolean']>,
+  showCaptions?: Maybe<Scalars['Boolean']>,
+  markdownCaptions?: Maybe<Scalars['Boolean']>,
+  withWebp?: Maybe<Scalars['Boolean']>,
+  tracedSVG?: Maybe<Scalars['Boolean']>,
+  loading?: Maybe<Scalars['String']>,
+  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>,
+  disableBgImage?: Maybe<Scalars['Boolean']>,
   target?: Maybe<Scalars['String']>,
   rel?: Maybe<Scalars['String']>,
 };
@@ -3040,8 +3046,19 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   wrapperStyle?: Maybe<StringQueryOperatorInput>,
   offsetY?: Maybe<IntQueryOperatorInput>,
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>,
+  ignoreFileExtensions?: Maybe<StringQueryOperatorInput>,
   maxWidth?: Maybe<IntQueryOperatorInput>,
   quality?: Maybe<IntQueryOperatorInput>,
+  pathPrefix?: Maybe<StringQueryOperatorInput>,
+  backgroundColor?: Maybe<StringQueryOperatorInput>,
+  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>,
+  showCaptions?: Maybe<BooleanQueryOperatorInput>,
+  markdownCaptions?: Maybe<BooleanQueryOperatorInput>,
+  withWebp?: Maybe<BooleanQueryOperatorInput>,
+  tracedSVG?: Maybe<BooleanQueryOperatorInput>,
+  loading?: Maybe<StringQueryOperatorInput>,
+  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>,
+  disableBgImage?: Maybe<BooleanQueryOperatorInput>,
   target?: Maybe<StringQueryOperatorInput>,
   rel?: Maybe<StringQueryOperatorInput>,
 };
@@ -3060,6 +3077,7 @@ export type SiteSiteMetadata = {
   baseUrl?: Maybe<Scalars['String']>,
   socials?: Maybe<Array<Maybe<SiteSiteMetadataSocials>>>,
   blogsPerPage?: Maybe<Scalars['Int']>,
+  langs?: Maybe<Array<Maybe<Scalars['String']>>>,
 };
 
 export type SiteSiteMetadataFilterInput = {
@@ -3070,6 +3088,7 @@ export type SiteSiteMetadataFilterInput = {
   baseUrl?: Maybe<StringQueryOperatorInput>,
   socials?: Maybe<SiteSiteMetadataSocialsFilterListInput>,
   blogsPerPage?: Maybe<IntQueryOperatorInput>,
+  langs?: Maybe<StringQueryOperatorInput>,
 };
 
 export type SiteSiteMetadataSocials = {

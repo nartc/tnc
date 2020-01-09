@@ -56,6 +56,11 @@ const buildTheme = (blogTheme: BlogTheme) => {
             "250ms background ease-in-out, 250ms background-color ease-in-out",
         },
       },
+      MuiGrid: {
+        container: {
+          width: "auto",
+        },
+      },
     },
   });
 
