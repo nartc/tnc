@@ -23,7 +23,7 @@ ng new cdk-bulma-dialog
 
 > If you haven't installed **Angular CLI**, let's do so with `npm i -g @angular/cli`
 
-![]../images/dynamic-dialog/ngcli.png)
+![](../images/dynamic-dialog/ngcli.png)
 *Angular CLI generating new Angular application*
 
 We are **not** going to need `routing` and let's also pick `SCSS` for our stylings. Next, let's install **Angular CDK**
