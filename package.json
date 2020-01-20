@@ -52,7 +52,7 @@
     "@types/react-helmet": "5.0.15",
     "graphql-cli": "3.0.14",
     "prettier": "1.19.1",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "keywords": [
     "gatsby"
