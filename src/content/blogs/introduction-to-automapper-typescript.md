@@ -137,7 +137,7 @@ class ProfileDto {
   constructor(profile: Profile) {
     this.name = profile.name;
     this.bio = profile.bio;
-    tihs.phone = profile.phone;
+    this.phone = profile.phone;
     this.formattedAddress = profile.address.street + profile.address.city + ...;/
   }
 }
