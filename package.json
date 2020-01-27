@@ -31,7 +31,7 @@
     "gatsby-remark-prismjs": "3.3.30",
     "gatsby-remark-responsive-iframe": "2.2.31",
     "gatsby-remark-smartypants": "2.1.19",
-    "gatsby-source-filesystem": "2.1.43",
+    "gatsby-source-filesystem": "2.1.46",
     "gatsby-transformer-remark": "2.6.48",
     "gatsby-transformer-sharp": "2.3.13",
     "lodash.kebabcase": "4.1.1",
