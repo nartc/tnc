@@ -1,10 +1,9 @@
 import Link from "@material-ui/core/Link";
-import { Theme, withTheme } from "@material-ui/core/styles";
+import { WithTheme, withTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { WithTheme } from "@material-ui/styles";
 import React, { FC, memo } from "react";
 
-const GoToTop: FC<WithTheme<Theme>> = memo(({ theme }) => {
+const GoToTop: FC<WithTheme> = memo(({ theme }) => {
   const onGoToTop = () => {
     window.scrollTo({
       top: 0,

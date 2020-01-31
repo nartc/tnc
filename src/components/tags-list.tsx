@@ -1,7 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import { Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { Link } from "gatsby";
 import kebabCase from "lodash.kebabcase";
 import React, { FC, memo } from "react";
@@ -10,7 +9,7 @@ type TagsListProps = {
   tags: Array<{ tag: string; totalCount: number }>;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   link: {
     display: "inline-block",
     color: theme.palette.primary.main,

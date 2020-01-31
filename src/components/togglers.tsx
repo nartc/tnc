@@ -1,6 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import { Theme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/styles";
+import { Theme, makeStyles } from "@material-ui/core/styles";
 import React, { FC, memo } from "react";
 import LangToggler from "./lang-toggler";
 import ThemeToggler from "./theme-toggler";

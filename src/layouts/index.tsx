@@ -1,5 +1,5 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { ReplaceComponentRendererArgs } from "gatsby";
 import React, { FC, ReactElement, useMemo } from "react";
 import Togglers from "../components/togglers";

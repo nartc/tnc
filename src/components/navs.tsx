@@ -1,7 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { Theme, withTheme } from "@material-ui/core/styles";
-import { WithTheme } from "@material-ui/styles";
+import { WithTheme, withTheme } from "@material-ui/core/styles";
 import { Link } from "gatsby";
 import React, { FC, memo, useMemo } from "react";
 import { SiteSiteMetadataSocials } from "../graph-types";
@@ -10,7 +9,7 @@ import Socials from "./socials";
 type NavsProps = {
   atIndex?: boolean;
   socials: Array<SiteSiteMetadataSocials>;
-} & WithTheme<Theme>;
+} & WithTheme;
 
 const Navs: FC<NavsProps> = memo(({ atIndex, socials, theme }) => {
   const activeStyle = useMemo(

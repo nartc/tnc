@@ -1,6 +1,6 @@
 import Fab from "@material-ui/core/Fab";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { Link } from "gatsby";
 import React, { FC, memo } from "react";
 import { useThemeChangerContext } from "../../contexts/theme-changer-context";

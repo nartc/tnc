@@ -1,6 +1,7 @@
+import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { FC, memo } from "react";
 import Navs from "../components/navs";
@@ -11,10 +12,8 @@ import {
   SiteSiteMetadata,
   SiteSiteMetadataSocials,
 } from "../graph-types";
-import Container from "@material-ui/core/Container";
-import { Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   about: {
     position: "absolute",
     top: 0,

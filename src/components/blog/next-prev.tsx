@@ -1,7 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import { Theme, withTheme } from "@material-ui/core/styles";
+import { makeStyles, withTheme, WithTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, WithTheme } from "@material-ui/styles";
 import { Link } from "gatsby";
 import ChevronDoubleLeft from "mdi-material-ui/ChevronDoubleLeft";
 import ChevronDoubleRight from "mdi-material-ui/ChevronDoubleRight";
@@ -16,7 +15,7 @@ type ItemProps = {
   frontmatter: MarkdownRemarkFrontmatter;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   link: {
     display: "flex",
     alignItems: "center",
@@ -27,11 +26,9 @@ const useStyles = makeStyles<Theme>(theme => ({
   },
 }));
 
-const Item: FC<
-  ItemProps & {
-    shouldAlignLeft?: boolean;
-  }
-> = memo(({ frontmatter, fields, shouldAlignLeft }) => {
+const Item: FC<ItemProps & {
+  shouldAlignLeft?: boolean;
+}> = memo(({ frontmatter, fields, shouldAlignLeft }) => {
   const classes = useStyles();
   return (
     <Grid item style={{ marginLeft: shouldAlignLeft ? "auto" : "initial" }}>
@@ -65,7 +62,7 @@ type NextPrevProps = {
   next?: ItemProps;
 };
 
-const NextPrev: FC<NextPrevProps & WithTheme<Theme>> = memo(
+const NextPrev: FC<NextPrevProps & WithTheme> = memo(
   ({ next, prev, theme }) => {
     return (
       <Grid

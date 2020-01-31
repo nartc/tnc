@@ -3,9 +3,8 @@ import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import { Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { NavigateFn } from "@reach/router";
 import { graphql } from "gatsby";
 import Img, { FluidObject } from "gatsby-image";
@@ -51,7 +50,7 @@ type BlogProps = {
   navigate: NavigateFn;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   title: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

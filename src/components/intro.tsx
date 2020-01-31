@@ -1,6 +1,6 @@
 import Container from "@material-ui/core/Container";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 
 import React, { FC, memo, useEffect } from "react";
 import { useLanguageChangerContext } from "../contexts/language-changer-context";

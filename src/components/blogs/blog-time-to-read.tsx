@@ -1,15 +1,14 @@
 import Grid from "@material-ui/core/Grid";
-import { Theme } from "@material-ui/core/styles";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import React, { FC, memo } from "react";
 
 type BlogTimeToReadProps = {
   timeToRead: number;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   timeToRead: {
     marginLeft: theme.spacing(1),
   },

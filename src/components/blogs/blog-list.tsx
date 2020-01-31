@@ -1,11 +1,10 @@
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import { Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import TablePagination from "@material-ui/core/TablePagination";
 import Typography from "@material-ui/core/Typography";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
-import { makeStyles } from "@material-ui/styles";
 import { NavigateFn } from "@reach/router";
 import React, { FC, memo, useCallback } from "react";
 import {
@@ -29,7 +28,7 @@ export type BlogsProps = {
   navigate: NavigateFn;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

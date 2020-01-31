@@ -3,9 +3,8 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import { Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
 import { NavigateFn } from "@reach/router";
 import React, { FC, memo, useCallback } from "react";
 import {
@@ -23,7 +22,7 @@ type BlogListItemProps = {
   navigate: NavigateFn;
 };
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles(theme => ({
   cardRoot: {
     borderRadius: theme.shape.borderRadius,
   },

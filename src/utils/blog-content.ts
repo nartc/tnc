@@ -1,6 +1,5 @@
 import { orange, pink } from "@material-ui/core/colors";
-import { darken, lighten, Theme } from "@material-ui/core/styles";
-import { StyleRules } from "@material-ui/styles";
+import { darken, lighten, StyleRules, Theme } from "@material-ui/core/styles";
 
 const blogContentStyles = (theme: Theme) =>
   ({
@@ -72,7 +71,7 @@ const blogContentStyles = (theme: Theme) =>
       borderLeftColor: theme.palette.secondary.main,
       margin: "1.5em 0",
       padding: "0.25em 10px",
-      color: darken(theme.typography.caption.color, 0.4),
+      color: darken(theme.typography.caption.color as string, 0.4),
       "& p": {
         marginTop: theme.spacing(),
         marginBottom: theme.spacing(),
