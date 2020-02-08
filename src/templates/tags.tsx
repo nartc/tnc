@@ -110,6 +110,7 @@ export const tagsQuery = graphql`
           }
           fields {
             slug
+            langKey
           }
         }
       }

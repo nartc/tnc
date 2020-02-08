@@ -11,7 +11,6 @@ import {
   ImageSharp,
   ImageSharpFluid,
   MarkdownRemarkEdge,
-  MarkdownRemarkFields,
   MarkdownRemarkFrontmatter,
 } from "../../graph-types";
 import BlogChipList from "./blog-chip-list";
@@ -39,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
   const classes = useStyles();
   const frontmatter = item.node.frontmatter as MarkdownRemarkFrontmatter;
-  const slug = (item.node.fields as MarkdownRemarkFields).slug;
+  const slug = item.node.fields?.slug;
   const langKey = item.node.fields?.langKey;
   const tags = frontmatter.tags as string[];
   const langs = frontmatter.langs as string[];

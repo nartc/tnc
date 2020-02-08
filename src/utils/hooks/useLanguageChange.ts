@@ -16,18 +16,33 @@ export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
     } else {
       if (lang === "en") {
         if (path.startsWith("/blogs") || path.includes("/tags")) {
-          navigate(path.replace("/vi", ""));
+          navigate(path.replace("/vi", ""), { replace: true });
         }
       } else {
         if (isBlogItem) {
           if (langs && langs.length >= 2) {
-            navigate(path.replace("/blogs", "/blogs/vi"));
+            navigate(
+              path.includes("/blogs/vi")
+                ? path
+                : path.replace("/blogs", "/blogs/vi"),
+              { replace: true }
+            );
           }
         } else {
           if (path.startsWith("/blogs")) {
-            navigate(path.replace("/blogs", "/blogs/vi"));
+            navigate(
+              path.includes("/blogs/vi")
+                ? path
+                : path.replace("/blogs", "/blogs/vi"),
+              { replace: true }
+            );
           } else if (path.includes("/tags")) {
-            navigate(path.replace("/tags", "/vi/tags"));
+            navigate(
+              path.includes("/tags/vi")
+                ? path
+                : path.replace("/tags", "/vi/tags"),
+              { replace: true }
+            );
           }
         }
       }

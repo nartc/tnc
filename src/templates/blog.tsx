@@ -9,13 +9,14 @@ import { NavigateFn } from "@reach/router";
 import { graphql } from "gatsby";
 import Img, { FluidObject } from "gatsby-image";
 import kebabCase from "lodash.kebabcase";
-import React, { FC, memo, useCallback } from "react";
+import React, { FC, memo, useCallback, useEffect, useRef } from "react";
 import GoToTop from "../components/blog/go-to-top";
 import HomeButton from "../components/blog/home-btn";
 import NextPrev from "../components/blog/next-prev";
 import WrittenBy from "../components/blog/written-by";
 import SEO from "../components/seo";
 import Socials from "../components/socials";
+import { Lang, useLanguageChangerContext } from "../contexts/language-changer-context";
 import {
   MarkdownRemark,
   MarkdownRemarkConnection,
@@ -85,11 +86,15 @@ const useStyles = makeStyles(theme => ({
 
 const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
   const classes = useStyles();
+  const { lang, setLang } = useLanguageChangerContext();
+  const previousLang = useRef(lang);
 
   const frontmatter = data.markdownRemark
     .frontmatter as MarkdownRemarkFrontmatter;
   const slug = (data.markdownRemark.fields as MarkdownRemarkFields)
     .slug as string;
+  const langKey = (data.markdownRemark.fields as MarkdownRemarkFields)
+    .langKey as Lang;
   const imgFluid = frontmatter.cover?.childImageSharp?.fluid;
   const tags = frontmatter.tags as string[];
 
@@ -99,6 +104,13 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
     },
     []
   );
+
+  useEffect(() => {
+    setLang(langKey);
+    return () => {
+      setLang(previousLang.current);
+    };
+  }, []);
 
   return (
     <>
@@ -249,6 +261,7 @@ export const blogQuery = graphql`
       timeToRead
       fields {
         slug
+        langKey
       }
     }
     related: allMarkdownRemark(
@@ -270,6 +283,7 @@ export const blogQuery = graphql`
           timeToRead
           fields {
             slug
+            langKey
           }
         }
       }
