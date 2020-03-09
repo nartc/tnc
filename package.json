@@ -8,7 +8,7 @@
     "@material-ui/core": "4.9.4",
     "@material-ui/icons": "4.9.1",
     "gatsby": "2.19.19",
-    "gatsby-image": "2.2.41",
+    "gatsby-image": "2.2.43",
     "gatsby-plugin-canonical-urls": "2.1.20",
     "gatsby-plugin-feed": "2.3.27",
     "gatsby-plugin-google-analytics": "2.1.35",
