@@ -23,7 +23,7 @@ const Navs: FC<NavsProps> = memo(({ atIndex, socials, theme }) => {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     }),
-    [theme.palette.primary.main]
+    [theme]
   );
 
   return (

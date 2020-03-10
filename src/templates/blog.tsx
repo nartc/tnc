@@ -16,7 +16,10 @@ import NextPrev from "../components/blog/next-prev";
 import WrittenBy from "../components/blog/written-by";
 import SEO from "../components/seo";
 import Socials from "../components/socials";
-import { Lang, useLanguageChangerContext } from "../contexts/language-changer-context";
+import {
+  Lang,
+  useLanguageChangerContext,
+} from "../contexts/language-changer-context";
 import {
   MarkdownRemark,
   MarkdownRemarkConnection,
@@ -102,15 +105,16 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
     tag => () => {
       navigate(`/tags/${kebabCase(tag)}`);
     },
-    []
+    [navigate]
   );
 
   useEffect(() => {
     setLang(langKey);
+    const prevLang = previousLang.current;
     return () => {
-      setLang(previousLang.current);
+      setLang(prevLang);
     };
-  }, []);
+  }, [langKey, setLang]);
 
   return (
     <>

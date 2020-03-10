@@ -47,5 +47,5 @@ export default (pageProps: ReplaceComponentRendererArgs["props"]) => {
         }
       }
     }
-  }, [lang]);
+  }, [lang, isBlogItem, langs, navigate, path]);
 };

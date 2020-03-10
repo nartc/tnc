@@ -25,7 +25,11 @@ const GoToTop: FC<WithTheme> = memo(({ theme }) => {
       }}
       onClick={onGoToTop}
     >
-      <Typography variant={"h6"}>⏫⏫⏫⏫</Typography>
+      <Typography variant={"h6"}>
+        <span role="img" aria-label={"up to top"}>
+          ⏫⏫⏫⏫
+        </span>
+      </Typography>
     </Link>
   );
 });

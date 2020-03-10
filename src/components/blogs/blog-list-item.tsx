@@ -51,7 +51,7 @@ const BlogListItem: FC<BlogListItemProps> = memo(({ item, navigate }) => {
   const onItemClicked = useCallback(() => {
     const path = `/blogs/${(slug as string).replace("/", "")}`;
     navigate(langKey === "en" ? path : path.replace("/blogs/", "/blogs/vi/"));
-  }, [slug]);
+  }, [slug, langKey, navigate]);
 
   return (
     <Card elevation={4} raised classes={{ root: classes.cardRoot }}>

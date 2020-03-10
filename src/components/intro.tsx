@@ -28,7 +28,7 @@ const Intro: FC<IntroProps> = memo(({ atIndex, description, socials }) => {
   const { setLang } = useLanguageChangerContext();
   useEffect(() => {
     setLang("en");
-  }, []);
+  }, [setLang]);
   return (
     <Container maxWidth={"md"} classes={{ root: classes.introWrapper }}>
       <Typography variant={"h3"} align={"center"}>

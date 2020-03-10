@@ -14,7 +14,7 @@ const BlogChipList: FC<BlogChipListProps> = memo(({ chips, isOutline }) => {
         <Grid item key={index}>
           <Chip
             label={chip}
-            variant={isOutline == true ? "outlined" : "default"}
+            variant={isOutline === true ? "outlined" : "default"}
             clickable
             color={"primary"}
             size={"small"}

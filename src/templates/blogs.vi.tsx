@@ -25,7 +25,7 @@ export default (props: BlogsProps) => {
           return acc;
         }, {} as any)
       ),
-    []
+    [edges, langKey]
   );
 
   return (
