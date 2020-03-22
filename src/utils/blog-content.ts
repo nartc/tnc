@@ -37,11 +37,14 @@ const blogContentStyles = (theme: Theme) =>
       fontWeight: theme.typography.body1.fontWeight,
       lineHeight: "2rem",
       textAlign: "justify",
-      "& > span.gatsby-resp-image-wrapper ~ em": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "smaller",
+      "& > span.gatsby-resp-image-wrapper": {
+        maxWidth: "800px !important",
+        "& ~ em": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "small",
+        },
       },
       "& > img ~ em": {
         display: "flex",
