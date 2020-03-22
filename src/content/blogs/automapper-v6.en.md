@@ -7,4 +7,4 @@ cover: ../covers/missing_puzzle.jpg
 langs: ["en", "vi"]
 ---
 
-WIP. Check out [Vietnamese](/blogs/vi/automapper-v6) version 
+WIP. Check out [Vietnamese](/blogs/vi/automapper-v6) version
