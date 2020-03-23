@@ -83,7 +83,7 @@ Mapper.createMap(Bio, BioVm)
   );
 ```
 
-Thực thi **map** từ `UsK sanKUserVm` K cấu hình trên lên 1K, 10K và 100K phần tử cho mình kết quả như sau:
+Thực thi **map** từ `User` sang `UserVm` với cấu hình trên lên 1K, 10K và 100K phần tử cho mình kết quả như sau:
 
 |                        | 1K items | 10K items | 100K items |
 | ---------------------- | -------- | --------- | ---------- |
@@ -122,7 +122,7 @@ const morphismSchema = {
 | `@nartc/automapper` v6          | ~31ms           | ~125ms           | ~750ms            |
 
 Đây chỉ là sự so sánh với 1 benchmark cực kỳ đơn giản và chỉ so sánh về khoản **map** từ một model sang một model khác mà thôi. Về tiện ích, `morphism` là một thư viện cực kỳ tuyệt vời
-nếu các bạn có nhu cầu. `morphism` hỗ trợ **map** với `schema configuration` và điều này thì cực kỳ thích hợp với những dự án thuần **JavaScript**, không có nhiều `classes` để tượg trưng
+nếu các bạn có nhu cầu. `morphism` hỗ trợ **map** với `schema configuration` và điều này thì cực kỳ thích hợp với những dự án thuần **JavaScript**, không có nhiều `classes` để tượng trưng
 cho cấu trúc dữ liệu ở trong code. Nếu bạn có hứng thú thì có thể tìm hiểu thêm về `morphism` tại [đây](https://github.com/nobrainr/morphism). Cám ơn [Yann](https://twitter.com/YannRenaudin) đã
 cho phép mình lấy `morphism` làm benchmark cho **AutoMapper**.
 
@@ -183,6 +183,14 @@ những `Object` này vì dùng `Class.name` nên khi người sử dụng thư 
 
 **AutoMapper** v6 đã thay đổi cách lưu trữ những dữ liệu này với các **Storages**. Những storages này dùng `WeakMap` để lưu trữ chính `Class` làm `key` thay vì dùng `Class.name`. Điều này đảm bảo các `Class`
 sẽ không bị trùng nhau cho dù đã được **minified**.
+
+```typescript
+// Để thấy được vấn đề với Class.name
+class Foo {}
+
+console.log(Foo.name); // logs Foo
+console.log(Foo.prototype.constructor.name); // logs Foo
+```
 
 ## Hỗ trợ JavaScript
 
