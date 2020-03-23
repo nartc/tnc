@@ -116,6 +116,8 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
     };
   }, [langKey, setLang]);
 
+  console.log(data);
+
   return (
     <>
       <SEO
@@ -123,6 +125,8 @@ const Blog: FC<BlogProps> = memo(({ data, pageContext, navigate }) => {
         description={data.markdownRemark.excerpt as string}
       >
         <meta property="og:type" content="article" />
+        <meta property="og:title" content={frontmatter.title as string} />
+        <meta property="og:description" content={data.markdownRemark.excerpt as string} />
         <meta
           property="og:url"
           content={data.site.siteMetadata.baseUrl + `/blogs${slug}`}
