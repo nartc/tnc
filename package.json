@@ -12,7 +12,7 @@
     "gatsby-plugin-canonical-urls": "2.2.0",
     "gatsby-plugin-feed": "2.4.0",
     "gatsby-plugin-google-analytics": "2.2.0",
-    "gatsby-plugin-layout": "1.2.0",
+    "gatsby-plugin-layout": "1.2.1",
     "gatsby-plugin-manifest": "2.3.1",
     "gatsby-plugin-material-ui": "2.1.6",
     "gatsby-plugin-offline": "3.1.0",
