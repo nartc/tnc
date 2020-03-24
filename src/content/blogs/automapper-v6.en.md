@@ -12,6 +12,10 @@ This is a release with an _almost complete_ rewritten core and some small change
 
 > If you do not know about **AutoMapper**, you can find out more about it via this blog post [Introduction to AutoMapper TypeScript](/blogs/introduction-to-automapper-typescript) or [Github](https://github.com/nartc/mapper)
 
+## Update 03/24/2020
+
+I have updated the benchmark code and have ran all benchmarks 100 times instead of 10 times. You can check out the benchmark repo [here](https://github.com/nartc/ng-automapper-bench)
+
 ## What's new?
 
 This v6 release does not contain many changes regarding the public API but performance, bundle-size, critical bug fixes, and a stab at **JavaScript** support were the main targets of this release. Let's explore
@@ -62,25 +66,25 @@ along with the following configuration:
 ```typescript
 Mapper.createMap(User, UserVm)
   .forMember(
-    d => d.first,
-    mapFrom(s => s.firstName)
+    (d) => d.first,
+    mapFrom((s) => s.firstName)
   )
   .forMember(
-    d => d.last,
-    mapFrom(s => s.lastName)
+    (d) => d.last,
+    mapFrom((s) => s.lastName)
   )
   .forMember(
-    d => d.full,
-    mapFrom(s => s.firstName + " " + s.lastName)
+    (d) => d.full,
+    mapFrom((s) => s.firstName + " " + s.lastName)
   );
 Mapper.createMap(Bio, BioVm)
   .forMember(
-    d => d.isAdult,
-    mapFrom(s => s.age > 18)
+    (d) => d.isAdult,
+    mapFrom((s) => s.age > 18)
   )
   .forMember(
-    d => d.birthday,
-    mapFrom(s => s.birthday.toDateString())
+    (d) => d.birthday,
+    mapFrom((s) => s.birthday.toDateString())
   );
 ```
 
@@ -88,8 +92,10 @@ Executing **map** from `User` to `UserVm` with the above configuration for 1K, 1
 
 |                        | 1K items | 10K items | 100K items |
 | ---------------------- | -------- | --------- | ---------- |
-| `@nartc/automapper` v5 | ~40ms    | ~141ms    | ~817ms     |
-| `@nartc/automapper` v6 | ~31ms    | ~125ms    | ~750ms     |
+| `@nartc/automapper` v5 | ~9ms     | ~88ms     | ~959ms     |
+| `@nartc/automapper` v6 | ~8ms     | ~81ms     | ~785ms     |
+
+> Each benchmark was ran ~10~ 100 times for each category 1K, 10K, and 100K then the average was taken
 
 As you can see, **AutoMapper** v6 is slightly faster than v5, about 10-25% faster. And what really changed in v6? **AutoMapper** v6 does have some optimizations applied to it, as follow:
 
@@ -114,13 +120,13 @@ const morphismSchema = {
 };
 ```
 
-> Each benchmark was ran 10 times for each category 1K, 10K, and 100K then the average was taken
+> Each benchmark was ran ~10~ 100 times for each category 1K, 10K, and 100K then the average was taken
 
-|                                 | 1K items        | 10K items        | 100K items        |
-| ------------------------------- | --------------- | ---------------- | ----------------- |
-| `morphism`                      | ~54ms           | ~188ms           | ~1544ms           |
-| `morphism` with `create-mapper` | ~0.88ms + ~39ms | ~0.85ms + ~180ms | ~0.98ms + ~1500ms |
-| `@nartc/automapper` v6          | ~31ms           | ~125ms           | ~750ms            |
+|                                 | 1K items | 10K items | 100K items |
+| ------------------------------- | -------- | --------- | ---------- |
+| `morphism`                      | ~15ms    | ~144ms    | ~1436ms    |
+| `morphism` with `create-mapper` | ~15ms    | ~145ms    | ~1464ms    |
+| `@nartc/automapper` v6          | ~8ms     | ~81ms     | ~785ms     |
 
 This is just a simple comparison solely on the **mapping** part of the two libraries. Utility wise, `morphism` is a fantastic library that supports mapping with **schema configuration** and this suits
 perfectly with **Vanilla JavaScript** projects, which do not have `classes` to model the data in the projects. You can also store the **schema configuration** elsewhere (database, CDN) and reuse the **schema configuration** without having the schema inside of your source code.
@@ -143,31 +149,31 @@ On other note, let's take another look at the above **mapping configuration** wi
 // v5
 Mapper.createMap(User, UserVm)
   .forMember(
-    d => d.first,
-    opts => opts.mapFrom(s => s.firstName)
+    (d) => d.first,
+    (opts) => opts.mapFrom((s) => s.firstName)
   )
   .forMember(
-    d => d.last,
-    opts => opts.mapFrom(s => s.lastName)
+    (d) => d.last,
+    (opts) => opts.mapFrom((s) => s.lastName)
   )
   .forMember(
-    d => d.full,
-    opts => opts.mapFrom(s => s.firstName + " " + s.lastName)
+    (d) => d.full,
+    (opts) => opts.mapFrom((s) => s.firstName + " " + s.lastName)
   );
 
 // v6
 Mapper.createMap(User, UserVm)
   .forMember(
-    d => d.first,
-    mapFrom(s => s.firstName)
+    (d) => d.first,
+    mapFrom((s) => s.firstName)
   )
   .forMember(
-    d => d.last,
-    mapFrom(s => s.lastName)
+    (d) => d.last,
+    mapFrom((s) => s.lastName)
   )
   .forMember(
-    d => d.full,
-    mapFrom(s => s.firstName + " " + s.lastName)
+    (d) => d.full,
+    mapFrom((s) => s.firstName + " " + s.lastName)
   );
 ```
 
