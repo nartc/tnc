@@ -7,7 +7,7 @@
   "dependencies": {
     "@material-ui/core": "4.9.7",
     "@material-ui/icons": "4.9.1",
-    "gatsby": "2.20.3",
+    "gatsby": "2.20.4",
     "gatsby-image": "2.3.1",
     "gatsby-plugin-canonical-urls": "2.2.1",
     "gatsby-plugin-feed": "2.4.1",
@@ -18,7 +18,7 @@
     "gatsby-plugin-offline": "3.1.1",
     "gatsby-plugin-prefetch-google-fonts": "1.4.3",
     "gatsby-plugin-react-helmet": "3.2.1",
-    "gatsby-plugin-sharp": "2.5.2",
+    "gatsby-plugin-sharp": "2.5.3",
     "gatsby-plugin-typescript": "2.3.1",
     "gatsby-prismjs-dracula": "0.1.15",
     "gatsby-remark-abbr": "2.0.0",
@@ -50,7 +50,7 @@
     "@types/react-dom": "16.9.5",
     "@types/react-helmet": "5.0.15",
     "graphql-cli": "3.0.14",
-    "prettier": "2.0.1",
+    "prettier": "2.0.2",
     "typescript": "3.8.3"
   },
   "keywords": [
