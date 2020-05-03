@@ -70,7 +70,6 @@ const BlogList: FC<BlogsProps> = memo(({ data, pageContext, navigate }) => {
         </Grid>
         {(pageContext.numPages as number) > 1 && (
           <TablePagination
-            labelRowsPerPage={null}
             rowsPerPage={pageContext.limit as number}
             page={(pageContext.currentPage as number) - 1}
             count={pageContext.total as number}

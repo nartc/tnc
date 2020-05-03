@@ -3,10 +3,10 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Facebook from "mdi-material-ui/Facebook";
-import Github from "mdi-material-ui/GithubCircle";
+import Github from "mdi-material-ui/Github";
 import LinkedIn from "mdi-material-ui/Linkedin";
 import Rss from "mdi-material-ui/Rss";
-import Twitter from "mdi-material-ui/TwitterCircle";
+import Twitter from "mdi-material-ui/Twitter";
 import React, { FC, memo } from "react";
 import { SiteSiteMetadataSocials } from "../graph-types";
 
