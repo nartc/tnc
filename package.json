@@ -42,7 +42,7 @@
     "react-particles-js": "3.2.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.13.4",
+    "@graphql-codegen/cli": "1.17.6",
     "@graphql-codegen/typescript": "1.13.4",
     "@types/lodash.kebabcase": "4.1.6",
     "@types/node": "13.13.4",
