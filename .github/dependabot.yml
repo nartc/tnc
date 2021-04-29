@@ -1,0 +1,48 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@graphql-codegen/cli"
+    versions:
+    - 1.20.0
+    - 1.20.1
+    - 1.21.2
+    - 1.21.3
+  - dependency-name: "@graphql-codegen/typescript"
+    versions:
+    - 1.20.0
+    - 1.20.2
+    - 1.21.0
+    - 1.21.1
+  - dependency-name: gatsby
+    versions:
+    - 2.31.1
+    - 2.32.11
+    - 2.32.3
+    - 2.32.8
+    - 2.32.9
+  - dependency-name: gatsby-transformer-remark
+    versions:
+    - 2.15.0
+    - 2.16.0
+  - dependency-name: gatsby-plugin-canonical-urls
+    versions:
+    - 2.8.0
+    - 2.9.0
+  - dependency-name: gatsby-remark-smartypants
+    versions:
+    - 2.9.0
+  - dependency-name: gatsby-remark-copy-linked-files
+    versions:
+    - 2.8.0
+  - dependency-name: "@types/react"
+    versions:
+    - 17.0.0
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
